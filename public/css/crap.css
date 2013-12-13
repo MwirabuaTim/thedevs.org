@@ -1,0 +1,54 @@
+
+.se-slope-pink {
+	background: #e90089;
+}
+.se-slope {
+	width: 50%;
+	height: 300px;
+	position: relative;
+	float: left;
+	overflow: hidden;
+}
+
+.se-slope .se-content {
+	margin: 50px 100px 0px 100px;
+}
+
+
+article, aside, footer, header, hgroup, main, nav, section {
+	display: block;
+}
+
+.se-slope.se-slope-pink h3 {
+	background: #000;
+}
+
+
+.se-slope.se-slope-black h3:after, .se-slope.se-slope-black h3:before, .se-slope.se-slope-pink h3:after, .se-slope.se-slope-pink h3:before {
+	content: '';
+	width: 0px;
+	height: 0px;
+	top: 0px;
+	position: absolute;
+}
+.se-slope.se-slope-pink h3:before, .se-slope.se-slope-pink h3:after {
+	border-bottom: 70px solid transparent;
+	border-left: 30px solid #000;
+	right: -30px;
+}
+
+
+@media screen and (max-width: 767px){
+	.se-slope {
+		float: none;
+		width: 100%;
+	}
+	.se-slope .se-content {
+		margin: 50px 0px 0px 0px;
+	}
+}
+@media screen and (max-width: 959px){
+	.se-content h3 {
+		font-size: 20px;
+	}
+}
