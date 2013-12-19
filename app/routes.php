@@ -11,8 +11,15 @@
 |
 */
 Route::get('sandbox', function(){ 
+
+	$update = array('video' => 'new video ');
+	$update['first_name'] = 'new name';
 	
-	return User::first();
+	User::find(1)->update($update);
+	return User::find(1);
+	// return Redirect::to('devs');
+	
+	// return User::first();
 	// Route::get('api/devs', function(){ return Dev::all();});
 
 });

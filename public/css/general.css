@@ -56,7 +56,6 @@ body {
   width: auto;
   min-height: 350px;
   clear: both;
-  background-color: #fff;
   border: 1px solid #999;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -64,9 +63,10 @@ body {
   -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
   -moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
   box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
-  margin-top: 10px;
-  color: #333;
-  /*overflow-x: scroll;*/*/
+  margin-top: 10px;*/
+  /*background-color: #fff;*/
+  /*color: #333;*/
+  /*overflow-x: scroll;*/
 }
 ._trunk{
 	margin-top: 10px;

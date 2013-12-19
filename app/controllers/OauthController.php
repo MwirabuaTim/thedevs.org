@@ -63,6 +63,19 @@ class OauthController extends BaseController {
 	            // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
 
 	            // return var_dump($data);
+	         //    array(10) { 
+	         //    	["first_name"]=> string(7) "Timothy" 
+		        //     ["last_name"]=> string(8) "Mwirabua" 
+		        //     ["username"]=> string(0) "" 
+		        //     ["email"]=> string(19) "techytimo@gmail.com" 
+		        //     ["uid"]=> string(21) "102781440230010907892" 
+		        //     ["link"]=> string(45) "https://plus.google.com/102781440230010907892" 
+		        //     ["location"]=> string(0) "" 
+		        //     ["description"]=> string(0) "" 
+		        //     ["pic"]=> string(92) "https://lh5.googleusercontent.com/-zUWNGKX5CAk/AAAAAAAAAAI/AAAAAAAABkQ/EVTWGvn6hIs/photo.jpg" 
+		        //     ["code"]=> string(70) "ya29.1.AADtN_U_QB6R6ah5LrlRMzFuUv87s58kknaKM2242jZMH0INH5VknQmhe1Eg0CQ" 
+		        // }
+		        // 
 	            $this->checkAndSave($data);
 	        }
 
@@ -89,7 +102,8 @@ class OauthController extends BaseController {
 
 		// 	3. log in user
 
-		$profile = Profile::where('uid', $data['uid'])->first();
+		$profile = Profile::where('uid', $data
+			['uid'])->first();
 		if (!empty($profile)) { //update profile
 			$profile->provider = Request::segment(2);
 			// $profile->first_name = $data['first_name'];
@@ -139,7 +153,13 @@ class OauthController extends BaseController {
 			// Sentry::authenticate($credentials, false);
 			// $user = User::where('email', $data['email'])->first();
 			// $x = $user->update($data);
-			// $x = User::find($user->id)->update($data);
+			$user_update['first_name'] = !is_null($data['first_name']) ? $data['first_name'] : $user_update['first_name']; 
+			$user_update['last_name'] = !is_null($data['last_name']) ? $data['last_name'] : $user_update['last_name']; 
+			$user_update['email'] = $data['email']; 
+			$user_update['pic'] = !is_null($data['pic']) ? $data['pic'] : $user_update['pic']; 
+			$user_update['location'] = !is_null($data['location']) ? $data['location'] : $user_update['location']; 
+			$user_update['about'] = !is_null($data['description']) ? $data['description'] :$user_update['about'];
+			$x = User::find($user->id)->update($user_update);
 			// return var_dump('updating user: </br>'.$x);
 
 			

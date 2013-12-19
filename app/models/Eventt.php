@@ -2,6 +2,7 @@
 
 class Eventt extends Eloquent {
 	protected $guarded = array();
+	// protected $fillable = array();
 
 	public static $rules = array(
 		// 'name' => 'required',
