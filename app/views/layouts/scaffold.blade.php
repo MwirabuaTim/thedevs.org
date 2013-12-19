@@ -57,69 +57,13 @@
 
 </head>
 <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+    
     <div class="wrapper">
-      <img class="preload" alt="Loading..."  src="{{ asset('images/loadingbar.gif') }}">
-      <!-- <img class="saveloader" alt="Loading..."  src="{{ asset('images/loading-bar.gif') }}"> -->
-
-        <div class="middles header">
-            <a href="{{ URL::to('/') }}" class="head _charmtext">
-            T<span class="small">HE</span>D<span class="small">EVS</span>
-            </a>
-            <br/>
-            <span class="head motto">Where Developers Connect</span>
-           <!-- <div class="pull-right"> -->
-            	<ul class="_nav layer brick col-sm-5">
-	                @if (Auth::check())
-	                    <?php $id = Auth::user()->id; ?>
-	                    <li {{ (Request::is('user/'.$id .'/books') ? 'class="active"' : '') }}>
-	                    	<a class="_charm" href="{{ URL::to('user/'.$id.'/books') }}">
-	                    	My Account</a>
-	                    </li>
-	                    <li {{ (Request::is('user/'.$id .'/books') ? 'class="active"' : '') }}>
-	                    	<a class="_charm _caller" href="{{ URL::to('user/'.$id.'/books') }}">
-	                    	+Create</a>
-	                    </li>
-	                @else
-	                    <li class="" {{ (Request::is('auth/signin') ? 'class="active"' : '') }}>
-	                    	<a class="_charm _caller" href="{{ URL::to('auth/signin') }}">
-	                    	Demo</a>
-	                    </li>
-	                    <li {{ (Request::is('auth/signup') ? 'class="active"' : '') }}>
-	                    	<a class="_charm"  style="padding: 10px 20px;" href="{{ URL::to('auth/signup') }}">Join</a>
-	                    </li>
-	                    <li><a class="_charm _step3" href="{{ URL::to('auth/signin') }}">
-	                    	Log In</a>
-	                    </li>
-	                    
-	                @endif
-	            </ul>
-            <!-- </div> -->
-		
-			<!-- <div class="layer2"> -->
-	            <!-- <form class="form-search">
-            		<input type="text" class="span2 search-query">
-            		<button type="submit" class="btn"><i class="icon-search"></i></button>
-	            </form> -->
-			<div class="mapsearch pull-left">
-				<form class="navbar-form navbar-left col-sm-5" role="search">
-				  <!-- <div class="form-group"> -->
-				    <input type="text" class="form-control" placeholder="Search">
-				  	<button type="submit" class="btn btn-default _aqua-hover _charm-btn">Submit</button>
-				  <!-- </div> -->
-				</form>
-			</div>
-            
-  
-            
-	        <!-- </div> -->
-
-
-
-        </div>
-
+    
+        @include('partials.header')
         <!-- Add your site or application content here -->
         <!-- Container -->
         <div class="middles _trunk">
@@ -129,9 +73,7 @@
 				</div>
 			@endif
 
-            <!-- Notifications -->
-            @include('partials.notifications')
-            <!-- ./ notifications -->
+
 
             <!-- Content -->
             <div class="content">
@@ -139,55 +81,38 @@
                 <!-- ./ content -->
             </div>
 
+            <!-- Notifications -->
+            @include('partials.notifications')
+            <!-- ./ notifications -->
+
             <div class="fb-like" id="fblike" data-href="http://thedevs.org" data-send="false" 
             data-width="450" data-show-faces="false"></div>
 
         </div>
         <!-- ./ container -->
 
-        <div class="footer">
-            <div class="middles footerstuff">
-                <div class="bottom_left">
-
-                    <ul class="_nav">
-                        <a href="{{ URL::to('howitworks') }}"><li class="link">How it Works</li></a> | 
-                        <a href="{{ URL::to('termsofuse') }}"><li class="link">Terms of Use</li></a> | 
-                        <a href="{{ URL::to('privacypolicy') }}"><li class="link">Privacy Policy</li></a> | 
-                        <a href="{{ URL::to('contactus') }}"><li class="link">Contact Us</li></a>
-                    </ul>
-                    <br/>
-
-                </div>
-                        
-                <div class="bottom_right">
-                    <span class="social_text">Get in Touch...</span><br />
-
-                    <ul class="social_buttons">
-                        <!--  
-                        <span class='st_facebook_large' displayText='Facebook'></span>
-                        <span class='st_twitter_large' displayText='Tweet'></span>
-                        <span class='st_googleplus_large' displayText='Tweet'></span>
-                        <span class='st_sharethis_large' displayText='ShareThis'></span>
-                        <span class='st_linkedin_large' displayText='LinkedIn'></span>
-                        <span class='st_pinterest_large' displayText='Pinterest'></span>
-                        <span class='st_email_large' displayText='Email'></span>
-                        -->
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
+
+    @include('partials.footer')
+
+    @include('partials.modals')
+    <img class="preload" alt="Loading..."  src="{{ asset('images/loadingbar.gif') }}">
+    <!-- <img class="saveloader" alt="Loading..."  src="{{ asset('images/loading-bar.gif') }}"> -->
   </body>
 
 
     <!-- jQuery -->
-	<script src="js/jquery.min.js"></script>
+	<script src="{{ asset('js/jquery.min.js') }}"></script>
 	<script src="{{ asset('js/jquery-ui-1.10.3.custom.min.js') }}"></script>
 
 	<script src="{{ asset('js/plugins.js') }}"></script>
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('js/underscore.js') }}"></script>
 	<script src="{{ asset('js/backbone.js') }}"></script>
+
+	<!-- leaflet Javascript file -->
+	<script src="{{ asset('leaflet/leaflet.js') }}"></script>
+	<script src="{{ asset('leaflet_label/leaflet.label.js') }}"></script>
 
 	@include('javascript') <!-- inline js -->
 	@yield('js') <!-- page-specific javascript-->

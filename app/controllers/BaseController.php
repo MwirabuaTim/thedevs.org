@@ -21,6 +21,7 @@ class BaseController extends Controller {
 
 		//
 		$this->messageBag = new Illuminate\Support\MessageBag;
+		// App::setLocale('es');
 	}
 
 	/**
@@ -33,6 +34,7 @@ class BaseController extends Controller {
 		if ( ! is_null($this->layout))
 		{
 			$this->layout = View::make($this->layout);
+			// App::setLocale('es'); 
 		}
 	}
 

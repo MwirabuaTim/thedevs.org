@@ -10,6 +10,12 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('sandbox', function(){ 
+	
+	return User::first();
+	// Route::get('api/devs', function(){ return Dev::all();});
+
+});
 
 //removing trailing slashes from urls
 Route::get('{any}', function($url){
@@ -21,8 +27,12 @@ Route::get('/', function()
 {
 	return View::make('home');
 });
+Route::get('/orgs/createpop', function(){return View::make('orgs/create_plain');});
+Route::get('/projects/createpop', function(){return View::make('projects/create_plain');});
+Route::get('/eventts/createpop', function(){return View::make('eventts/create_plain');});
+Route::get('/stories/createpop', function(){return View::make('stories/create_plain');});
 
-Route::resource('devs', 'DevsController');
+// Route::resource('devs', 'DevsController');
 
 Route::resource('projects', 'ProjectsController');
 
@@ -36,9 +46,11 @@ Route::resource('kits', 'KitsController');
 
 Route::resource('tags', 'TagsController');
 
+Route::resource('profiles', 'ProfilesController');
+
 Route::get('howitworks', function(){ return View::make('howitworks');});
-Route::get('privacypolicy', function(){ return View::make('privacypolicy');});
-Route::get('termsofuse', function(){ return View::make('termsofuse');});
+Route::get('privacy', function(){ return View::make('privacy');});
+Route::get('tos', function(){ return View::make('tos');});
 Route::get('customerservice', function(){ return View::make('customerservice');});
 Route::get('template', function(){return View::make('template');});
 Route::get('contactus', function(){ return View::make('contactus');});
@@ -51,11 +63,42 @@ Route::get('contactus', function(){ return View::make('contactus');});
 // Route::get('api/eventts', function(){ return Response::json(['eventts'=> json_decode(Eventt::all())]);});
 // Route::get('api/stories', function(){ return Response::json(['stories'=> json_decode(Story::all())]);});
 
-Route::get('api/orgs', function(){ return Org::all();});
+
 Route::get('api/devs', function(){ return Dev::all();});
+Route::get('api/orgs', function(){ return Org::all();});
 Route::get('api/projects', function(){ return Project::all();});
 Route::get('api/eventts', function(){ return Eventt::all();});
 Route::get('api/stories', function(){ return Story::all();});
+Route::get('api/all', function(){ 
+	$sources = array(
+		Org::all(),
+		Project::all(),
+		Eventt::all(),
+		Story::all()
+		);
+	$i = 0;
+	$sources_array = array();
+	foreach ($sources as $source) {
+		$source_array[$i] = json_decode($source, TRUE);
+		$i+=1;
+	}
+	// return Response::json(Org::all());
+	// return json_decode(Org::all());
+	// return Org::all();
+	return var_dump(Org::all());
+
+	// $source_array = json_decode($source, TRUE);
+	// var_dump($sources);
+	// return Org::all();
+});
+
+// Route::get('{resource}/{id}/delete', function($resource, $id){
+// 		var_dump($resource.'/'.$id);
+// 		// $this->$resource->find($id)->delete();
+// 		return Redirect::to($url, $status, $https);
+// 		Redirect::to_action($action, $parameters, $status);
+// 	}
+// });
 
 
 
@@ -118,6 +161,12 @@ Route::group(array('prefix' => 'auth'), function()
 	# Login
 	Route::get('signin', array('as' => 'signin', 'uses' => 'AuthController@getSignin'));
 	Route::post('signin', 'AuthController@postSignin');
+	Route::get('facebook', 'OauthController@session');
+	Route::get('twitter', 'OauthController@session');
+	Route::get('google', 'OauthController@session');
+	Route::get('github', 'OauthController@session');
+	Route::get('stackexchange', 'OauthController@session');
+	// Route::post('facebook', 'OauthController@session')->with('provider', 'facebook');
 
 	# Register
 	Route::get('signup', array('as' => 'signup', 'uses' => 'AuthController@getSignup'));
@@ -138,6 +187,7 @@ Route::group(array('prefix' => 'auth'), function()
 	Route::get('logout', array('as' => 'logout', 'uses' => 'AuthController@getLogout'));
 
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -185,6 +235,7 @@ Route::get('about-us', function()
 	return View::make('frontend/about-us');
 });
 
+
 Route::get('contact-us', array('as' => 'contact-us', 'uses' => 'ContactUsController@getIndex'));
 Route::post('contact-us', 'ContactUsController@postIndex');
 
@@ -193,3 +244,27 @@ Route::post('blog/{postSlug}', 'BlogController@postView');
 
 Route::get('/', array('as' => 'home', 'uses' => 'BlogController@getIndex'));
 
+
+Route::get('/devs', 'DevsController@index');
+Route::get('/devs/{id}', 'DevsController@show', compact('id'))->where('id', '[0-9]+');
+Route::get('/dev/{id}', function($id)
+{
+	return Redirect::to(URL::to('devs/'.$id));
+});
+
+
+// Route::get('/users', 'UserController@index');
+// Route::get('/users/create', 'UserController@create');
+// Route::post('/users', 'UserController@store');
+// Route::get('/users/{id}', 'UserController@show');
+// Route::get('/users{id}/edit', 'UserController@edit');
+// Route::put('/users', 'UserController@update');
+// Route::delete('/users', 'UserController@destroy');
+
+// getIndex()
+// getCreate()
+// postCreate()
+// getEdit($id)
+// postEdit($id)
+// getDelete($id)
+// getRestore($id)

@@ -21,11 +21,13 @@ class UsersController extends AdminController {
 	 * @var array
 	 */
 	protected $validationRules = array(
-		'first_name'       => 'required|min:3',
-		'last_name'        => 'required|min:3',
+		'first_name'       => 'required|min:2',
+		'last_name'        => 'required|min:2',
 		'email'            => 'required|email|unique:users,email',
 		'password'         => 'required|between:3,32',
 		'password_confirm' => 'required|between:3,32|same:password',
+		// 'password'         => 'between:0,32',
+		// 'password_confirm' => 'between:0,32|same:password',
 	);
 
 	/**
@@ -33,6 +35,9 @@ class UsersController extends AdminController {
 	 *
 	 * @return View
 	 */
+
+
+
 	public function getIndex()
 	{
 		// Grab all the users

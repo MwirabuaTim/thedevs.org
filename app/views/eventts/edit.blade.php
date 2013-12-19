@@ -11,16 +11,6 @@
         </li>
 
         <li>
-            {{ Form::label('pic', 'Pic:') }}
-            {{ Form::text('pic') }}
-        </li>
-
-        <li>
-            {{ Form::label('video', 'Video:') }}
-            {{ Form::text('video') }}
-        </li>
-
-        <li>
             {{ Form::label('creator', 'Creator:') }}
             {{ Form::input('number', 'creator') }}
         </li>
@@ -45,15 +35,6 @@
             {{ Form::text('location') }}
         </li>
 
-        <li>
-            {{ Form::label('map', 'Map:') }}
-            {{ Form::text('map') }}
-        </li>
-
-        <li>
-            {{ Form::label('event_image', 'Event_image:') }}
-            {{ Form::text('event_image') }}
-        </li>
 
         <li>
             {{ Form::label('time_start', 'Time_start:') }}
@@ -71,33 +52,8 @@
         </li>
 
         <li>
-            {{ Form::label('recurrence_period', 'Recurrence_period:') }}
-            {{ Form::text('recurrence_period') }}
-        </li>
-
-        <li>
-            {{ Form::label('recurrence_count', 'Recurrence_count:') }}
-            {{ Form::input('number', 'recurrence_count') }}
-        </li>
-
-        <li>
-            {{ Form::label('views', 'Views:') }}
-            {{ Form::input('number', 'views') }}
-        </li>
-
-        <li>
-            {{ Form::label('votes', 'Votes:') }}
-            {{ Form::input('number', 'votes') }}
-        </li>
-
-        <li>
             {{ Form::label('notes', 'Notes:') }}
             {{ Form::textarea('notes') }}
-        </li>
-
-        <li>
-            {{ Form::label('status', 'Status:') }}
-            {{ Form::text('status') }}
         </li>
 
         <li>

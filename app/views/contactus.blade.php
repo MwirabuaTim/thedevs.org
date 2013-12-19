@@ -10,37 +10,10 @@
 
 @section('main')
 
-	
-<!-- facebook like plugin -->
-<div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="http://static.ak.facebook.com/connect/xd_arbiter.php?version=25#channel=f4ef51ec4&amp;origin=http%3A%2F%2Fbookcheetah.com&amp;channel_path=%2Foff-menu-pages%2Fcontact-us%3Ffb_xd_fragment%23xd_sig%3Df3b77bda74%26" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tab-index="-1" src="https://s-static.ak.facebook.com/connect/xd_arbiter.php?version=25#channel=f4ef51ec4&amp;origin=http%3A%2F%2Fbookcheetah.com&amp;channel_path=%2Foff-menu-pages%2Fcontact-us%3Ffb_xd_fragment%23xd_sig%3Df3b77bda74%26" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<h2 class="gradient-title">Contact Us</h2>
-
-<div class="facebook-find">
-	<p><a href="http://www.facebook.com/bookcheetah"><img alt="Find us on Facebook" src="{{ asset('assets/images/facebook.jpg') }}"></a></p>
-    <p>
-        <iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/follow_button.1372833608.html#_=1374308432303&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=bookcheetah&amp;show_count=false&amp;show_screen_name=true&amp;size=l" class="twitter-follow-button twitter-follow-button" title="Twitter Follow Button" data-twttr-rendered="true" style="width: 180px; height: 28px;"></iframe>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-    </p>
-</div>
-
-
-	<br/>
-  <br/>
-  <p>Thanks for contacting us here at Bookcheetah.<br>
-	We are always looking for ways to improve, so we look forward to addressing your comment.</p>	
-
 
 <form action="/gmail" class="contactUs" method="POST">
   <fieldset>
-  	<legend><h3 class="gradient-light">Send us a message</h3></legend>
+  	<h3 class="gradient-light">Send us a message</h3>
 
 	  <div class="name">
 	    	  <label for="name">Name</label>
@@ -74,7 +47,8 @@
   </fieldset>
 </form>
 
-  
+  <p>Thanks for contacting us here at TheDevs.org. We are always looking for ways to improve, so we look forward to addressing your comment.</p>	
+
 @stop
 
 @section('css')

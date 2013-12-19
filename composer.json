@@ -5,8 +5,9 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.0.*",
+		"way/generators": "dev-master",
 		"cartalyst/sentry": "2.0.*",
-		"way/generators": "dev-master"
+		"madewithlove/laravel-oauth2": "0.2.*"
 	},
 	"autoload": {
 		"classmap": [

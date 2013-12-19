@@ -259,15 +259,3 @@ a.bookshelf{
   box-shadow: 0 0 0px #ccc;
   background: transparent;
 }
-
-.content {
-  padding: 0px;
-  background-color: transparent;
-  border: 0px;
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-  -webkit-box-shadow: 0px 0px 0px rgba(0,0,0,0.0);
-  -moz-box-shadow: 0px 0px 0px rgba(0,0,0,0.0);
-  box-shadow: 0px 0px 0px rgba(0,0,0,0.0);
-}

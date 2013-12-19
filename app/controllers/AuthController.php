@@ -7,6 +7,11 @@ class AuthController extends BaseController {
 	 *
 	 * @return View
 	 */
+	// protected $url = 'https://'.$_SERVER['SERVER_NAME'];
+	// protected $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); 
+	// $uri = urldecode($uri);
+	// protected $uri = $_SERVER['REQUEST_URI'];
+
 	public function getSignin()
 	{
 		// Is the user logged in?
@@ -14,8 +19,16 @@ class AuthController extends BaseController {
 		{
 			return Redirect::route('account');
 		}
-
+		// return stripos($_SERVER['HTTP_REFERER'], needle);
+		// return phpinfo();
+		// return $_SERVER["HTTP_REFERER"]; //only available on post request
 		// Show the page
+		if (isset($_SERVER["HTTP_REFERER"]) && stripos($_SERVER["HTTP_REFERER"], 'auth/signin')){
+			return View::make('frontend.auth.signin');
+		}
+		else if (isset($_SERVER["HTTP_REFERER"])){
+			return View::make('frontend.auth.signin-basic');
+		}
 		return View::make('frontend.auth.signin');
 	}
 
@@ -26,6 +39,10 @@ class AuthController extends BaseController {
 	 */
 	public function postSignin()
 	{
+		$input = Input::all();
+		$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		$uri = urldecode($uri);
+		$urx = $_SERVER['REQUEST_URI'];
 		// Declare the rules for the form validation
 		$rules = array(
 			'email'    => 'required|email',
@@ -39,7 +56,16 @@ class AuthController extends BaseController {
 		if ($validator->fails())
 		{
 			// Ooops.. something went wrong
-			return Redirect::back()->withInput()->withErrors($validator);
+			if(isset($input['status'])){//its from the popup
+				// return Request::path();
+				// return var_dump($uri);
+				return Redirect::to('auth/signin')->withInput()->withErrors($validator);
+			}
+			else{
+				// return var_dump($uri.' '.$urx);
+				return Redirect::back()->withInput()->withErrors($validator);
+			}
+			
 		}
 
 		try
@@ -54,7 +80,18 @@ class AuthController extends BaseController {
 			Session::forget('loginRedirect');
 
 			// Redirect to the users page
-			return Redirect::to($redirect)->with('success', Lang::get('auth/message.signin.success'));
+			if(isset($input['status'])){//its from the popup
+				return Response::json(array('success' => Lang::get('auth/message.signin.success')));
+				// return Response::json(array('success' => true));
+			}
+			else{
+				return Redirect::to($redirect)->with('success', Lang::get('auth/message.signin.success'));
+			}
+			
+		}
+		catch (Cartalyst\Sentry\Users\WrongPasswordException $e)
+		{
+			$this->messageBag->add('email', Lang::get('auth/message.wrong_password'));
 		}
 		catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
 		{
@@ -73,8 +110,14 @@ class AuthController extends BaseController {
 			$this->messageBag->add('email', Lang::get('auth/message.account_banned'));
 		}
 
-		// Ooops.. something went wrong
-		return Redirect::back()->withInput()->withErrors($this->messageBag);
+		// Ooops.. something went wrong	
+		if(isset($input['status'])){//its from the popup
+			return Redirect::to('auth/signin')->withInput()->withErrors($this->messageBag);
+		}
+		else{
+			return Redirect::back()->withInput()->withErrors($this->messageBag);
+			// return var_dump($uri.' '.$urx);
+		}
 	}
 
 	/**
@@ -89,8 +132,12 @@ class AuthController extends BaseController {
 		{
 			return Redirect::route('account');
 		}
-
-		// Show the page
+		if (isset($_SERVER["HTTP_REFERER"]) && stripos($_SERVER["HTTP_REFERER"], 'auth/signup')){
+			return View::make('frontend.auth.signup');
+		}
+		else if (isset($_SERVER["HTTP_REFERER"])){
+			return View::make('frontend.auth.signup-basic');
+		}
 		return View::make('frontend.auth.signup');
 	}
 
@@ -101,10 +148,11 @@ class AuthController extends BaseController {
 	 */
 	public function postSignup()
 	{
+		$input = Input::all();
 		// Declare the rules for the form validation
 		$rules = array(
-			'first_name'       => 'required|min:3',
-			'last_name'        => 'required|min:3',
+			'first_name'       => 'required|min:1',
+			'last_name'        => 'required',
 			'email'            => 'required|email|unique:users',
 			'email_confirm'    => 'required|email|same:email',
 			'password'         => 'required|between:3,32',
@@ -118,7 +166,12 @@ class AuthController extends BaseController {
 		if ($validator->fails())
 		{
 			// Ooops.. something went wrong
-			return Redirect::back()->withInput()->withErrors($validator);
+			if(isset($input['status'])){//its from the popup
+				return Redirect::to('auth/signup')->withInput()->withErrors($validator);
+			}
+			else{
+				return Redirect::back()->withInput()->withErrors($validator);
+			}
 		}
 
 		try
@@ -144,8 +197,13 @@ class AuthController extends BaseController {
 				$m->subject('Welcome ' . $user->first_name);
 			});
 
-			// Redirect to the register page
-			return Redirect::back()->with('success', Lang::get('auth/message.signup.success'));
+			// Redirect to the register page			
+			if(isset($input['status'])){//its from the popup
+				return Response::json(array('success' => Lang::get('auth/message.signup.success')));
+			}
+			else{
+				return Redirect::back()->with('success', Lang::get('auth/message.signup.success'));
+			}
 		}
 		catch (Cartalyst\Sentry\Users\UserExistsException $e)
 		{
@@ -153,7 +211,15 @@ class AuthController extends BaseController {
 		}
 
 		// Ooops.. something went wrong
-		return Redirect::back()->withInput()->withErrors($this->messageBag);
+		// return Redirect::back()->withInput()->withErrors($this->messageBag);
+		
+		if(isset($input['status'])){//its from the popup
+			return Redirect::to('auth/signup')->with('success', Lang::get('auth/message.signup.success'));
+		}
+		else{
+			return Redirect::back()->with('success', Lang::get('auth/message.signup.success'));
+			// return Redirect::to('auth/signup')->withInput()->withErrors($this->messageBag);
+		}
 	}
 
 	/**

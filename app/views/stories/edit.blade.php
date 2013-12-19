@@ -26,28 +26,8 @@
         </li>
 
         <li>
-            {{ Form::label('map', 'Map:') }}
-            {{ Form::text('map') }}
-        </li>
-
-        <li>
-            {{ Form::label('views', 'Views:') }}
-            {{ Form::input('number', 'views') }}
-        </li>
-
-        <li>
-            {{ Form::label('votes', 'Votes:') }}
-            {{ Form::input('number', 'votes') }}
-        </li>
-
-        <li>
             {{ Form::label('notes', 'Notes:') }}
             {{ Form::textarea('notes') }}
-        </li>
-
-        <li>
-            {{ Form::label('status', 'Status:') }}
-            {{ Form::text('status') }}
         </li>
 
         <li>

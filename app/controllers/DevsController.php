@@ -9,7 +9,7 @@ class DevsController extends BaseController {
 	 */
 	protected $dev;
 
-	public function __construct(Dev $dev)
+	public function __construct(User $dev)
 	{
 		$this->dev = $dev;
 	}
