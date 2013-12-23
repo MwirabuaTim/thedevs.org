@@ -1,18 +1,26 @@
-<?php
+\<?php
 
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
-
 class User extends Eloquent implements UserInterface, RemindableInterface {
 		protected $fillable = array(
 		'first_name', 
 		'last_name', 
 		'email', 
+		'phone',
+		'elevator',
+		'about',
 		'pic', 
+		'video',
 		'location', 
-		'description',
-		'video'
-
+		'activated',
+		'map',
+		'last_map',
+		'views',
+		'votes',
+		'notes',
+		'status',
+		'public'
 		);
 
 	/**

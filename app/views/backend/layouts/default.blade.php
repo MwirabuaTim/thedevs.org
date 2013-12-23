@@ -81,7 +81,7 @@
 			</div>
 
 			<!-- Notifications -->
-			@include('frontend/notifications')
+			@include('partials/oldnotifications')
 
 			<!-- Content -->
 			@yield('content')

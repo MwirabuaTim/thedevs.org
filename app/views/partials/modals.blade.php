@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn _aqua-hover pull-left" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-info _aqua-hover pull-left" data-dismiss="modal">Back</button>
         <button type="button" class="btn btn-info _step3" data-dismiss="modal" disabled>Next</button>
       </div>
     </div><!-- /.modal-content -->
@@ -181,7 +181,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn _aqua-hover pull-left" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-info _aqua-hover pull-left" data-dismiss="modal">Back</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

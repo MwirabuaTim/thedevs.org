@@ -16,7 +16,7 @@
         </li>
 
         <li>
-            {{ Form::label('elevator', 'Elevator:') }}
+            {{ Form::label('elevator', 'Tagline:') }}
             {{ Form::text('elevator') }}
         </li>
 

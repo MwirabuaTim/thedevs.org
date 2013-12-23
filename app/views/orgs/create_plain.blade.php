@@ -5,7 +5,7 @@
 	<ul>
         <li>
             {{ Form::label('name', 'Name:') }}
-            {{ Form::text('name') }}
+            {{ Form::text('name', null, array('class'=>'form-control')) }}
         </li>
 
 <!--         <li>
@@ -19,28 +19,28 @@
         </li>
 
         <li>
-            {{ Form::label('elevator', 'Elevator:') }}
+            {{ Form::label('elevator', 'Tagline:') }}
             {{ Form::text('elevator') }}
         </li>
  -->
         <li>
             {{ Form::label('description', 'Description:') }}
-            {{ Form::textarea('description') }}
+            {{ Form::textarea('description', null, array('class'=>'form-control rich')) }}
         </li>
 
         <li>
             {{ Form::label('type', 'Type:') }}
-            {{ Form::text('type') }}
+            {{ Form::text('type', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('contacts', 'Contacts:') }}
-            {{ Form::textarea('contacts') }}
+            {{ Form::textarea('contacts', null, array('class'=>'form-control rich')) }}
         </li>
 
         <li>
             {{ Form::label('location', 'Location:') }}
-            {{ Form::text('location') }}
+            {{ Form::text('location', null, array('class'=>'form-control')) }}
         </li>
 <!-- 
         <li>

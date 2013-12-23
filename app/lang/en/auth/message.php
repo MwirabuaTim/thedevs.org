@@ -7,7 +7,7 @@ return array(
 	'account_not_activated' => 'Check email sent to '. Input::get('email').' to activate the account.',
 	'account_suspended' => 'Your account is suspended, come back later.',
 	'account_banned' => 'Sorry, your account is banned.',
-	'signup.success' => 'Successfully! Check '. Input::get('email'). ' for a link to activate your account.',
+	'signup.success' => 'Successfull. Check '. Input::get('email'). ' for a link to activate your account.',
 	'account_already_exists' => Input::get('email').' is already registered. An activation link was emailed.',
 	'activate.success' => 'Successfully Authenticated!',
 	'activate.error' => 'Activation Error...',

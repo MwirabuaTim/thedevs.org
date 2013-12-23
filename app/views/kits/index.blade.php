@@ -13,11 +13,9 @@
 				<th>Name</th>
 				<th>Creator</th>
 				<th>About</th>
+				<th>Public</th>
 				<th>Views</th>
 				<th>Votes</th>
-				<th>Notes</th>
-				<th>Status</th>
-				<th>Public</th>
 			</tr>
 		</thead>
 
@@ -27,11 +25,9 @@
 					<td>{{{ $kit->name }}}</td>
 					<td>{{{ $kit->creator }}}</td>
 					<td>{{{ $kit->about }}}</td>
+					<td>{{{ $kit->public }}}</td>
 					<td>{{{ $kit->views }}}</td>
 					<td>{{{ $kit->votes }}}</td>
-					<td>{{{ $kit->notes }}}</td>
-					<td>{{{ $kit->status }}}</td>
-					<td>{{{ $kit->public }}}</td>
                     <td>{{ link_to_route('kits.edit', 'Edit', array($kit->id), array('class' => 'btn btn-info')) }}</td>
                     <td>
                         {{ Form::open(array('method' => 'DELETE', 'route' => array('kits.destroy', $kit->id))) }}

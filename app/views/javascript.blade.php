@@ -1,149 +1,6 @@
 <script type="text/javascript">
-  
-    var myIcon = L.icon({
-      iconUrl: window.location.origin + '/images/left-dex-green.png',
-      iconSize: [20, 20],
-      iconAnchor: [10, 10],
-      labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
-    });
-    var map = L.map('map', {
-      scrollWheelZoom: true,
-      zoomControl: true,
-      doubleClickZoom: true,
-      attributionControl: false,
-      }).setView([51.505, -0.09], 5); 
-    
-    L.tileLayer('http://{s}.tile.cloudmade.com/5e9427487a6142f7934b07d07a967ba3/997/256/{z}/{x}/{y}.png', {
-        attribution: 'EuroHackTrip',
-        maxZoom: 18,
-        opacity: 0.5
-      }).addTo(map);
 
-    loadMap = function(_path){
-        // map.load()
-        console.log('Loading map for: ' + _path)
-
-        
-        $.get('/api/'+_path, function(data){ //create markers for all
-          if(data ==''){
-             console.log('No data here yet... '+ data)
-          }else{
-            var markersgroup = []
-            $.each(data, function(key, record){
-              // console.log(record);
-              coords = record.map;
-              lat = parseFloat(coords.substr(0, coords.indexOf(', ')))
-              lng = parseFloat(coords.substr(coords.indexOf(', ')+2, coords.length))
-              // console.log(lat);
-              // console.log(lng);
-              var marker = L.marker([lat, lng], {
-                    icon: myIcon
-                    })
-                    .bindLabel('<a href="'
-                      +window.location.origin+'/'+_path+'/'+record.id+'">'
-                          +record.name+'</a>', { 
-                    //label markers
-                    noHide: true,
-                    direction: 'auto'
-                    }).addTo(map);
-              var popup = L.popup()
-                  // .setLatLng(latlng)
-                  .setContent('<a href="'
-                    +window.location.origin+'/'+_path+'/'+record.id+'/edit">Edit</a><br />'+record.description+'</p>')
-                  .openOn(marker);
-              marker.bindPopup(popup)
-
-              markersgroup.push([lat, lng])
-              // markersgroup.push(marker.getLatLng())
-              // console.log(marker.getLatLng());
-            })
-            map.fitBounds(markersgroup);
-          }
-
-        }).fail(function() {
-          console.log('check your db bro...');
-        })
-    }
-
-  fetchPostForm = function(){
-    //fetches and writes create form
-    
-    $.get( '/'+selected_model+'/createpop', function(createForm) {
-      // console.log(createForm);
-      $('.createTemplate').html(createForm)
-      createPostEvent()
-
-    }).done(function(p) {
-        console.log( "done");
-        $('img.preload').hide()
-
-      })
-      .fail(function(p) {
-        console.log( "error");
-      })
-      .always(function(p) {
-        console.log( "finished");
-      });
-  }
-  createPostEvent = function(){
-      $( ".createTemplate input[type='submit']" ).on('click', function(e){
-      // $('.createTemplate form').on('submit', function(){
-        e.preventDefault()
-        all_data = $.extend({}, map_data, $('.createTemplate form').serializeObject());
-        if('{{ Sentry::check() }}' == ''){ 
-          $('.modal').modal('hide')
-          $('._sign-in-modal').modal('show')
-        }
-        else{
-          console.log('Already logged in')
-          postData()
-        }
- 
-      })
-  }
-  postData = function(){
-    var Posting = Backbone.Model.extend({
-      url: selected_model
-    });
-    
-    posting = new Posting(all_data);
-    console.log('post data is: ' + all_data)
-    console.log('posting to ' + selected_model)
-
-    
-    $('img.preload').show()
-
-    posting.save()
-    // $.ajax({
-    //   url:selected_model,
-    //   type:'POST',
-    //   dataType:"json",
-    //   data: all_data,
-    //   success:function(dd){ 
-    //     console.log(dd.statusText)
-
-    //   },
-    //   error:function(dd){ 
-    //     console.log(dd.statusText)
-    //   }
-    // });
-    setTimeout(function(){
-       afterPosting()
-    }, 3000);
-
-    // $.get( '/'+selected_model, function(all_records) {;
-    //   $('._content').html(all_records)
-    // })
-  }
-  afterPosting = function(){
-    $('img.preload').hide()
-    $('.modal').modal('hide')
-    // loadMap(selected_model)
-    window.location.pathname = selected_model
-    //working on making this happen after Bacbone save is complete! damnit!
-  }
-
-  $.fn.serializeObject = function()
+  $.fn.serializeObject = function() // creates serialized object method for forms
   {
       var o = {};
       var a = this.serializeArray();
@@ -173,9 +30,6 @@
   //       })
   //   }
   // $('._pink2aqua').random_hover_color();
-
-
-
   _alert = function(msg){
     $('._alert').each(function(){ 
       this.innerHTML = msg
@@ -185,6 +39,276 @@
     _blind = setInterval(function(){
       $('._blink-pink').show().fadeOut(1000)
     }, 1200);
+  }
+
+  loadMap = function(_div, _path){
+    console.log('Loading map for: ' + _path)
+    myIcon = L.icon({ // needs to be initialized globally so that it can be referred
+      iconUrl: window.location.origin + '/images/left-dex-green.png',
+      iconSize: [20, 20],
+      iconAnchor: [10, 10],
+      labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
+    });
+    map = L.map(_div, { // needs to be initialized globally so that it can be referred
+      scrollWheelZoom: true,
+      zoomControl: true,
+      doubleClickZoom: true,
+      attributionControl: false,
+      }).setView([51.505, -0.09], 5); 
+    
+    L.tileLayer('http://{s}.tile.cloudmade.com/5e9427487a6142f7934b07d07a967ba3/997/256/{z}/{x}/{y}.png', {
+        attribution: 'EuroHackTrip',
+        maxZoom: 18,
+        opacity: 0.5
+      }).addTo(map);
+
+    $.get('/api/'+_path, function(data){ //create markers for all
+      if(data ==''){
+         console.log('No data here yet... '+ data)
+      }else{
+        $.each(data, function(key, record){
+          // console.log(record);
+          coords = record.map;
+          mlat = parseFloat(coords.substr(0, coords.indexOf(', ')))
+          mlng = parseFloat(coords.substr(coords.indexOf(', ')+2, coords.length))
+
+          // console.log(mlat);
+          // console.log(mlng);
+          var marker = L.marker([mlat, mlng], {
+                icon: myIcon
+                })
+                .bindLabel('<a href="'
+                  +window.location.origin+'/'+_path+'/'+record.id+'">'
+                      +record.name+'</a>', { 
+                //label markers
+                noHide: true,
+                direction: 'auto'
+                }).addTo(map);
+          var popup = L.popup()
+              // .setLatLng(latlng)
+              .setContent('<a href="'
+                +window.location.origin+'/'+_path+'/'+record.id+'/edit">Edit</a><br />'+record.description+'</p>')
+              .openOn(marker);
+          marker.bindPopup(popup)
+
+          markersgroup.push([mlat, mlng])
+          // console.log(marker.getLatLng());
+
+        })
+        map.fitBounds(markersgroup);
+        b = L.latLngBounds(markersgroup);
+        lat = b.getCenter().lat
+        lng = b.getCenter().lng
+      }
+
+    }).done(function() { // has to happen when the map is done loading baby!
+      
+    }).fail(function() {
+      console.log('check your db bro...');
+    })
+    
+  }
+
+  prefillForm = function(){
+    $(".createTemplate form :input").not( "input[name=_token], input[type=submit]" ).each(function(){
+      this.value = ls[this.name]
+    })
+  }
+  richeditor = function(){
+     tinymce.init({
+        selector: "textarea.rich",
+        height : '300px',
+        width : '100%',
+        
+        // ===========================================
+        // INCLUDE THE PLUGIN
+        // ===========================================
+        
+        plugins: [
+          "advlist autolink lists link image charmap print preview anchor",
+          "searchreplace visualblocks code fullscreen",
+          "insertdatetime media table contextmenu paste jbimages"
+        ],
+        
+        // ===========================================
+        // PUT PLUGIN'S BUTTON on the toolbar
+        // ===========================================
+        
+        toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages",
+        
+        // ===========================================
+        // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
+        // ===========================================
+        
+        relative_urls: false
+        
+      });
+       // TinyMCE
+       //datepicker
+      $('#start_time, #end_time').datetimepicker({
+        dateFormat: 'dd M yy',
+        timeFormat: 'hh:mm tt z',
+        addSliderAccess: true,
+        sliderAccessArgs: { touchonly: false }
+      });
+
+  }
+  fetchPostForm = function(){
+    //fetches and writes create form
+    // setTimeout(function(){
+      $.get( '/'+selected_model+'/createpop', function(createForm) {
+      // console.log(createForm);
+      $('.createTemplate').html(createForm)
+      ls ? prefillForm() : true;
+      all_data = {} //clean all_data so as not to post old data but the edited data
+
+      // tinymce.init({selector:'textarea', height : 300, plugins: "code"});
+      // TinyMCE 4.x 
+       
+     richeditor()
+
+      createPostEvent()
+
+      }).done(function(p) {
+          console.log( "done");
+          $('img.preload').hide()
+        })
+        .fail(function(p) {
+          console.log( "error");
+        })
+        .always(function(p) {
+          console.log( "finished");
+        });
+    // }, 10000);
+    
+  }
+  _loadls = function(){
+    localStorage.setItem('thedevsorgpost', JSON.stringify(all_data));
+    localStorage.lat = lat
+    localStorage.lng = lng
+    localStorage.selected_model = selected_model
+    localStorage.status = 'pending'
+  }
+  createPostEvent = function(){
+      $( ".createTemplate input[type='submit']" ).on('click', function(e){
+      // $('.createTemplate form').on('submit', function(){
+        e.preventDefault()
+        tinyMCE.triggerSave();
+        all_data = $.extend(map_data, $('.createTemplate form').serializeObject());
+        _loadls()  //whether guy is logged in or not, update the data in the ls
+        if('{{ Sentry::check() }}' == ''){ 
+          $('.modal').modal('hide')//hide the createpost form
+          $('._sign-in-modal').modal('show')
+        }
+        else{
+          console.log('Already logged in')
+          postData()
+        }
+ 
+      })
+  }
+  postData = function(){
+    // var Posting = Backbone.Model.extend({
+    //   url: selected_model
+    // });
+    
+    // posting = new Posting(all_data);
+    // posting.save()
+    console.log('post data is: ' + all_data)
+    console.log('posting to ' + selected_model)
+
+    $.ajax({
+      url:selected_model,
+      type:'POST',
+      dataType:"json",
+      data: all_data,
+      success:function(dd){ 
+        console.log(dd.statusText)
+        localStorage.status = 'posted'
+
+      },
+      error:function(dd){ 
+        console.log(dd.statusText)
+      }
+    });
+    $('img.preload').show()
+
+    setTimeout(function(){
+       afterPosting()
+    }, 3000);
+
+    // $.get( '/'+selected_model, function(all_records) {;
+    //   $('._content').html(all_records)
+    // })
+  }
+  afterPosting = function(){
+    $('img.preload').hide()
+    $('.modal').modal('hide')
+    // loadMap('map', selected_model)
+    window.location.pathname = selected_model
+    //working on making this happen after Bacbone save is complete! damnit!
+  }
+
+
+
+  onMapClick = function(e) {
+    
+    _alert('Click "Next" to give a few more details...')
+    clearInterval(_blind);
+
+    lat = e.latlng.lat
+    lng = e.latlng.lng
+
+    pin2map(lat, lng)
+
+  }
+
+  pin2map = function(lat, lng){
+    // console.log('into pin2map');
+    var myIcon = L.icon({
+      iconUrl: '../images/bubble-pink.png',
+      iconSize: [20, 20],
+      iconAnchor: [10, 10],
+      labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
+    });
+    // console.log('the lat is: ' + lat + ' and the lng is: '+ lng);
+    marker_new
+      .setLatLng({'lat': lat, 'lng': lng})
+      .setIcon(myIcon)
+      .addTo(map);
+    // console.log('marker created: ' + marker_new);
+
+    
+    popup_new = L.popup()
+      .setContent('<a href="#" class="_step2">Creating here...</a>')
+      .openOn(marker_new)
+    marker_new.bindPopup(popup_new).openPopup()
+
+    markersgroup.push([lat, lng])
+    map.fitBounds(markersgroup)
+
+
+    $('a._step1').html('Next>>').attr('class', '_blade _aqua2pink _step2')
+    $('div._step1').html('Next>>').attr('class', '_addbtn _blade _pink2aqua _step2')
+
+    $("._step2").each(function(){
+      $(this).on('click', function(e){
+        e.preventDefault()
+        $('._cats').modal('show')
+         _alert('Click "Next" to give a few more details....')
+      })
+    })
+   map_data['map'] = lat + ', ' + lng;  //setting map var for both onmapclick and lazy ls posting
+
+  }
+
+  pinls = function(){  // $('._addbtn').html('Complete>>').attr('class', '_addbtn _blade _aqua-hover _step2')
+    pin2map(lat, lng)
+    map.on('click', onMapClick)
+
+    var x = $('.panel-group label input#'+localStorage.selected_model).parent()[0]
+    x.className = 'cats btn panel _aqua-hover active'
+    $('button._step3').removeAttr('disabled')
   }
 
 //$(window).load(function(){
@@ -213,17 +337,30 @@ var selected_model = _path
 // console.log(_path);
 var _url = window.location.href;
 var _host = window.location.host;
+var markersgroup = []
 var map_data = {}
-var all_data = {}
+var ls = JSON.parse(localStorage.getItem('thedevsorgpost')); ///what if not set ?
+var all_data = ls ? ls : {}
+var lat = ''
+var lng = ''
+var selected_model = localStorage.selected_model
+
+
 // var _blink = function(){}
+
+var marker_new = L.marker() 
 
 
 $(document).ready(function(){
+  // lat = localStorage.lat
+  lng = localStorage.lng
+  richeditor()//for form textareas
 
   //mapping for home, /posts[blog] and /countries pages
   // if(window.location.pathname == '/' 
   //   || window.location.pathname ==  '/posts'
   //   || window.location.pathname ==  '/countries'){ 
+  // } //end if(window.location.pathname == '/'  ...
   $(document).bind('click', function(e) {
     // console.log(this.className + ' clicked')
     // console.log(this)
@@ -232,126 +369,55 @@ $(document).ready(function(){
     // console.log(e.target)
     console.log('Clicked: '+e.target.tagName +'#' + e.target.id + ' .' + e.target.className)
 
-  })   
-
-    loadMap(_path)
-  
-    $('._step1').click(function(e){
-
-      
-      e.preventDefault();
-      _alert('Click on the map to add an organisation, project, event or story...')
-      map.on('click', onMapClick)
-      
-
-      // $('._cats').modal('show')
-
-      // var data = {
-      //   'name': 'tim',
-      //   'description': 'learner'
-      // };
-      // $('.result').html('Click on the map to add an organisation, project, event or story...')
-          // .css({'color': 'white', 'font-weight': 700}) 
-      
-      // $.post("/orgs", data);
-      // org1.save();
-      // $.ajax({
-      //   url:'/orgs',
-      //   type:'POST',
-      //   dataType:"json",
-      //   data: data
-      //   // success:function (data) {             
-      //   // if(data.error) {  // If there is an error, show the error messages
-      //   //         $('.alert-error').text(data.error.text).show();
-      //   //     }            
-      //   // }
-      // });
-
-    })
-
-  // } //end if(window.location.pathname == '/'  ...
+  })
 
 
-    var marker_new = L.marker()
-    var lat = ''
-    var lng = ''
-
-    onMapClick = function(e) {
-      clearInterval(_blind);
-      _alert('Now click "Next" to give a few more details...')
-      
-      lat = e.latlng.lat
-      lng = e.latlng.lng
-      // console.log(e);
-      // console.log(lng);
-
-      var myIcon = L.icon({
-        iconUrl: '../images/bubble-pink.png',
-        iconSize: [20, 20],
-        iconAnchor: [10, 10],
-        labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
-      });
-
-      marker_new
-        .setLatLng(e.latlng)
-        .setIcon(myIcon)
-        .addTo(map);
-
-      var popup_new = L.popup()
-            // .setLatLng(latlng)
-            .setContent('<a href="#" class="_step2">Creating here...</a>')
-            .openOn(marker_new);
-      marker_new.bindPopup(popup_new)
-
-
-      // $('.result').html('2. Click \'Next>>\' when you are done...')
-      // $('.result-alert').show().fadeOut(2000)
-      $('a._step1').html('Next>>').attr('class', '_blade _aqua2pink _step2')
-      $('div._step1').html('Next>>').attr('class', '_addbtn _blade _pink2aqua _step2')
- 
-      $("._step2").each(function(){
-        $(this).on('click', function(e){
-          e.preventDefault()
-          $('._cats').modal('show')
-        })
-      })
-
-    }
+  if($('#map')[0] != undefined){
+    loadMap('map', _path)
+    //these need to be created just once 
+  }
     
-  
-    // $('._step2').attr({'data-toggle': 'modal', 'data-target': '._cats'})
-      $("._step2").on('click', function(e){
-        e.preventDefault()
-        $('._cats').modal('show')
-      }) 
+  if(localStorage.status == 'pending'){// local storage
+    pinls()
+  }
 
-     
-    $('label.cats').on('click', function(){
-      $('button._step3').removeAttr('disabled').attr('class', '_step3 btn _pink2aqua') //add _pink2aqua
-      $('div._step2').html('Complete>>').attr('class', '_addbtn _blade _aqua-hover _step3')
-      $('a._step2').html('Complete>>').attr('class', '_blade _aqua2pink _step3')
-      $('.leaflet-popup-content a._step2').html('Complete>>').attr('class', '_step3')
-    })
 
-    $('._step3').on('click', function(e){ 
-      e.preventDefault()
-      selected_model = $(".btn-group").find("label.active input").prop('value');
-      map_data['map'] = lat + ', ' + lng; 
+  $('._step1').click(function(e){
+    if(map){e.preventDefault()}    
+    _alert('Click on the map to add an organisation, project, event or story...')
+    map.on('click', onMapClick)
+    console.log('step 1 done');
+    pin2map(lat, lng) // just to load pin on map center first time
+  })
 
-      $('img.preload').show()
-      fetchPostForm($('._creates').modal('show'))
 
-     
-    })
+  // $('._step2').attr({'data-toggle': 'modal', 'data-target': '._cats'})
 
-    _step4 = function(){ // after log in
-      if(all_data.map){//there is data being posted
-        postData()
-      }
-      else{
-        location.reload()
-      }
+   
+  $('label.cats').on('click', function(){
+    $('button._step3').removeAttr('disabled').attr('class', '_step3 btn _pink2aqua') //add _pink2aqua
+    $('div._step2').html('Complete>>').attr('class', '_addbtn _blade _aqua-hover _step3')
+    $('_nav li a._step2').html('Complete>>').attr('class', '_blade _aqua2pink _step3')
+    $('.leaflet-popup-content a._step2').html('Complete>>').attr('class', '_step3')
+  })
+
+  $('._step3').on('click', function(e){ 
+    e.preventDefault()
+    selected_model = $(".btn-group").find("label.active input").prop('value');
+    _alert('Click "Complete>>" to publish your post...')
+    fetchPostForm($('._creates').modal('show'))
+    $('.createTemplate').append($('img.preload').show());
+   
+  })
+
+  _step4 = function(){ // after log in
+    if(localStorage.status == 'pending'){//there is data that has not been posted
+      postData()
     }
+    else{
+      location.reload()
+    }
+  }
 
 
 
@@ -411,7 +477,9 @@ $(document).ready(function(){
       $.post($(this).attr('action'), $(this).serializeArray(), function(ddd){
         if(ddd['success']){
           _alert(ddd['success']);
+          console.log(ddd['success']);
           _step4()
+
         }
         else{
           // console.log(ddd)

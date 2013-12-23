@@ -22,28 +22,13 @@
         </li>
 
         <li>
-            {{ Form::label('email', 'Email:') }}
-            {{ Form::text('email') }}
-        </li>
-
-        <li>
-            {{ Form::label('pic', 'Pic:') }}
-            {{ Form::text('pic') }}
-        </li>
-
-        <li>
-            {{ Form::label('location', 'Location:') }}
-            {{ Form::text('location') }}
-        </li>
-
-        <li>
-            {{ Form::label('description', 'Description:') }}
-            {{ Form::text('description') }}
-        </li>
-
-        <li>
             {{ Form::label('username', 'Username:') }}
             {{ Form::text('username') }}
+        </li>
+
+        <li>
+            {{ Form::label('email', 'Email:') }}
+            {{ Form::text('email') }}
         </li>
 
         <li>
@@ -54,6 +39,21 @@
         <li>
             {{ Form::label('link', 'Link:') }}
             {{ Form::text('link') }}
+        </li>
+
+        <li>
+            {{ Form::label('location', 'Location:') }}
+            {{ Form::text('location') }}
+        </li>
+
+        <li>
+            {{ Form::label('about', 'About:') }}
+            {{ Form::text('about') }}
+        </li>
+
+        <li>
+            {{ Form::label('image', 'Image:') }}
+            {{ Form::text('image') }}
         </li>
 
         <li>

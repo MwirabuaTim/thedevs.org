@@ -8,7 +8,7 @@ class OauthController extends BaseController {
 
 
 
-	public function session()
+	public function oauth()
 	{
 	    if(Request::segment(2) == 'facebook'){
 	    	$provider = OAuth2::provider('facebook', array(
@@ -71,7 +71,7 @@ class OauthController extends BaseController {
 		        //     ["uid"]=> string(21) "102781440230010907892" 
 		        //     ["link"]=> string(45) "https://plus.google.com/102781440230010907892" 
 		        //     ["location"]=> string(0) "" 
-		        //     ["description"]=> string(0) "" 
+		        //     ["about"]=> string(0) "" 
 		        //     ["pic"]=> string(92) "https://lh5.googleusercontent.com/-zUWNGKX5CAk/AAAAAAAAAAI/AAAAAAAABkQ/EVTWGvn6hIs/photo.jpg" 
 		        //     ["code"]=> string(70) "ya29.1.AADtN_U_QB6R6ah5LrlRMzFuUv87s58kknaKM2242jZMH0INH5VknQmhe1Eg0CQ" 
 		        // }
@@ -113,7 +113,7 @@ class OauthController extends BaseController {
 			// $profile->uid = $data['uid'];
 			// $profile->link = $data['link'];
 			// $profile->location = $data['location'];
-			// $profile->description = $data['description'];
+			// $profile->about = $data['about'];
 			// $profile->pic = $data['pic'];
 			// $profile->code = $data['code'];
 			$profile->field1 = Input::get('code');
@@ -137,30 +137,17 @@ class OauthController extends BaseController {
 	    }
 
 		if($user = User::where('email', $data['email'])->first()){
-
 			// Find the user using the user id or e-mail
-			// $user = Sentry::findUserById($user->id);
-			// $user = Sentry::findUserByLogin($data['email']);
+			//update user if we have new values
 
-			// Log the user in
-			// Sentry::login($user, false);
+			$user_update['first_name'] = $data['first_name'] != '' ? $data['first_name'] : $user['first_name']; 
+			$user_update['last_name'] = $data['last_name'] != '' ? $data['last_name'] : $user['last_name']; 
+			$user_update['email'] = $data['email'] != ''? $data['email'] : $user['email']; 
+			$user_update['pic'] = $data['pic'] != '' ? $data['pic'] : $user['pic']; 
+			$user_update['location'] = $data['location'] != '' ? $data['location'] : $user['location']; 
+			$user_update['about'] = $data['about'] != '' ? $data['about'] :$user['about'];
 
-			// $credentials = array(
-			// 	'email' => $user['email'], 
-			// 	'deleted_at' => null,
-			// );
-			// return var_dump($credentials['email']);
-			// Sentry::authenticate($credentials, false);
-			// $user = User::where('email', $data['email'])->first();
-			// $x = $user->update($data);
-			$user_update['first_name'] = !is_null($data['first_name']) ? $data['first_name'] : $user_update['first_name']; 
-			$user_update['last_name'] = !is_null($data['last_name']) ? $data['last_name'] : $user_update['last_name']; 
-			$user_update['email'] = $data['email']; 
-			$user_update['pic'] = !is_null($data['pic']) ? $data['pic'] : $user_update['pic']; 
-			$user_update['location'] = !is_null($data['location']) ? $data['location'] : $user_update['location']; 
-			$user_update['about'] = !is_null($data['description']) ? $data['description'] :$user_update['about'];
 			$x = User::find($user->id)->update($user_update);
-			// return var_dump('updating user: </br>'.$x);
 
 			
 		}
@@ -170,8 +157,8 @@ class OauthController extends BaseController {
 			$user->first_name = $data['first_name'];
 			$user->last_name = $data['last_name'];
 			$user->pic = $data['pic'];
-			$user->elevator = $data['description'];
-			// $user->about = $data['description'];
+			$user->elevator = $data['about'];
+			// $user->about = $data['about'];
 			$user->location = $data['location'];
 			$user->activated = 1;
 			// return var_dump('trying to create user: </br>'.$user);
@@ -194,87 +181,7 @@ class OauthController extends BaseController {
 	 //    dd($data);
 
 	}
-	public function createUser($user, $token){
 
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-        return View::make('oauths.index');
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-        return View::make('oauths.create');
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-        return View::make('oauths.show');
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-        return View::make('oauths.edit');
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
-
-
-
-
+	
 
 }

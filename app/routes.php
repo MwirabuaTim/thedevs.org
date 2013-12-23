@@ -10,36 +10,68 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::get('sandbox', function(){ 
 
-	$update = array('video' => 'new video ');
-	$update['first_name'] = 'new name';
-	
-	User::find(1)->update($update);
-	return User::find(1);
-	// return Redirect::to('devs');
-	
-	// return User::first();
-	// Route::get('api/devs', function(){ return Dev::all();});
 
-});
+//Pain-killer:(removing trailing slashes from urls)
 
-//removing trailing slashes from urls
 Route::get('{any}', function($url){
     return Redirect::to(mb_substr($url, 0, -1), 301);
 })->where('any', '(.*)\/$');
 
 
-Route::get('/', function()
-{
-	return View::make('home');
-});
-Route::get('/orgs/createpop', function(){return View::make('orgs/create_plain');});
-Route::get('/projects/createpop', function(){return View::make('projects/create_plain');});
-Route::get('/eventts/createpop', function(){return View::make('eventts/create_plain');});
-Route::get('/stories/createpop', function(){return View::make('stories/create_plain');});
 
-// Route::resource('devs', 'DevsController');
+//Lie Detector: (enforcing authorized access only)
+
+// Route::any('{resource_name}/{item_id}/edit', function($resource_name, $item_id)
+// {
+	// if (in_array($resource_name, array('kits', 'tags', 'profiles', 'mydatatypes'))):
+	// 	return View::make('404');
+	// endif;
+
+	// if(in_array($resource_name, array('devs'))):
+	// 	if(!User::adminCheck()):
+	// 		return View::make('admin_filter');			
+	// 	else:
+	// 		return View::make($resource_name, compact($resource_name))->with('id', $item_id); //wrong!
+	// 	endif;
+	// endif;
+
+	// if (!User::ownerCheck($resource_name, $id)):
+	// 	return View::make('owner_filter');
+	// endif;
+
+	// return true;
+
+// })->before('auth');
+
+// Route::get('{resource}/{id}/delete', function($resource, $id){
+// 		var_dump($resource.'/'.$id);
+// 		// $this->$resource->find($id)->delete();
+// 		return Redirect::to($url, $status, $https);
+// 		Redirect::to_action($action, $parameters, $status);
+// 	}
+// });
+
+
+//Static Pages
+//-------------------------------------------------------------------------
+
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@showWelcome'));
+Route::get('home', 'HomeController@getHome');
+Route::get('howitworks', function(){ return View::make('howitworks');});
+Route::get('privacy', function(){ return View::make('privacy');});
+Route::get('tos', function(){ return View::make('tos');});
+Route::get('customerservice', function(){ return View::make('customerservice');});
+Route::get('template', function(){return View::make('template');});
+Route::get('contactus', function(){ return View::make('contactus');});
+
+
+/*
+|--------------------------------------------------------------------------
+| Resources
+|--------------------------------------------------------------------------
+|
+*/
 
 Route::resource('projects', 'ProjectsController');
 
@@ -53,17 +85,25 @@ Route::resource('kits', 'KitsController');
 
 Route::resource('tags', 'TagsController');
 
-Route::resource('profiles', 'ProfilesController');
+Route::resource('mydatatypes', 'MydatatypesController');
 
-Route::get('howitworks', function(){ return View::make('howitworks');});
-Route::get('privacy', function(){ return View::make('privacy');});
-Route::get('tos', function(){ return View::make('tos');});
-Route::get('customerservice', function(){ return View::make('customerservice');});
-Route::get('template', function(){return View::make('template');});
-Route::get('contactus', function(){ return View::make('contactus');});
+//Popup makers
+//-------------------------------------------------------------------------
+
+Route::get('/orgs/createpop', function(){return View::make('orgs/create_plain');});
+Route::get('/projects/createpop', function(){return View::make('projects/create_plain');});
+Route::get('/eventts/createpop', function(){return View::make('eventts/create_plain');});
+Route::get('/stories/createpop', function(){return View::make('stories/create_plain');});
 
 
-//The API:
+/*
+|--------------------------------------------------------------------------
+| The API
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
 // Route::get('api/orgs', function(){ return Response::json(['orgs'=> json_decode(Org::all())]);});
 // Route::get('api/devs', function(){ return Response::json(['devs'=> json_decode(Dev::all())]);});
 // Route::get('api/projects', function(){ return Response::json(['projects'=> json_decode(Project::all())]);});
@@ -76,6 +116,12 @@ Route::get('api/orgs', function(){ return Org::all();});
 Route::get('api/projects', function(){ return Project::all();});
 Route::get('api/eventts', function(){ return Eventt::all();});
 Route::get('api/stories', function(){ return Story::all();});
+
+Route::get('api/{resource}/{id}', function($resource, $id){ 
+	$resource_model = ucwords(substr($resource, 0, strlen($resource) -1));
+	return $resource_model::find($id);
+});
+
 Route::get('api/all', function(){ 
 	$sources = array(
 		Org::all(),
@@ -99,30 +145,10 @@ Route::get('api/all', function(){
 	// return Org::all();
 });
 
-// Route::get('{resource}/{id}/delete', function($resource, $id){
-// 		var_dump($resource.'/'.$id);
-// 		// $this->$resource->find($id)->delete();
-// 		return Redirect::to($url, $status, $https);
-// 		Redirect::to_action($action, $parameters, $status);
-// 	}
-// });
-
-
-
+//Admin
+//=====================================
 Route::group(array('prefix' => 'admin'), function()
 {
-
-	# Blog Management
-	Route::group(array('prefix' => 'blogs'), function()
-	{
-		Route::get('/', array('as' => 'blogs', 'uses' => 'Controllers\Admin\BlogsController@getIndex'));
-		Route::get('create', array('as' => 'create/blog', 'uses' => 'Controllers\Admin\BlogsController@getCreate'));
-		Route::post('create', 'Controllers\Admin\BlogsController@postCreate');
-		Route::get('{blogId}/edit', array('as' => 'update/blog', 'uses' => 'Controllers\Admin\BlogsController@getEdit'));
-		Route::post('{blogId}/edit', 'Controllers\Admin\BlogsController@postEdit');
-		Route::get('{blogId}/delete', array('as' => 'delete/blog', 'uses' => 'Controllers\Admin\BlogsController@getDelete'));
-		Route::get('{blogId}/restore', array('as' => 'restore/blog', 'uses' => 'Controllers\Admin\BlogsController@getRestore'));
-	});
 
 	# User Management
 	Route::group(array('prefix' => 'users'), function()
@@ -158,8 +184,6 @@ Route::group(array('prefix' => 'admin'), function()
 | Authentication and Authorization Routes
 |--------------------------------------------------------------------------
 |
-|
-|
 */
 
 Route::group(array('prefix' => 'auth'), function()
@@ -173,7 +197,6 @@ Route::group(array('prefix' => 'auth'), function()
 	Route::get('google', 'OauthController@session');
 	Route::get('github', 'OauthController@session');
 	Route::get('stackexchange', 'OauthController@session');
-	// Route::post('facebook', 'OauthController@session')->with('provider', 'facebook');
 
 	# Register
 	Route::get('signup', array('as' => 'signup', 'uses' => 'AuthController@getSignup'));
@@ -201,64 +224,46 @@ Route::group(array('prefix' => 'auth'), function()
 | Account Routes
 |--------------------------------------------------------------------------
 |
-|
-|
 */
 
-Route::group(array('prefix' => 'account'), function()
-{
+Route::resource('devs', 'DevsController');
 
-	# Account Dashboard
-	Route::get('/', array('as' => 'account', 'uses' => 'Controllers\Account\DashboardController@getIndex'));
+Route::resource('profiles', 'ProfilesController');
+Route::get('account', array('as' => 'account', 'uses' => 'DevsController@getAccount'));
+// Route::get('account', 'DevsController@getAccount');
+# Change Email
+Route::get('change-email', array('as' => 'change-email', 'uses' => 'AuthorizedController@getChangeEmail'));
+Route::post('change-email', 'AuthorizedController@postChangeEmail');
 
-	# Profile
-	Route::get('profile', array('as' => 'profile', 'uses' => 'Controllers\Account\ProfileController@getIndex'));
-	Route::post('profile', 'Controllers\Account\ProfileController@postIndex');
+# Change Password
+Route::get('change-password', array('as' => 'change-password', 'uses' => 'AuthorizedController@getChangePass'));
+Route::post('change-password', 'AuthorizedController@postChangePass');
 
-	# Change Password
-	Route::get('change-password', array('as' => 'change-password', 'uses' => 'Controllers\Account\ChangePasswordController@getIndex'));
-	Route::post('change-password', 'Controllers\Account\ChangePasswordController@postIndex');
 
-	# Change Email
-	Route::get('change-email', array('as' => 'change-email', 'uses' => 'Controllers\Account\ChangeEmailController@getIndex'));
-	Route::post('change-email', 'Controllers\Account\ChangeEmailController@postIndex');
-
-});
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Sandbox: Just Kidding around below here...
 |--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
 |
 */
 
-Route::get('about-us', function()
-{
-	//
-	return View::make('frontend/about-us');
+
+Route::get('sandbox', function(){ 
+
+	// $update = array('video' => 'new video ');
+	// $update['first_name'] = 'new name';
+	// $update['last_name'] = '';
+	// User::find(1)->update($update);
+	// return User::find(1);
+
+	// echo '<br/>'.(isset($update['last_name']) ? 'last_name isset as '.$update['last_name'] : 'last_name isnt set');
+	// echo '<br/>'.(is_null($update['last_name']) ? 'last_name is_null as '.$update['last_name'] : 'last_name isnt null');
+	
+	// return User::first();
+	// Route::get('api/devs', function(){ return Dev::all();});
+
 });
-
-
-Route::get('contact-us', array('as' => 'contact-us', 'uses' => 'ContactUsController@getIndex'));
-Route::post('contact-us', 'ContactUsController@postIndex');
-
-Route::get('blog/{postSlug}', array('as' => 'view-post', 'uses' => 'BlogController@getView'));
-Route::post('blog/{postSlug}', 'BlogController@postView');
-
-Route::get('/', array('as' => 'home', 'uses' => 'BlogController@getIndex'));
-
-
-Route::get('/devs', 'DevsController@index');
-Route::get('/devs/{id}', 'DevsController@show', compact('id'))->where('id', '[0-9]+');
-Route::get('/dev/{id}', function($id)
-{
-	return Redirect::to(URL::to('devs/'.$id));
-});
-
 
 // Route::get('/users', 'UserController@index');
 // Route::get('/users/create', 'UserController@create');

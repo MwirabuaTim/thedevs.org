@@ -15,16 +15,16 @@
     <meta name="viewport" content="width=device-width">
 
     <!-- CSS -->
-<!--     <link rel="stylesheet" href="{{ asset('css/main.css')}} "> -->
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}} ">
-    <link rel="stylesheet" href="{{ asset('css/general.css')}} ">
-    <!-- <link rel="stylesheet" href="{{ asset('css/jquery.ui.css') }}"> -->
+<!--     {{ HTML::style('css/main.css')}} -->
+    {{ HTML::style('css/bootstrap.min.css')}}
+    {{ HTML::style('css/general.css')}}
+    <!-- {{ HTML::style('css/jquery.ui.css') }} -->
 
     <!-- page-specific css-->
     @yield('css')
 
     <!-- modernizr JS -->
-    <script src="{{ asset('js/modernizr-2.6.2.min.js') }}"></script>
+    {{ HTML::script('js/modernizr-2.6.2.min.js') }}
 
     <div id="fb-root"></div>
     <script type="text/javascript">
@@ -42,6 +42,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/apple-touch-icon-114-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/apple-touch-icon-72-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}">
+    {{ HTML::style('css/jquery-ui-timepicker-addon.css') }}
+    {{ HTML::style('jqueryui/css/jquery-ui-1.10.3.custom.min.css') }}
 
     <!-- ICO -->
     <link rel="shortcut icon" href="favicon.ico">
@@ -102,17 +104,21 @@
 
 
     <!-- jQuery -->
-	<script src="{{ asset('js/jquery.min.js') }}"></script>
-	<script src="{{ asset('js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+	{{ HTML::script('js/jquery.min.js') }}
+	{{ HTML::script('jqueryui/js/jquery-ui-1.10.3.custom.min.js') }}
+    {{ HTML::script('js/jquery-ui-timepicker-addon.js') }}
+    {{ HTML::script('js/jquery-ui-sliderAccess.js') }}
 
-	<script src="{{ asset('js/plugins.js') }}"></script>
-	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-	<script src="{{ asset('js/underscore.js') }}"></script>
-	<script src="{{ asset('js/backbone.js') }}"></script>
+
+	{{ HTML::script('js/plugins.js') }}
+	{{ HTML::script('js/bootstrap.min.js') }}
+	{{ HTML::script('js/underscore.js') }}
+	{{ HTML::script('js/backbone.js') }}
 
 	<!-- leaflet Javascript file -->
-	<script src="{{ asset('leaflet/leaflet.js') }}"></script>
-	<script src="{{ asset('leaflet_label/leaflet.label.js') }}"></script>
+	{{ HTML::script('leaflet/leaflet.js') }}
+	{{ HTML::script('leaflet_label/leaflet.label.js') }}
+    {{ HTML::script('tinymce/tinymce.min.js') }}
 
 	@include('javascript') <!-- inline js -->
 	@yield('js') <!-- page-specific javascript-->

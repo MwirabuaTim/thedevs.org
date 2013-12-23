@@ -41,7 +41,7 @@
 		<form class="navbar-form navbar-left col-sm-5" role="search">
 		  <!-- <div class="form-group"> -->
 		    <input type="text" class="form-control" placeholder="Search">
-		  	<button type="submit" class="btn btn-default _aqua-hover _search-btn">Submit</button>
+		  	<button type="submit" class="btn _aqua-hover _search-btn">Submit</button>
 		  <!-- </div> -->
 		</form>
 	</div>

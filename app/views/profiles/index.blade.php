@@ -13,13 +13,13 @@
 				<th>Provider</th>
 				<th>First_name</th>
 				<th>Last_name</th>
-				<th>Email</th>
-				<th>Pic</th>
-				<th>Location</th>
-				<th>Description</th>
 				<th>Username</th>
+				<th>Email</th>
 				<th>Uid</th>
 				<th>Link</th>
+				<th>Location</th>
+				<th>About</th>
+				<th>Image</th>
 				<th>Code</th>
 				<th>Field1</th>
 				<th>Field2</th>
@@ -35,13 +35,13 @@
 					<td>{{{ $profile->provider }}}</td>
 					<td>{{{ $profile->first_name }}}</td>
 					<td>{{{ $profile->last_name }}}</td>
-					<td>{{{ $profile->email }}}</td>
-					<td>{{{ $profile->pic }}}</td>
-					<td>{{{ $profile->location }}}</td>
-					<td>{{{ $profile->description }}}</td>
 					<td>{{{ $profile->username }}}</td>
+					<td>{{{ $profile->email }}}</td>
 					<td>{{{ $profile->uid }}}</td>
 					<td>{{{ $profile->link }}}</td>
+					<td>{{{ $profile->location }}}</td>
+					<td>{{{ $profile->about }}}</td>
+					<td>{{{ $profile->image }}}</td>
 					<td>{{{ $profile->code }}}</td>
 					<td>{{{ $profile->field1 }}}</td>
 					<td>{{{ $profile->field2 }}}</td>

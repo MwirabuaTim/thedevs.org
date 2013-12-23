@@ -10,12 +10,12 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Creator</th>
+				<th>Title</th>
 				<th>Body</th>
 				<th>Location</th>
 				<th>Views</th>
 				<th>Votes</th>
+				<th>Creator</th>
 			</tr>
 		</thead>
 
@@ -23,11 +23,11 @@
 			@foreach ($stories as $story)
 				<tr>
 					<td><a href="{{ URL::to('stories/'.$story->id) }}">{{{ $story->name }}}</a></td>
-					<td>{{{ $story->creator }}}</td>
 					<td>{{{ $story->body }}}</td>
 					<td>{{{ $story->location }}}</td>
 					<td>{{{ $story->views }}}</td>
 					<td>{{{ $story->votes }}}</td>
+					<td>{{{ $story->creator }}}</td>
 				</tr>
 			@endforeach
 		</tbody>

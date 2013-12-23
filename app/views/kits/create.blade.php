@@ -13,7 +13,17 @@
 
         <li>
             {{ Form::label('about', 'About:') }}
-            {{ Form::text('about') }}
+            {{ Form::textarea('about') }}
+        </li>
+
+        <li>
+            {{ Form::label('public', 'Public:') }}
+            {{ Form::checkbox('public') }}
+        </li>
+
+        <li>
+            {{ Form::label('notes', 'Notes (Visible to creator only):') }}
+            {{ Form::textarea('notes') }}
         </li>
 
 		<li>

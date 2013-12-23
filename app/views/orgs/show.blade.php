@@ -12,7 +12,7 @@
 			<th>Logo</th>
 			<th>Video</th>
 			<th>Creator</th>
-			<th>Elevator</th>
+			<th>Tagline</th>
 			<th>Description</th>
 			<th>Type</th>
 			<th>Contacts</th>

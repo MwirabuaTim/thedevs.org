@@ -81,7 +81,7 @@ class Dev extends Eloquent {
 // 'email' => 'required',
 // 'pic' => 'required',
 // 'location' => 'required',
-// 'description' => 'required',
+// 'about' => 'required',
 // 'username' => 'required',
 // 'uid' => 'required',
 // 'link' => 'required',

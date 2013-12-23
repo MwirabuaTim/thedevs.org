@@ -9,7 +9,7 @@ class DevsController extends BaseController {
 	 */
 	protected $dev;
 
-	public function __construct(User $dev)
+	public function __construct(User $dev) //the only joint between Dev and User
 	{
 		$this->dev = $dev;
 	}
@@ -62,9 +62,16 @@ class DevsController extends BaseController {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * 
+	 *
 	 */
+	public function getAccount()
+	{
+		$id = Sentry::getUser()->id;
+
+		return Redirect::to('devs/'.$id);
+	}
+
 	public function show($id)
 	{
 		$dev = $this->dev->findOrFail($id);
@@ -78,6 +85,12 @@ class DevsController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
+
+	/**
+	 * User edit profile page.
+	 *
+	 * @return View
+	 */
 	public function edit($id)
 	{
 		$dev = $this->dev->find($id);
@@ -89,6 +102,55 @@ class DevsController extends BaseController {
 
 		return View::make('devs.edit', compact('dev'));
 	}
+	/**
+	 * User profile form processing page.
+	 *
+	 * @return Redirect
+	 */
+	public function update($id)
+	{
+		// Declare the rules for the form validation
+		$rules = array(
+			'first_name' => 'required|min:2',
+			'last_name'  => 'required|min:2',
+			'email'   => 'email',
+		);
+
+		// Create a new validator instance from our validation rules
+		$validator = Validator::make(Input::all(), $rules);
+
+		// If validation fails, we'll exit the operation now.
+		if ($validator->fails())
+		{
+			// Ooops.. something went wrong
+			return Redirect::back()->withInput()->withErrors($validator);
+		}
+
+		// Grab the user
+		$user = Sentry::getUser();
+
+		// Update the user information
+		$user->first_name = Input::get('first_name');
+		$user->last_name  = Input::get('last_name');
+		// $user->email		= Input::get('email');
+		$user->phone		= Input::get('phone');
+		$user->pic		= Input::get('pic');
+		$user->video		= Input::get('video');
+		$user->elevator		= Input::get('elevator');
+		$user->about		= Input::get('about');
+		$user->location		= Input::get('location');
+		$user->public		= Input::get('public');
+		$user->notes		= Input::get('notes');
+
+
+
+		$user->save();
+
+		// Redirect to the settings page
+		return Redirect::route('devs.show', $id)->with('success', 'Account successfully updated');
+	}
+
+
 
 	/**
 	 * Update the specified resource in storage.
@@ -96,24 +158,24 @@ class DevsController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
-		$input = array_except(Input::all(), '_method');
-		$validation = Validator::make($input, Dev::$rules);
+	// public function update($id)
+	// {
+	// 	$input = array_except(Input::all(), '_method');
+	// 	$validation = Validator::make($input, Dev::$rules);
 
-		if ($validation->passes())
-		{
-			$dev = $this->dev->find($id);
-			$dev->update($input);
+	// 	if ($validation->passes())
+	// 	{
+	// 		$dev = $this->dev->find($id);
+	// 		$dev->update($input);
 
-			return Redirect::route('devs.show', $id);
-		}
+	// 		return Redirect::route('devs.show', $id);
+	// 	}
 
-		return Redirect::route('devs.edit', $id)
-			->withInput()
-			->withErrors($validation)
-			->with('message', 'There were validation errors.');
-	}
+	// 	return Redirect::route('devs.edit', $id)
+	// 		->withInput()
+	// 		->withErrors($validation)
+	// 		->with('message', 'There were validation errors.');
+	// }
 
 	/**
 	 * Remove the specified resource from storage.

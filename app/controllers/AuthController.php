@@ -24,12 +24,12 @@ class AuthController extends BaseController {
 		// return $_SERVER["HTTP_REFERER"]; //only available on post request
 		// Show the page
 		if (isset($_SERVER["HTTP_REFERER"]) && stripos($_SERVER["HTTP_REFERER"], 'auth/signin')){
-			return View::make('frontend.auth.signin');
+			return View::make('account.signin');
 		}
 		else if (isset($_SERVER["HTTP_REFERER"])){
-			return View::make('frontend.auth.signin-basic');
+			return View::make('account.signin-basic');
 		}
-		return View::make('frontend.auth.signin');
+		return View::make('account.signin');
 	}
 
 	/**
@@ -133,12 +133,12 @@ class AuthController extends BaseController {
 			return Redirect::route('account');
 		}
 		if (isset($_SERVER["HTTP_REFERER"]) && stripos($_SERVER["HTTP_REFERER"], 'auth/signup')){
-			return View::make('frontend.auth.signup');
+			return View::make('account.signup');
 		}
 		else if (isset($_SERVER["HTTP_REFERER"])){
-			return View::make('frontend.auth.signup-basic');
+			return View::make('account.signup-basic');
 		}
-		return View::make('frontend.auth.signup');
+		return View::make('account.signup');
 	}
 
 	/**
@@ -268,7 +268,7 @@ class AuthController extends BaseController {
 	public function getForgotPassword()
 	{
 		// Show the page
-		return View::make('frontend.auth.forgot-password');
+		return View::make('account.forgot-password');
 	}
 
 	/**
@@ -342,7 +342,7 @@ class AuthController extends BaseController {
 		}
 
 		// Show the page
-		return View::make('frontend.auth.forgot-password-confirm');
+		return View::make('account.forgot-password-confirm');
 	}
 
 	/**

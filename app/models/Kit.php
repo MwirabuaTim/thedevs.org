@@ -7,10 +7,10 @@ class Kit extends Eloquent {
 		// 'name' => 'required',
 		// 'creator' => 'required',
 		// 'about' => 'required',
+		// 'public' => 'required',
+		// ' notes' => 'required',
 		// 'views' => 'required',
 		// 'votes' => 'required',
-		// 'notes' => 'required',
-		// 'status' => 'required',
-		// 'public' => 'required'
+		// 'status' => 'required'
 	);
 }

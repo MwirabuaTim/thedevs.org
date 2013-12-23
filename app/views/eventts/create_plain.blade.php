@@ -5,7 +5,7 @@
 	<ul>
         <li>
             {{ Form::label('name', 'Name:') }}
-            {{ Form::text('name') }}
+            {{ Form::text('name', null, array('class'=>'form-control')) }}
         </li>
 <!-- 
         <li>
@@ -19,35 +19,35 @@
         </li>
 
         <li>
-            {{ Form::label('elevator', 'Elevator:') }}
+            {{ Form::label('elevator', 'Tagline:') }}
             {{ Form::text('elevator') }}
         </li>
  -->
         <li>
             {{ Form::label('description', 'Description:') }}
-            {{ Form::textarea('description') }}
+            {{ Form::textarea('description', null, array('class'=>'form-control rich')) }}
         </li>
 
         <li>
             {{ Form::label('type', 'Type:') }}
-            {{ Form::text('type') }}
+            {{ Form::text('type', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('location', 'Location:') }}
-            {{ Form::text('location') }}
+            {{ Form::text('location', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
-            {{ Form::label('time_start', 'Time_start:') }}
-            {{ Form::text('time_start') }}
+            {{ Form::label('start_time', 'Start_time:') }}
+            {{ Form::text('start_time', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
-            {{ Form::label('time_end', 'Time_end:') }}
-            {{ Form::text('time_end') }}
+            {{ Form::label('end_time', 'End_time:') }}
+            {{ Form::text('end_time', null, array('class'=>'form-control')) }}
         </li>
-
+        
 <!--         <li>
             {{ Form::label('time_zone', 'Time_zone:') }}
             {{ Form::text('time_zone') }}

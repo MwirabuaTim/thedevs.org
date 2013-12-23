@@ -81,6 +81,10 @@ body {
 	color: #333;
 	margin-top: 10px;
 }
+._data{
+	width:100%;
+	padding: 10px;
+}
 
 .footer{
 	/*margin-top: 50px;*/
@@ -88,8 +92,8 @@ body {
 .preload{
   display: none;
   width: 30%;
-  margin-top: 20%;
-  position: fixed;
+  /*margin-top: 20%;*/
+  /*position: fixed;*/
   margin-left: 35%;
   z-index: 3000;
 }
@@ -127,7 +131,47 @@ body {
 	min-width: 150px;
 	clear: none;
 }
-
+._in-blocks{
+	display: inline-table;
+	width: 100%;
+}
+._block{
+	display: inline-block;
+}
+._inline{
+	display: inline;
+}
+._f10{
+	font-size: 10px;
+}
+._f20{
+	font-size: 20px;
+}
+._f30{
+	font-size: 30px;
+}
+._f40{
+	font-size: 40px;
+}
+._f50{
+	font-size: 50px;
+}
+._f60{
+	font-size: 60px;
+}
+._center{
+	text-align: center;
+	float: none;
+}
+.text-rotate {
+-webkit-transform: rotate(325deg);
+-moz-transform: rotate(325deg);
+-o-transform: rotate(325deg);
+-ms-transform:rotate(325deg);
+color:#000000;
+font-size:18px;
+font-family:arial, helvetica, sans-serif;
+}
 ul._nav{
 	list-style-type: none;
 	list-style: none;
@@ -149,14 +193,19 @@ ul._nav > li > a{
 	display: inline;
 }
 
-.layer{
-	clear: both;
-}
 .alert{
   margin-bottom: 0px;
   display: none;
 }
-
+._right10{
+	margin-right: 10px;
+}
+._left10{
+	margin-left: 10px;
+}
+.btn{
+	margin: 5px;
+}
 @font-face
 {
 font-family: devstiny;
@@ -166,7 +215,6 @@ src: url('../fonts/ARDESTINE.TTF'),
 input, textarea{
 	display: block;
 	width: 100%;
-	margin-top: 10px;
 }
 h1, h2, h3 {
 	margin-top: 5px;
@@ -212,6 +260,7 @@ a:hover {
 ._search-btn{
 	padding: 6px 12px;
 	float: right;
+	margin: 0px;
 }
 
 ._blade {
@@ -274,7 +323,7 @@ a:hover {
 	box-shadow: none;
 }
 .mapsearch form input{
-	width: calc(100% - 80px);
+	width: calc(100% - 85px);
 	display: inline-block;
 	margin-top: 0px;
 }
@@ -370,6 +419,9 @@ a:hover {
 	padding: 10px;
 }
 
+._creates .modal-body {
+	padding: 0px 0px 0px 10px;
+}
 
 /* cc auth */
 ._oauth.facebook {
@@ -408,48 +460,39 @@ a:hover {
 	background-image: -o-linear-gradient(top,#07bbff,#00aced);
 	background-image: linear-gradient(top,#07bbff,#00aced);
 }
+._oauth span{
+	background-position:0px -5px;
+	display: inline-block;
+	vertical-align: text-top;
+	background-repeat: no-repeat;
+	width: 28px;
+	height: 28px;
+}
 
 .icon-social-facebook {
-	display: inline-block;
-	vertical-align: text-top;
-	background-repeat: no-repeat;
-	width: 28px;
-	height: 28px;
 	background-image: url('../images/fb.png');
-	background-position: center center;
 }
 .icon-social-google {
-	display: inline-block;
-	vertical-align: text-top;
-	background-repeat: no-repeat;
-	width: 28px;
-	height: 28px;
 	background-image: url('../images/gg.png');
-	background-position: center center;
 }
 .icon-social-twitter {
-	display: inline-block;
-	vertical-align: text-top;
-	background-repeat: no-repeat;
-	width: 28px;
-	height: 28px;
 	background-image: url('../images/tw.png');
-	background-position: center center;
 }
 
 ._oauth {
-	border: 1px solid;
 	text-align: center;
-	/*padding: 10px;*/
 	line-height: 2;
 	position: relative;
 	color: white;
 	width: 180px;
+	height:35px;
+	border: 1px solid;
+	margin-bottom: 20px;
+	display: inline-block;
+	border-radius: 3px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	margin-bottom: 20px;
-	display: inline-block;
 	opacity: 0.9;
 }
 
@@ -467,6 +510,44 @@ form.new_user input#remember-me{
 }
 .createTemplate ul{
 	width: 95%;
+	padding-left: 10px;
+	list-style: none;
+}
+.modal-dialog{
+	width: 80%;
+	margin: 0px auto;
+}
+._in-blocks img{
+	max-height: 200px;
+	float:left;
+}
+._in-blocks table._bio{
+	float:right;
+	color: #333;
+}
+#showmap{
+	width: 100%;
+	height: 200px;
+	background-color: gray;
+}
+._checkbox input{
+	float: left;
+	width: auto;
+	margin: 10px;
+	height: 30px;
+}
+._checkbox label{
+	line-height: 30px;
+	margin: 10px;
+}
+label{
+	margin: 10px 0px 0px 0px;
+}
+@media (max-width: 1000px) {
+	.modal-dialog{
+		width: 90%;
+		margin: 0px auto;
+	}
 }
 
 @media (max-width: 550px) {
@@ -501,5 +582,28 @@ form.new_user input#remember-me{
 	}
 	#map{
 		width: 100%;
+	}
+	.modal-dialog{
+		width: 100%;
+		margin: 0px auto;
+	}
+	table._block{
+		float: none;
+	}
+	._in-blocks{
+		text-align: center;
+	}
+	._in-blocks img{
+		max-height: 200px;
+		display: block;
+		margin: 0px auto;
+		float: none;
+	}
+	._in-blocks table._bio {
+		float: none;
+	}
+	#showmap table{
+		width: auto;
+		margin: 100px 0px 0px 0px;
 	}
 }

@@ -3,49 +3,66 @@
 @section('main')
 <div class="_content">
 <h1>{{{ $eventt->name }}}</h1>
+<div id="showmap"></div>
+<div class="_in-blocks">
+	<table class="_block pull-left _right10">
+		<tr>
+			<th>Type: </th>
+			<td>{{{ $eventt->type }}}</td>
+		</tr>
+	</table>
+	<table class="_block pull-left _right10">
+		<tr>
+			<th>Venue: </th>
+			<td>{{{ $eventt->location }}}</td>
+		</tr>
+	</table>
+	<table class="_block pull-left _right10">
+		<tr>
+			<th>Organiser: </th>
+			<td>{{{ $eventt->creator }}}</td>
+		</tr>
+	</table>
+	</table>
+</div>
+<div class="_in-blocks">
+	<div class="_pic"></div>
+	<table class="_time _block pull-left _right10">
+		<tr>
+			<th>Start: </th>
+			<td>{{{ $eventt->start_time }}}</td>
+		</tr>
+		<tr>
+			<th>End: </th>
+			<td>{{{ $eventt->end_time }}}</td>
+		</tr>
+	</table>
+	<table class="_stats _block pull-left _right10">
+		<tr>
+			<th>Votes: </th>
+			<td>{{{ $eventt->votes }}}</td>
+			<td>Up-Dw</td>
+		</tr>
+		<tr>
+			<th>Views: </th>
+			<td rowspan="2">{{{ $eventt->views }}}</td>
+		</tr>
+	</table>
+	<table class="_time _block pull-left _right10">
+		<tr>
+			<th>Tickets: </th>
+			<td>Order</td>
+		</tr>
+		<tr>
+			<th>Remaining: </th>
+			<td>200</td>
+		</tr>
+	</table>
+</div>
+
+<div class="_data">{{ $eventt->description }}</div>
+
 
 <p>{{ link_to_route('eventts.index', 'Return to all eventts') }}</p>
-
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>Pic</th>
-			<th>Video</th>
-			<th>Creator</th>
-			<th>Elevator</th>
-			<th>Description</th>
-			<th>Type</th>
-			<th>Location</th>
-			<th>Event_image</th>
-			<th>Time_start</th>
-			<th>Time_end</th>
-			<th>Time_zone</th>
-			<th>Recurrence_period</th>
-			<th>Recurrence_count</th>
-			<th>Views</th>
-			<th>Votes</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<tr>
-			<td>{{{ $eventt->pic }}}</td>
-			<td>{{{ $eventt->video }}}</td>
-			<td>{{{ $eventt->creator }}}</td>
-			<td>{{{ $eventt->elevator }}}</td>
-			<td>{{{ $eventt->description }}}</td>
-			<td>{{{ $eventt->type }}}</td>
-			<td>{{{ $eventt->location }}}</td>
-			<td>{{{ $eventt->event_image }}}</td>
-			<td>{{{ $eventt->time_start }}}</td>
-			<td>{{{ $eventt->time_end }}}</td>
-			<td>{{{ $eventt->time_zone }}}</td>
-			<td>{{{ $eventt->recurrence_period }}}</td>
-			<td>{{{ $eventt->recurrence_count }}}</td>
-			<td>{{{ $eventt->views }}}</td>
-			<td>{{{ $eventt->votes }}}</td>
-		</tr>
-	</tbody>
-</table>
 </div>
 @stop

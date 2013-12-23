@@ -5,22 +5,22 @@
 	<ul>
         <li>
             {{ Form::label('name', 'Title:') }}
-            {{ Form::text('name') }}
+            {{ Form::text('name', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('body', 'Body:') }}
-            {{ Form::textarea('body') }}
+            {{ Form::textarea('body', null, array('class'=>'form-control rich')) }}
         </li>
 
         <li>
             {{ Form::label('location', 'Location:') }}
-            {{ Form::text('location') }}
+            {{ Form::text('location', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('public', 'Public:') }}
-            {{ Form::text('public') }}
+            {{ Form::text('public', null, array('class'=>'form-control')) }}
         </li>
 
 		<li>
