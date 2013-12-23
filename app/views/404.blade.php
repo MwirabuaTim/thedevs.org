@@ -12,10 +12,10 @@
 @stop
 
 @section('main')
-
 	<div class="error_container" style="text-align:center">
         <h1>404</h1>
         <p>This page can not be found.</p>
+
         <div id="www"></div>
 
 <script type="text/javascript">

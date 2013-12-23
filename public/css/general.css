@@ -67,6 +67,12 @@ body {
   /*background-color: #fff;*/
   /*color: #333;*/
   /*overflow-x: scroll;*/
+	background-color: #fff;
+	color: #333;
+	overflow-x: scroll;
+	padding: 10px 2%;
+	border-radius: 4px;
+	margin-top: 10px;
 }
 ._trunk{
 	margin-top: 10px;
@@ -215,6 +221,9 @@ src: url('../fonts/ARDESTINE.TTF'),
 input, textarea{
 	display: block;
 	width: 100%;
+}
+input[type='checkbox']{
+	width: auto;
 }
 h1, h2, h3 {
 	margin-top: 5px;

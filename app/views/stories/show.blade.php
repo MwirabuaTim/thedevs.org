@@ -1,7 +1,7 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<div class="_content">
+
 <h1>{{{ $story->name }}}</h1>
 
 <p>{{ link_to_route('stories.index', 'Return to all stories') }}</p>
@@ -27,5 +27,5 @@
 		</tr>
 	</tbody>
 </table>
-</div>
+
 @stop

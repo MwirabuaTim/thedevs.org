@@ -237,9 +237,6 @@
        afterPosting()
     }, 3000);
 
-    // $.get( '/'+selected_model, function(all_records) {;
-    //   $('._content').html(all_records)
-    // })
   }
   afterPosting = function(){
     $('img.preload').hide()

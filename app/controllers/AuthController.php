@@ -24,12 +24,12 @@ class AuthController extends BaseController {
 		// return $_SERVER["HTTP_REFERER"]; //only available on post request
 		// Show the page
 		if (isset($_SERVER["HTTP_REFERER"]) && stripos($_SERVER["HTTP_REFERER"], 'auth/signin')){
-			return View::make('account.signin');
+			return View::make('account/signin');
 		}
 		else if (isset($_SERVER["HTTP_REFERER"])){
 			return View::make('account.signin-basic');
 		}
-		return View::make('account.signin');
+		return View::make('account/signin');
 	}
 
 	/**

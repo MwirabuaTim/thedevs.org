@@ -1,4 +1,4 @@
-@extends('backend/layouts/default')
+@extends('layouts.scaffold')
 
 {{-- Page title --}}
 @section('title')
@@ -7,7 +7,7 @@ Create a User ::
 @stop
 
 {{-- Page content --}}
-@section('content')
+@section('main')
 <div class="page-header">
 	<h3>
 		Create a New User

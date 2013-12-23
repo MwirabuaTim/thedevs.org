@@ -13,7 +13,17 @@ class AdminController extends AuthorizedController {
 		$this->beforeFilter('admin-auth');
 	}
 
-
+	/**
+	 * Show the administration dashboard page.
+	 *
+	 * @return View
+	 */
+	
+	public function getIndex()
+	{
+		// Show the page
+		return View::make('backend/dashboard');
+	}
 
 	/**
 	 * Encodes the permissions so that they are form friendly.

@@ -3,8 +3,6 @@
 @section('main')
 
 @if(Sentry::check())
-<div class="_content">
-
 <div class="_in-blocks">
 	<h1 style="float: left;">{{{ $dev->first_name }}}&nbsp; {{{ $dev->last_name }}}</h1>
 	<span class="_right">
@@ -126,5 +124,5 @@
 @else
 	<h4>You have to be logged in to see this.<h4>
 @endif
-</div>
+
 @stop

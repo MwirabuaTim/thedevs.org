@@ -38,7 +38,7 @@
 		<!-- Form actions -->
 		<div class="control-group">
 			<div class="controls">
-				<a class="btn" href="{{ route('home') }}">Cancel</a>
+				<a class="btn btn-warning" href="{{ route('home') }}">Cancel</a>
 
 				<button type="submit" class="btn _sign-in">Sign in</button>
 

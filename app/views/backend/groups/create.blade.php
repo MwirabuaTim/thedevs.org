@@ -1,4 +1,4 @@
-@extends('backend/layouts/default')
+@extends('layouts.scaffold')
 
 {{-- Web site Title --}}
 @section('title')
@@ -7,7 +7,7 @@ Create a Group ::
 @stop
 
 {{-- Content --}}
-@section('content')
+@section('main')
 <div class="page-header">
 	<h3>
 		Create a New Group

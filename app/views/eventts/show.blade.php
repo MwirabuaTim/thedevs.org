@@ -1,7 +1,6 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<div class="_content">
 <h1>{{{ $eventt->name }}}</h1>
 <div id="showmap"></div>
 <div class="_in-blocks">
@@ -64,5 +63,4 @@
 
 
 <p>{{ link_to_route('eventts.index', 'Return to all eventts') }}</p>
-</div>
 @stop

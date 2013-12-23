@@ -1,4 +1,4 @@
-@extends('frontend/layouts/default')
+@extends('layouts.scaffold')
 
 {{-- Page title --}}
 @section('title')
@@ -7,7 +7,7 @@ Forgot Password ::
 @stop
 
 {{-- Page content --}}
-@section('content')
+@section('main')
 <div class="page-header">
 	<h3>Forgot Password</h3>
 </div>
@@ -27,7 +27,7 @@ Forgot Password ::
 	<!-- Form actions -->
 	<div class="control-group">
 		<div class="controls">
-			<a class="btn" href="{{ route('home') }}">Cancel</a>
+			<a class="btn btn-warning" href="{{ route('home') }}">Cancel</a>
 
 			<button type="submit" class="btn">Submit</button>
 		</div>
