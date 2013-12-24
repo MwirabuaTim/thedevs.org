@@ -79,9 +79,7 @@
             @endif
 
             <!-- Content -->
-            <div class="content">
-                @yield('content')
-            </div>
+            @yield('content')
             <!-- ./ content -->
 
             <!-- Notifications -->

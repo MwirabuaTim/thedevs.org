@@ -7,33 +7,27 @@ body {
 	font-family: Verdana,Helvetica,Arial,sans-serif;
 	background: #d9d9d9 url('../images/neue_bg.jpg') repeat-y;
 	background-size: 100%;
-	color: white;
 }
-.page-header {
-	margin: 10px 0px;
+.wrapper{
+	color: #fff;
 }
-.middles {
-	/*max-width: 1000px;*/
-	/*width: 90%;*/
-	margin: 0px auto;
-}
-
 ._container{
 	position: relative;
 	margin-top: 10px;
 	background-color: transparent;
+	color: #fff;
 	border-radius: 5px;
 	padding: 0px;
 }
-.content{
-/*  padding: 10px 2% 20px 2%;
-  position: relative;
-  width: auto;
-  min-height: 350px;
-  clear: both;
-  margin-top: 10px;*/
-  /*background-color: #fff;*/
-  /*color: #333;*/
+
+.page-header {
+	margin: 10px 0px;
+}
+
+.middles {
+	/*max-width: 1000px;*/
+	/*width: 90%;*/
+	margin: 0px auto;
 }
 
 .footer{
