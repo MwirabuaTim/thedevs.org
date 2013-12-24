@@ -59,7 +59,7 @@
 	</table>
 </div>
 
-<div class="_data">{{ $eventt->description }}</div>
+<div class="_w100 _p10">{{ $eventt->description }}</div>
 
 
 <p>{{ link_to_route('eventts.index', 'Return to all eventts') }}</p>

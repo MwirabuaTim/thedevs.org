@@ -32,9 +32,7 @@
 @stop
 
 @section('css')
-
- <link rel="stylesheet" href="{{ asset('assets/styles/css/home-searchsingle.css')}} ">
- 
+	{{ HTML::style('css/searchsingle.css')}}
 @stop
 
 

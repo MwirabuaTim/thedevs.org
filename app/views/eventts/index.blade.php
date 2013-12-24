@@ -1,6 +1,10 @@
-@extends('layouts.sub1')
+@extends('layouts.scaffold')
 
-@section('content')
+@section('transparent')
+	@include('partials.mapnav')
+@stop
+
+@section('main')
 
 <h1>All Events</h1>
 

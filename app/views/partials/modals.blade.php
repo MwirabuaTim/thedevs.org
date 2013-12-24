@@ -140,7 +140,7 @@
             <input id="password" name="password" placeholder="Password" size="30" tabindex="2" type="password" class="_text">
             <input id="password_confirm" name="password_confirm" placeholder="Confirm Password" size="30" tabindex="2" type="password" class="_text">
 
-            <input class="sign-up-buttonblue " name="commit" type="submit" value="Sign Up">
+            <input class="sign-up-button blue " name="commit" type="submit" value="Sign Up">
             
           </div>
           </form>

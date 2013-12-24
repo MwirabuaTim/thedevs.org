@@ -53,5 +53,5 @@
 @stop
 
 @section('css')
-	<link href="{{ asset('assets/styles/css/contactus.css') }}" rel="stylesheet" />
+	{{ HTML::style('css/contactus.css')}}
 @stop

@@ -7,7 +7,7 @@
 @stop
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('assets/styles/css/searchresults.css')}} ">
+    {{ HTML::style('css/searchresults.css')}}
 @stop
 
 @section('main')

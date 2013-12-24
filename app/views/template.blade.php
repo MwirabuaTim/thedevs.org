@@ -7,9 +7,7 @@
 @stop
 
 @section('css')
-
- <!-- <link rel="stylesheet" href="{{ asset('assets/styles/css/template.css')}} "> -->
-
+	{{ HTML::style('css/template.css')}}
 @stop
 
 @section('main')

@@ -40,6 +40,34 @@
       $('._blink-pink').show().fadeOut(1000)
     }, 1200);
   }
+  mapRecord = function(record){
+    coords = record.map;
+    mlat = parseFloat(coords.substr(0, coords.indexOf(', ')))
+    mlng = parseFloat(coords.substr(coords.indexOf(', ')+2, coords.length))
+
+    // console.log(mlat);
+    // console.log(mlng);
+    var marker = L.marker([mlat, mlng], {
+          icon: myIcon
+          })
+          .bindLabel('<a href="'
+            +window.location.origin+'/'+mymodel+'/'+record.id+'">'
+                +record.name+'</a>', { 
+          //label markers
+          noHide: true,
+          direction: 'auto'
+          }).addTo(map);
+    var popup = L.popup()
+        // .setLatLng(latlng)
+        .setContent('<a href="'
+          +window.location.origin+'/'+mymodel+'/'+record.id+'/edit">Edit</a><br />'
+          +record.description+'</p>')
+        .openOn(marker);
+    marker.bindPopup(popup)
+
+    markersgroup.push([mlat, mlng])
+    // console.log(marker.getLatLng());
+  }
 
   loadMap = function(_div, _path){
     console.log('Loading map for: ' + _path)
@@ -59,44 +87,25 @@
     L.tileLayer('http://{s}.tile.cloudmade.com/5e9427487a6142f7934b07d07a967ba3/997/256/{z}/{x}/{y}.png', {
         attribution: 'EuroHackTrip',
         maxZoom: 18,
-        opacity: 0.5
+        // opacity: 0.5
       }).addTo(map);
 
-    $.get('/api/'+_path, function(data){ //create markers for all
+    $.get('/api/'+_path, function(ddd){ //create markers for all
+    data = ddd
       if(data ==''){
          console.log('No data here yet... '+ data)
       }else{
-        $.each(data, function(key, record){
-          // console.log(record);
-          coords = record.map;
-          mlat = parseFloat(coords.substr(0, coords.indexOf(', ')))
-          mlng = parseFloat(coords.substr(coords.indexOf(', ')+2, coords.length))
-
-          // console.log(mlat);
-          // console.log(mlng);
-          var marker = L.marker([mlat, mlng], {
-                icon: myIcon
-                })
-                .bindLabel('<a href="'
-                  +window.location.origin+'/'+_path+'/'+record.id+'">'
-                      +record.name+'</a>', { 
-                //label markers
-                noHide: true,
-                direction: 'auto'
-                }).addTo(map);
-          var popup = L.popup()
-              // .setLatLng(latlng)
-              .setContent('<a href="'
-                +window.location.origin+'/'+_path+'/'+record.id+'/edit">Edit</a><br />'+record.description+'</p>')
-              .openOn(marker);
-          marker.bindPopup(popup)
-
-          markersgroup.push([mlat, mlng])
-          // console.log(marker.getLatLng());
-
-        })
-        map.fitBounds(markersgroup);
-        b = L.latLngBounds(markersgroup);
+          // console.log(data);
+        if(data[0]){ //data is an array of more than one json object
+          mymodel = _path
+          $.each(data, function(key, record){mapRecord(record)})
+        }
+        else{
+          mymodel = _path.substr(0, _path.indexOf('/')) //remove the index after model
+          mapRecord(data)
+        }
+        map.fitBounds(markersgroup)
+        b = L.latLngBounds(markersgroup)
         lat = b.getCenter().lat
         lng = b.getCenter().lng
       }
@@ -214,23 +223,42 @@
     
     // posting = new Posting(all_data);
     // posting.save()
-    console.log('post data is: ' + all_data)
-    console.log('posting to ' + selected_model)
 
-    $.ajax({
-      url:selected_model,
-      type:'POST',
-      dataType:"json",
-      data: all_data,
-      success:function(dd){ 
-        console.log(dd.statusText)
-        localStorage.status = 'posted'
+    console.log('posting ' + all_data + ' to ' + selected_model)
 
-      },
-      error:function(dd){ 
-        console.log(dd.statusText)
-      }
+    // $.ajax({
+    //   url:selected_model,
+    //   type:'POST',
+    //   dataType:"json",
+    //   data: all_data,
+    //   success:function(dd){ 
+    //     localStorage.status = 'posted'
+    //     console.log('localStorage.status has changed to: ' + localStorage.status);
+    //   }
+    //   , error:function(dd){ 
+    //     console.log('failed to post')
+    //   }
+    //   , done:function(dd){
+    //     console.log(dd.statusText)
+    //   }
+
+    // });
+
+    var postxhr = $.post(selected_model, all_data, function(res) {
+      localStorage.status = 'posted'
+      console.log('Success, localStorage.status has changed to: ' + localStorage.status);
+    })
+      .fail(function() {
+        console.log( "Error" );
+      })
+      .done(function(res) {
+        console.log( "Response is " + res.statusText);
+      });
+     
+    postxhr.always(function() {
+      console.log( "finished" );
     });
+
     $('img.preload').show()
 
     setTimeout(function(){
@@ -238,6 +266,8 @@
     }, 3000);
 
   }
+
+
   afterPosting = function(){
     $('img.preload').hide()
     $('.modal').modal('hide')
@@ -245,7 +275,6 @@
     window.location.pathname = selected_model
     //working on making this happen after Bacbone save is complete! damnit!
   }
-
 
 
   onMapClick = function(e) {
@@ -268,7 +297,7 @@
       iconAnchor: [10, 10],
       labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
     });
-    // console.log('the lat is: ' + lat + ' and the lng is: '+ lng);
+    console.log('mapping lat: ' + lat + ' and lng is: '+ lng);
     marker_new
       .setLatLng({'lat': lat, 'lng': lng})
       .setIcon(myIcon)
@@ -282,7 +311,7 @@
     marker_new.bindPopup(popup_new).openPopup()
 
     markersgroup.push([lat, lng])
-    map.fitBounds(markersgroup)
+    // map.fitBounds(markersgroup)
 
 
     $('a._step1').html('Next>>').attr('class', '_blade _aqua2pink _step2')
@@ -330,6 +359,7 @@ function initStyle() {
 var _path = window.location.pathname;
 _path = _path.substr(1, _path.length)
 if(_path ==''){_path = 'orgs'}
+var mymodel = ''
 var selected_model = _path
 // console.log(_path);
 var _url = window.location.href;
@@ -341,6 +371,7 @@ var all_data = ls ? ls : {}
 var lat = ''
 var lng = ''
 var selected_model = localStorage.selected_model
+var data = {}
 
 
 // var _blink = function(){}
@@ -349,14 +380,14 @@ var marker_new = L.marker()
 
 
 $(document).ready(function(){
-  // lat = localStorage.lat
+  lat = localStorage.lat
   lng = localStorage.lng
   richeditor()//for form textareas
 
   //mapping for home, /posts[blog] and /countries pages
-  // if(window.location.pathname == '/' 
-  //   || window.location.pathname ==  '/posts'
-  //   || window.location.pathname ==  '/countries'){ 
+  // if(_path == '/' 
+  //   || _path ==  '/posts'
+  //   || _path ==  '/countries'){ 
   // } //end if(window.location.pathname == '/'  ...
   $(document).bind('click', function(e) {
     // console.log(this.className + ' clicked')
@@ -372,6 +403,12 @@ $(document).ready(function(){
   if($('#map')[0] != undefined){
     loadMap('map', _path)
     //these need to be created just once 
+  }
+    //mapping for home, /posts[blog] and /countries pages
+  if(_path == 'devs/1' 
+    // || _path ==  '/devs'
+    || _path ==  'eventts/2'){ 
+    loadMap('showmap', _path)
   }
     
   if(localStorage.status == 'pending'){// local storage

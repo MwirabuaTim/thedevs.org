@@ -57,42 +57,37 @@
 
 </head>
 <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-    <div class="wrapper">
-      <img class="preload" alt="Loading..."  src="{{ asset('images/loadingbar.gif') }}">
-      <!-- <img class="saveloader" alt="Loading..."  src="{{ asset('images/loading-bar.gif') }}"> -->
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <!-- Container -->
-        <div class="middles _trunk">
-			@if (Session::has('message'))
-				<div class="flash alert">
-					<p>{{ Session::get('message') }}</p>
-				</div>
-			@endif
+    <!-- Container -->
+    <div class="middles container">
+    	@if (Session::has('message'))
+    		<div class="flash alert">
+    			<p>{{ Session::get('message') }}</p>
+    		</div>
+    	@endif
 
-
-
-            <!-- Content -->
-            <div class="content">
-                @yield('main')
-                <!-- ./ content -->
-            </div>
-
-            <!-- Notifications -->
-            @include('partials.notifications')
-            <!-- ./ notifications -->
-
-            <div class="fb-like" id="fblike" data-href="http://thedevs.org" data-send="false" 
-            data-width="450" data-show-faces="false"></div>
-
+        <!-- Content -->
+        <div class="content">
+            @yield('main')
         </div>
-        <!-- ./ container -->
+        <!-- ./ content -->
+
+        <!-- Notifications -->
+        @include('partials.notifications')
+        <!-- ./ notifications -->
+
+        <div class="fb-like" id="fblike" data-href="http://thedevs.org" data-send="false" 
+        data-width="450" data-show-faces="false"></div>
 
     </div>
-  </body>
+    <!-- ./ container -->
+    <img class="preload" alt="Loading..."  src="{{ asset('images/loadingbar.gif') }}">
+    <!-- <img class="saveloader" alt="Loading..."  src="{{ asset('images/loading-bar.gif') }}"> -->
+
+ </body>
 
 
     <!-- jQuery -->

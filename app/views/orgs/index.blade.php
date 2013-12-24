@@ -1,6 +1,10 @@
-@extends('layouts.sub1')
+@extends('layouts.scaffold')
 
-@section('content')
+@section('transparent')
+	@include('partials.mapnav')
+@stop
+
+@section('main')
 
 <h1>All Orgs</h1>
 <!-- <p>{{ link_to_route('orgs.create', 'Add new org') }}</p> -->

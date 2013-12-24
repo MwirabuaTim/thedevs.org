@@ -2,16 +2,19 @@
 
 {{-- Web site Title --}}
 @section('title')
-@parent
-:: Not Found
+	@parent
+	Not Logged in.
 @stop
-
 
 @section('css')
-	<link rel="stylesheet" href="{{ asset('assets/styles/css/error.css')}} ">
+	@include('partials.errorcss')
 @stop
 
-@section('main')
+@section('js')
+	@include('partials.errorjs')
+@stop
+
+@section('transparent')
 	
 	<div class="error_container">
         <h1>401</h1>

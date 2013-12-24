@@ -55,7 +55,7 @@
         </li> -->
 
 		<li>
-			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
+			{{ Form::submit('Submit', array('class' => 'btn btn-info form-control')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

@@ -11,7 +11,6 @@
 |
 */
 
-
 //Pain-killer:(removing trailing slashes from urls)
 
 Route::get('{any}', function($url){
@@ -66,6 +65,14 @@ Route::get('template', function(){return View::make('template');});
 Route::get('contactus', function(){ return View::make('contactus');});
 
 
+//Popup makers
+//-------------------------------------------------------------------------
+
+Route::get('/orgs/createpop', function(){return View::make('orgs/create_plain');});
+Route::get('/projects/createpop', function(){return View::make('projects/create_plain');});
+Route::get('/eventts/createpop', function(){return View::make('eventts/create_plain');});
+Route::get('/stories/createpop', function(){return View::make('stories/create_plain');});
+
 /*
 |--------------------------------------------------------------------------
 | Resources
@@ -86,14 +93,6 @@ Route::resource('kits', 'KitsController');
 Route::resource('tags', 'TagsController');
 
 Route::resource('mydatatypes', 'MydatatypesController');
-
-//Popup makers
-//-------------------------------------------------------------------------
-
-Route::get('/orgs/createpop', function(){return View::make('orgs/create_plain');});
-Route::get('/projects/createpop', function(){return View::make('projects/create_plain');});
-Route::get('/eventts/createpop', function(){return View::make('eventts/create_plain');});
-Route::get('/stories/createpop', function(){return View::make('stories/create_plain');});
 
 
 /*
@@ -144,39 +143,27 @@ Route::get('api/all', function(){
 	// var_dump($sources);
 	// return Org::all();
 });
+/*
+|--------------------------------------------------------------------------
+| Account Routes
+|--------------------------------------------------------------------------
+|
+*/
 
-//Admin
-//=====================================
-Route::group(array('prefix' => 'admin'), function()
-{
+Route::resource('devs', 'DevsController');
 
-	# User Management
-	Route::group(array('prefix' => 'users'), function()
-	{
-		Route::get('/', array('as' => 'users', 'uses' => 'Controllers\Admin\UsersController@getIndex'));
-		Route::get('create', array('as' => 'create/user', 'uses' => 'Controllers\Admin\UsersController@getCreate'));
-		Route::post('create', 'Controllers\Admin\UsersController@postCreate');
-		Route::get('{userId}/edit', array('as' => 'update/user', 'uses' => 'Controllers\Admin\UsersController@getEdit'));
-		Route::post('{userId}/edit', 'Controllers\Admin\UsersController@postEdit');
-		Route::get('{userId}/delete', array('as' => 'delete/user', 'uses' => 'Controllers\Admin\UsersController@getDelete'));
-		Route::get('{userId}/restore', array('as' => 'restore/user', 'uses' => 'Controllers\Admin\UsersController@getRestore'));
-	});
+Route::resource('profiles', 'ProfilesController');
 
-	# Group Management
-	Route::group(array('prefix' => 'groups'), function()
-	{
-		Route::get('/', array('as' => 'groups', 'uses' => 'Controllers\Admin\GroupsController@getIndex'));
-		Route::get('create', array('as' => 'create/group', 'uses' => 'Controllers\Admin\GroupsController@getCreate'));
-		Route::post('create', 'Controllers\Admin\GroupsController@postCreate');
-		Route::get('{groupId}/edit', array('as' => 'update/group', 'uses' => 'Controllers\Admin\GroupsController@getEdit'));
-		Route::post('{groupId}/edit', 'Controllers\Admin\GroupsController@postEdit');
-		Route::get('{groupId}/delete', array('as' => 'delete/group', 'uses' => 'Controllers\Admin\GroupsController@getDelete'));
-		Route::get('{groupId}/restore', array('as' => 'restore/group', 'uses' => 'Controllers\Admin\GroupsController@getRestore'));
-	});
+Route::get('account', array('as' => 'account', 'uses' => 'DevsController@getAccount'));
 
-	# Dashboard
-	Route::get('/', array('as' => 'admin', 'uses' => 'AdminController@getIndex'));
-});
+# Change Email
+Route::get('change-email', array('as' => 'change-email', 'uses' => 'AuthorizedController@getChangeEmail'));
+Route::post('change-email', 'AuthorizedController@postChangeEmail');
+
+# Change Password
+Route::get('change-password', array('as' => 'change-password', 'uses' => 'AuthorizedController@getChangePass'));
+Route::post('change-password', 'AuthorizedController@postChangePass');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -217,26 +204,43 @@ Route::group(array('prefix' => 'auth'), function()
 
 });
 
-
 /*
 |--------------------------------------------------------------------------
-| Account Routes
+| Administration
 |--------------------------------------------------------------------------
 |
 */
+Route::group(array('prefix' => 'admin'), function()
+{
 
-Route::resource('devs', 'DevsController');
+	# User Management
+	Route::group(array('prefix' => 'users'), function()
+	{
+		Route::get('/', array('as' => 'users', 'uses' => 'Controllers\Admin\UsersController@getIndex'));
+		Route::get('create', array('as' => 'create/user', 'uses' => 'Controllers\Admin\UsersController@getCreate'));
+		Route::post('create', 'Controllers\Admin\UsersController@postCreate');
+		Route::get('{userId}/edit', array('as' => 'update/user', 'uses' => 'Controllers\Admin\UsersController@getEdit'));
+		Route::post('{userId}/edit', 'Controllers\Admin\UsersController@postEdit');
+		Route::get('{userId}/delete', array('as' => 'delete/user', 'uses' => 'Controllers\Admin\UsersController@getDelete'));
+		Route::get('{userId}/restore', array('as' => 'restore/user', 'uses' => 'Controllers\Admin\UsersController@getRestore'));
+	});
 
-Route::resource('profiles', 'ProfilesController');
-Route::get('account', array('as' => 'account', 'uses' => 'DevsController@getAccount'));
-// Route::get('account', 'DevsController@getAccount');
-# Change Email
-Route::get('change-email', array('as' => 'change-email', 'uses' => 'AuthorizedController@getChangeEmail'));
-Route::post('change-email', 'AuthorizedController@postChangeEmail');
+	# Group Management
+	Route::group(array('prefix' => 'groups'), function()
+	{
+		Route::get('/', array('as' => 'groups', 'uses' => 'Controllers\Admin\GroupsController@getIndex'));
+		Route::get('create', array('as' => 'create/group', 'uses' => 'Controllers\Admin\GroupsController@getCreate'));
+		Route::post('create', 'Controllers\Admin\GroupsController@postCreate');
+		Route::get('{groupId}/edit', array('as' => 'update/group', 'uses' => 'Controllers\Admin\GroupsController@getEdit'));
+		Route::post('{groupId}/edit', 'Controllers\Admin\GroupsController@postEdit');
+		Route::get('{groupId}/delete', array('as' => 'delete/group', 'uses' => 'Controllers\Admin\GroupsController@getDelete'));
+		Route::get('{groupId}/restore', array('as' => 'restore/group', 'uses' => 'Controllers\Admin\GroupsController@getRestore'));
+	});
 
-# Change Password
-Route::get('change-password', array('as' => 'change-password', 'uses' => 'AuthorizedController@getChangePass'));
-Route::post('change-password', 'AuthorizedController@postChangePass');
+	# Dashboard
+	Route::get('/', array('as' => 'admin', 'uses' => 'AdminController@getIndex'));
+});
+
 
 
 
@@ -248,7 +252,7 @@ Route::post('change-password', 'AuthorizedController@postChangePass');
 */
 
 
-Route::get('sandbox', function(){ 
+// Route::get('sandbox', function(){ 
 
 	// $update = array('video' => 'new video ');
 	// $update['first_name'] = 'new name';
@@ -262,7 +266,7 @@ Route::get('sandbox', function(){
 	// return User::first();
 	// Route::get('api/devs', function(){ return Dev::all();});
 
-});
+// });
 
 // Route::get('/users', 'UserController@index');
 // Route::get('/users/create', 'UserController@create');

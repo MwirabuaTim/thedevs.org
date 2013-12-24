@@ -24,6 +24,7 @@ class DevsController extends BaseController {
 		$devs = $this->dev->all();
 
 		return View::make('devs.index', compact('devs'));
+		// return View::make('home');
 	}
 
 	/**

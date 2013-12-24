@@ -66,7 +66,7 @@
 			<div class="controls">
 				<a class="btn btn-warning" href="{{ route('home') }}">Cancel</a>
 
-				<button type="submit" class="btn">Sign up</button>
+				<button type="submit" class="btn btn-info">Sign up</button>
 			</div>
 		</div>
 	<!-- </form> -->

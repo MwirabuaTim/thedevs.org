@@ -32,11 +32,7 @@
         </ul>
     <!-- </div> -->
 
-	<!-- <div class="layer2"> -->
-        <!-- <form class="form-search">
-    		<input type="text" class="span2 search-query">
-    		<button type="submit" class="btn"><i class="icon-search"></i></button>
-        </form> -->
+
 	<div class="mapsearch">
 		<form class="navbar-form navbar-left col-sm-5" role="search">
 		  <!-- <div class="form-group"> -->
@@ -46,8 +42,4 @@
 		</form>
 	</div>
     
-
-    
-    <!-- </div> -->
-
 </div>

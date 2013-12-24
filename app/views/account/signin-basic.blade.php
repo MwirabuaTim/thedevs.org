@@ -40,7 +40,7 @@
 			<div class="controls">
 				<a class="btn btn-warning" href="{{ route('home') }}">Cancel</a>
 
-				<button type="submit" class="btn _sign-in">Sign in</button>
+				<button type="submit" class="btn btn-info _sign-in">Sign in</button>
 
 				<a href="{{ route('forgot-password') }}" class="btn btn-link">I forgot my password</a>
 			</div>

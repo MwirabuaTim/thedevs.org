@@ -97,7 +97,5 @@
 
 
 @section('css')
-
- <link rel="stylesheet" href="{{ asset('assets/styles/css/termsofuse.css')}} ">
- 
+	{{ HTML::style('css/tos.css')}} 
 @stop

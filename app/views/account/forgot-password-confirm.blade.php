@@ -7,7 +7,7 @@ Forgot Password ::
 @stop
 
 {{-- Page content --}}
-@section('content')
+@section('main')
 <div class="page-header">
 	<h3>Forgot Password</h3>
 </div>
