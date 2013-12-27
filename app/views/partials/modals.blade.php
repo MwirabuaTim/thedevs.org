@@ -65,40 +65,33 @@
 
         <div class="cell neutral email-signin">
 
-          <h4>Or sign in with email:</h4>
+          <h4 class="_inline">Sign in with Email:</h4>
+            <span class="pull-right _bottom10" >
+              Or <a href="/auth/signup" class="_get-sign-up">Create Account</a>
+            </span>
           <!-- <span class="or module">or</span> -->
           <form accept-charset="UTF-8" action="/auth/signin" class="new_user" id="new-session" method="post">
-
-          <div style="margin:0;padding:0;display:inline">
             <input name="utf8" type="hidden" value="✓">
             <!-- CSRF Token -->
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <input type="hidden" name="status" tabindex="2" value="signin" class="_hide">
 
-            <input autocapitalize="off" autocorrect="off" id="email" name="email" placeholder="Email" size="30" type="text" class="_text">
-            <input id="password" name="password" placeholder="Password" size="30" tabindex="2" type="password" class="_text">
+            <input class="form-control" autocapitalize="off" autocorrect="off" autofocus="on" id="email" name="email" placeholder="Email" size="30" type="text" class="_text">
+            <input class="form-control" id="password" name="password" placeholder="Password" size="30" tabindex="2" type="password" class="_text">
 
-            <div class="remember-me">
+            <div class="remember-me _inline">
               <input name="remember-me" type="hidden" value="0"><input checked="checked" id="remember-me" name="remember-me" type="checkbox" value="1">
               <label for="remember-me">Remember me</label>
               <a href="/secret/new" class="secondary">Forgot your password?</a>
             </div>
 
-            <input class="sign-in-button" name="commit" type="submit" value="Login">
-           
+            <input class="btn btn-info pull-right _m0" name="commit" type="submit" value="Login">
           </div>
           </form>
 
         </div>
-        <div>
-          <a href="/auth/signup" class="_get-sign-up secondary">Create Account</a>
-        </div>
 
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn _aqua-hover pull-left" data-dismiss="modal">Back</button>
-        <button type="button" class="btn btn-info _aqua-hover">Next</button>
-      </div> -->
 
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -123,42 +116,34 @@
 
         <div class="cell neutral email-signup">
 
-          <h4>Or sign up with email:</h4>
+          <h4 class="_inline">Sign up with Email:</h4>
+            <span class="pull-right _bottom10" >
+              Or <a href="/auth/signin" class="_get-sign-in">Sign In</a>
+            </span>
           <!-- <span class="or module">or</span> -->
           <form accept-charset="UTF-8" action="/auth/signup" class="new_user" id="new-session" method="post">
-          <div style="margin:0;padding:0;display:inline">
             <input name="utf8" type="hidden" value="✓">
 
             <!-- CSRF Token -->
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <input type="hidden" name="status" tabindex="2" value="signup" class="_hide">
 
-            <input autocapitalize="off" autocorrect="off" id="first_name" name="first_name" placeholder="First Name" size="30" type="text" class="_text">
-            <input autocapitalize="off" autocorrect="off" id="last_name" name="last_name" placeholder="Last Name" size="30" type="text" class="_text">
-            <input autocapitalize="off" autocorrect="off" id="email" name="email" placeholder="Email" size="30" type="text" class="_text">
-            <input autocapitalize="off" autocorrect="off" id="email_confirm" name="email_confirm" placeholder="Confirm Email" size="30" type="text" class="_text">
-            <input id="password" name="password" placeholder="Password" size="30" tabindex="2" type="password" class="_text">
-            <input id="password_confirm" name="password_confirm" placeholder="Confirm Password" size="30" tabindex="2" type="password" class="_text">
+            <input class="form-control" autofocus="on" autocapitalize="off" autocorrect="off" id="first_name" name="first_name" placeholder="First Name" size="30" type="text" class="_text">
+            <input class="form-control" autocapitalize="off" autocorrect="off" id="last_name" name="last_name" placeholder="Last Name" size="30" type="text" class="_text">
+            <input class="form-control" autocapitalize="off" autocorrect="off" id="email" name="email" placeholder="Email" size="30" type="text" class="_text">
+            <input class="form-control" id="password" name="password" placeholder="Password" size="30" tabindex="2" type="password" class="_text">
+            <input class="form-control" id="password_confirm" name="password_confirm" placeholder="Confirm Password" size="30" tabindex="2" type="password" class="_text">
 
-            <input class="sign-up-button blue " name="commit" type="submit" value="Sign Up">
+            <span class="note">By signing up, you agree to our 
+              <a href="{{ URL::to('tos') }}">Terms of Service</a>
+            </span>
+
+            <input class="btn btn-info pull-right _m0" name="commit" type="submit" value="Sign Up">
             
-          </div>
           </form>
 
         </div>
-        <div>
-          <a href="/auth/signin" class="_get-sign-in secondary">Sign In</a>
-          <span class="note">By signing up, you agree to our 
-            <a href="{{ URL::to('tos') }}">Terms of Service</a>
-          </span>
-        </div>
-
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn _aqua-hover pull-left" data-dismiss="modal">Back</button>
-        <button type="button" class="btn btn-info _aqua-hover">Next</button>
-      </div> -->
-
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

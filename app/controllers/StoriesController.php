@@ -48,6 +48,7 @@ class StoriesController extends BaseController {
 
 		if ($validation->passes())
 		{
+			$input['creator'] = Sentry::getUser()->id;
 			$this->story->create($input);
 
 			return Redirect::route('stories.index');

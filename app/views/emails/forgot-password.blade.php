@@ -9,5 +9,5 @@
 
 <p>Best regards,</p>
 
-<p>SiteNameHere Team</p>
+<p>TheDevs.org Team</p>
 @stop

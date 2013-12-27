@@ -1,36 +1,39 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Error 500 - Internal Server Error</title>
-	<meta name="viewport" content="width=device-width">
+@extends('layouts.scaffold')
+
+{{-- Web site Title --}}
+@section('title')
+	@parent
+	Internal Server Error
+@stop
+
+@section('css')
 	@include('partials.errorcss')
-</head>
-<body>
-	<div class="wrapper">
-		<div class="error-spacer"></div>
-		<div role="main" class="main">
-			<?php $messages = array('Ouch.', 'Oh no!', 'Whoops!'); ?>
+@stop
 
-			<h1><?php echo $messages[mt_rand(0, 2)]; ?></h1>
+@section('js')
+	@include('partials.errorjs')
+@stop
 
-			<h2>Server Error: 500 (Internal Server Error)</h2>
+@section('transparent')
+	
+	<div class="error-container">
+	    <h1>500</h1>
 
-			<hr>
+	    <div id="www">:(</div>
 
-			<h3>What does this mean?</h3>
+		<?php $messages = array('Yainks!', 'Oh no!', 'Whoops!'); ?>
 
-			<p>
-				Something went wrong on our servers while we were processing your request.
-				We're really sorry about this, and will work hard to get this resolved as
-				soon as possible.
-			</p>
+		<h1><?php echo $messages[mt_rand(0, 2)]; ?></h1>
 
-			<p>
-				Perhaps you would like to go to our <a href="{{ URL::to('home'); }}">home page</a>?
-			</p>
-		</div>
+		<hr>
+
+		<p>
+			An error just happened on our servers.
+		</p>
+
+		<p>
+			Perhaps you would like to <a href="{{ URL::to('contactus'); }}">report this</a>?
+		</p>
+		
 	</div>
-</body>
-</html>
+@stop

@@ -1,11 +1,12 @@
-<div class="middles header">
-    <a href="{{ URL::to('/') }}" class="head _aqua-hover-text">
-    T<span class="small">HE</span>D<span class="small">EVS</span>
+<div class="_header">
+    <a href="{{ URL::to('/') }}" class="_top-left _in-block">
+        <span class="_logo _aqua-hover-text">
+            T<span class="_small">HE</span>D<span class="small">EVS</span>
+        </span>
+        <span class="_tagline">Where Developers Connect</span>
     </a>
-    <br/>
-    <span class="head tagline">Where Developers Connect</span>
    <!-- <div class="pull-right"> -->
-    	<ul class="_nav layer brick col-sm-5">
+    	<ul class="_nav _brick _top-right">
             @if (Sentry::check())
                 <?php $id = Sentry::getUser()->id; ?>
                 <li {{ (Request::is('devs/'.$id .'/books') ? 'class="active"' : '') }}>
@@ -32,14 +33,11 @@
         </ul>
     <!-- </div> -->
 
-
-	<div class="mapsearch">
-		<form class="navbar-form navbar-left col-sm-5" role="search">
-		  <!-- <div class="form-group"> -->
-		    <input type="text" class="form-control" placeholder="Search">
-		  	<button type="submit" class="btn _aqua-hover _search-btn">Submit</button>
-		  <!-- </div> -->
-		</form>
-	</div>
+	<form class="mapsearch navbar-form navbar-left col-sm-5" role="search">
+	  <!-- <div class="form-group"> -->
+	    <input type="text" class="form-control" placeholder="Search">
+	  	<button type="submit" class="btn _aqua-hover _search-btn">Submit</button>
+	  <!-- </div> -->
+	</form>
     
 </div>

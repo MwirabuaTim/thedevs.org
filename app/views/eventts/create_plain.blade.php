@@ -7,9 +7,10 @@
             {{ Form::label('name', 'Name:') }}
             {{ Form::text('name', null, array('class'=>'form-control')) }}
         </li>
+
 <!-- 
         <li>
-            {{ Form::label('pic', 'Pic:') }}
+            {{ Form::label('pic', 'Picture Link:') }}
             {{ Form::text('pic') }}
         </li>
 
@@ -34,17 +35,17 @@
         </li>
 
         <li>
-            {{ Form::label('location', 'Location:') }}
+            {{ Form::label('location', 'Location Name:') }}
             {{ Form::text('location', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
-            {{ Form::label('start_time', 'Start_time:') }}
+            {{ Form::label('start_time', 'Start Time:') }}
             {{ Form::text('start_time', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
-            {{ Form::label('end_time', 'End_time:') }}
+            {{ Form::label('end_time', 'End Time:') }}
             {{ Form::text('end_time', null, array('class'=>'form-control')) }}
         </li>
         

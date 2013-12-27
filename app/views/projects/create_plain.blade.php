@@ -25,11 +25,6 @@
         </li>
  -->
         <li>
-            {{ Form::label('link', 'Link:') }}
-            {{ Form::text('link', null, array('class'=>'form-control')) }}
-        </li>
-
-        <li>
             {{ Form::label('description', 'Description:') }}
             {{ Form::textarea('description', null, array('class'=>'form-control rich')) }}
         </li>
@@ -45,7 +40,7 @@
         </li>
 
         <li>
-            {{ Form::label('location', 'Location:') }}
+            {{ Form::label('location', 'Location Name:') }}
             {{ Form::text('location', null, array('class'=>'form-control')) }}
         </li>
 

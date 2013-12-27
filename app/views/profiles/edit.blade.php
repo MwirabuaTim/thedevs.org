@@ -41,7 +41,7 @@
         </li>
 
         <li>
-            {{ Form::label('location', 'Location:') }}
+            {{ Form::label('location', 'Location Name:') }}
             {{ Form::text('location') }}
         </li>
 

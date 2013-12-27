@@ -48,6 +48,7 @@ class ProjectsController extends BaseController {
 
 		if ($validation->passes())
 		{
+			$input['creator'] = Sentry::getUser()->id;
 			$this->project->create($input);
 
 			return Redirect::route('projects.index');

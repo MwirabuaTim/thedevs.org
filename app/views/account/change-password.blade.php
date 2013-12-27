@@ -18,39 +18,30 @@ Change your Password
 	<!-- Old Password -->
 	<div class="control-group{{ $errors->first('old_password', ' error') }}">
 		<label class="control-label" for="old_password">Old Password</label>
-		<div class="controls">
-			<input type="password" name="old_password" id="old_password" value="" />
-			{{ $errors->first('old_password', '<span class="help-block">:message</span>') }}
-		</div>
+		<input type="password" class="form-control" name="old_password" id="old_password" value="" />
+		{{ $errors->first('old_password', '<span class="help-block">:message</span>') }}
 	</div>
 
 	<!-- New Password -->
 	<div class="control-group{{ $errors->first('password', ' error') }}">
 		<label class="control-label" for="password">New Password</label>
-		<div class="controls">
-			<input type="password" name="password" id="password" value="" />
-			{{ $errors->first('password', '<span class="help-block">:message</span>') }}
-		</div>
+		<input type="password" class="form-control" name="password" id="password" value="" />
+		{{ $errors->first('password', '<span class="help-block">:message</span>') }}
 	</div>
 
 	<!-- Confirm New Password  -->
 	<div class="control-group{{ $errors->first('password_confirm', ' error') }}">
 		<label class="control-label" for="password_confirm">Confirm New Password</label>
-		<div class="controls">
-			<input type="password" name="password_confirm" id="password_confirm" value="" />
-			{{ $errors->first('password_confirm', '<span class="help-block">:message</span>') }}
-		</div>
+		<input type="password" class="form-control" name="password_confirm" id="password_confirm" value="" />
+		{{ $errors->first('password_confirm', '<span class="help-block">:message</span>') }}
 	</div>
 
 	<hr>
 
 	<!-- Form actions -->
 	<div class="control-group">
-		<div class="controls">
-			<button type="submit" class="btn">Update Password</button>
-
-			<a href="{{ route('forgot-password') }}" class="btn btn-link">I forgot my password</a>
-		</div>
+		<button type="submit" class="btn btn-info">Update Password</button>
+		<a href="{{ route('forgot-password') }}" class="btn btn-link">I forgot my password</a>
 	</div>
 </form>
 @stop

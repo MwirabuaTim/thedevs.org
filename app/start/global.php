@@ -99,14 +99,16 @@ App::down(function()
 // App::abort(401, 'You are not authorized.');
 App::missing(function($exception)
 {
-    return Response::view('401', array(), 401);
+    // return Response::view('401', array(), 401);
+	return Response::make(View::make('error/401'), 401);
 });
 
 
 // Page not found
 App::missing(function($exception)
 {
-    return Response::view('404', array(), 404);
+    // return Response::view('404', array(), 404);
+	return Response::make(View::make('error/404'), 404);
 });
 
 

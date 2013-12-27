@@ -2,30 +2,49 @@
 
 @section('main')
 
-<h1>{{{ $story->name }}}</h1>
+<div class="_w100 _in-block">
+	<h1 class="pull-left">{{{ $story->name }}}</h1>
+	<span class="pull-right">
+		{{ User::getEditLink($story, 'stories') }}
+	</span>
+	
+</div>
+<div id="single-map"></div>
+<img class="_profile-pic" src="{{{ Sentry::findUserById($story->creator)->pic }}}" />
 
-<p>{{ link_to_route('stories.index', 'Return to all stories') }}</p>
-
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>Creator</th>
-			<th>Body</th>
-			<th>Location</th>
-			<th>Views</th>
-			<th>Votes</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<tr>
-			<td>{{{ $story->creator }}}</td>
-			<td>{{{ $story->body }}}</td>
-			<td>{{{ $story->location }}}</td>
-			<td>{{{ $story->views }}}</td>
-			<td>{{{ $story->votes }}}</td>
-		</tr>
-	</tbody>
+<table class="_right10 _in-block">
+	<tr>
+		<th>Author: </th>
+		<td>{{ User::find($story->creator)->getNameLink() }}</td>
+	</tr>
 </table>
+
+<div class="pull-right">
+
+	<table class="_right10 _in-block">
+		<tr>
+			<th>Location: </th>
+			<td>{{{ $story->location }}}</td>
+		</tr>
+	</table>
+
+<!-- 	<table class="_stats _right10 _in-block">
+		<tr>
+			<th>Views: </th>
+			<td rowspan="2">{{{ $story->views }}}</td>
+		</tr>
+	</table>
+
+	<table class="_stats _right10 _in-block">
+		<tr>
+			<th>Votes: </th>
+			<td>{{{ $story->votes }}}</td>
+			<td>Up-Dw</td>
+		</tr>
+	</table> -->
+</div>
+<div class="_w100 _p10">{{ $story->body }}</div>
+
+{{ link_to_route('stories.index', 'View all Stories', null, array('class' => 'pull-left btn btn-link')) }}
 
 @stop

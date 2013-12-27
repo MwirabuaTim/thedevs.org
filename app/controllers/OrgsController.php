@@ -49,6 +49,7 @@ class OrgsController extends BaseController {
 
 		if ($validation->passes())
 		{
+			$input['creator'] = Sentry::getUser()->id;
 			$this->org->create($input);
 
 			return Redirect::route('orgs.index');

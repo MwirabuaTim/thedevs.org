@@ -2,40 +2,83 @@
 
 @section('main')
 
-<h1>{{{ $org->name }}}</h1>
+<div class="_w100 _in-block">
+	<h1 class="pull-left">{{{ $org->name }}}</h1>
+	<span class="pull-right">
+		{{ User::getEditLink($org, 'orgs') }}
+	</span>
+	
+</div>
+<div id="single-map"></div>
+<img class="_profile-pic" src="{{{ $org->logo }}}" />
 
-<p>{{ link_to_route('orgs.index', 'Return to all orgs') }}</p>
-
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>Logo</th>
-			<th>Video</th>
-			<th>Creator</th>
-			<th>Tagline</th>
-			<th>Description</th>
-			<th>Type</th>
-			<th>Contacts</th>
-			<th>Location</th>
-			<th>Views</th>
-			<th>Votes</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<tr>
-			<td>{{{ $org->logo }}}</td>
-			<td>{{{ $org->video }}}</td>
-			<td>{{{ $org->creator }}}</td>
-			<td>{{{ $org->elevator }}}</td>
-			<td>{{{ $org->description }}}</td>
-			<td>{{{ $org->type }}}</td>
-			<td>{{{ $org->contacts }}}</td>
-			<td>{{{ $org->location }}}</td>
-			<td>{{{ $org->views }}}</td>
-			<td>{{{ $org->votes }}}</td>
-		</tr>
-	</tbody>
+<table class="_right10 _in-block">
+	<tr>
+		<th>Creator: </th>
+		<td>{{ User::find($org->creator)->getNameLink() }}</td>
+	</tr>
 </table>
+
+<div class="pull-right">
+	<table class="_right10 _in-block">
+		<tr>
+			<th>Type: </th>
+			<td>{{{ $org->type }}}</td>
+		</tr>
+	</table>
+
+	<table class="_right10 _in-block">
+		<tr>
+			<th>Location: </th>
+			<td>{{{ $org->location }}}</td>
+		</tr>
+	</table>
+
+
+<!-- 	<table class="_stats _right10 _in-block">
+		<tr>
+			<th>Views: </th>
+			<td rowspan="2">{{{ $org->views }}}</td>
+		</tr>
+	</table>
+
+	<table class="_stats _right10 _in-block">
+		<tr>
+			<th>Votes: </th>
+			<td>{{{ $org->votes }}}</td>
+			<td>Up-Dw</td>
+		</tr>
+	</table> -->
+</div>
+
+<p class="_center _f30">"<span class="_f30">{{{ $org->elevator }}}</span>"</p>
+
+
+
+<h4>About {{{ $org->name }}}:</h4>
+<div class="_about">
+	@if(filter_var($org->video, FILTER_VALIDATE_URL))
+<!-- height="315" -->
+	<div class="vid-wrapper pull-left _right10">
+		<div class="media-box">
+		<!-- <div class="vid-wrapper"> -->
+			<iframe src="//www.youtube.com/embed/
+			{{{ substr($org->video, stripos($org->video, 'v=')+2, strlen($org->video)) }}}" 
+			frameborder="0" allowfullscreen></iframe>
+		<!-- </div> -->
+		</div>
+	</div>
+	@endif
+
+	{{ $org->description }}
+
+</div>
+
+<h2 class="contacts-header">Contacts</h2>
+<div class="_w100 _p10">{{ $org->contacts }}</div>
+
+{{ link_to_route('orgs.index', 'View all Orgs', null, array('class' => 'pull-left btn btn-link')) }}
+
+
 
 @stop

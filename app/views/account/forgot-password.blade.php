@@ -18,19 +18,14 @@ Forgot Password ::
 	<!-- Email -->
 	<div class="control-group{{ $errors->first('email', ' error') }}">
 		<label class="control-label" for="email">Email</label>
-		<div class="controls">
-			<input type="text" name="email" id="email" value="{{ Input::old('email') }}" />
-			{{ $errors->first('email', '<span class="help-block">:message</span>') }}
-		</div>
+		<input type="text" class="form-control" name="email" id="email" value="{{ Input::old('email') }}" />
+		{{ $errors->first('email', '<span class="help-block">:message</span>') }}
 	</div>
 
 	<!-- Form actions -->
 	<div class="control-group">
-		<div class="controls">
-			<a class="btn btn-warning" href="{{ route('home') }}">Cancel</a>
-
-			<button type="submit" class="btn">Submit</button>
-		</div>
+		<a class="btn btn-warning" href="{{ route('home') }}">Cancel</a>
+		<button type="submit" class="btn btn-info">Submit</button>
 	</div>
 </form>
 @stop

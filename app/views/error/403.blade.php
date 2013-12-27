@@ -1,32 +1,33 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Error 403 - Forbidden</title>
-	<meta name="viewport" content="width=device-width">
+@extends('layouts.scaffold')
+
+{{-- Web site Title --}}
+@section('title')
+	@parent
+	Access Forbidden
+@stop
+
+@section('css')
 	@include('partials.errorcss')
-</head>
-<body>
-	<div class="wrapper">
-		<div class="error-spacer"></div>
-		<div role="main" class="main">
-			<h1>Access Forbidden</h1>
+@stop
 
-			<h2>Server Error: 403 (Forbidden)</h2>
+@section('js')
+	@include('partials.errorjs')
+@stop
 
-			<hr>
+@section('transparent')
+	<div class="error-container">
+		<h1>403</h1>
 
-			<h3>What does this mean?</h3>
+		<div id="www">:(</div>
 
-			<p>
-				You don't have the necessary permissions to access to this page.
-			</p>
+		<hr>
 
-			<p>
-				Perhaps you would like to go to our <a href="{{ URL::route('home'); }}">home page</a>?
-			</p>
-		</div>
+		<p>
+			You don't have the necessary permissions to access to this page.
+		</p>
+
+		<p>
+			Perhaps you would like to go to our <a href="{{ URL::route('home') }}">home page</a>?
+		</p>
 	</div>
-</body>
-</html>
+@stop

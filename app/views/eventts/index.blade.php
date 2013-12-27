@@ -14,15 +14,15 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<th>Pic</th>
+				<!-- <th>Pic</th> -->
 				<th>Title</th>
-				<th>Tagline</th>
+				<!-- <th>Tagline</th> -->
 				<th>Type</th>
 				<th>Location</th>
-				<th>Time_start</th>
-				<th>Time_end</th>
-				<th>Views</th>
-				<th>Votes</th>
+				<th>Time</th>
+				<!-- <th>Time_end</th> -->
+				<!-- <th>Views</th> -->
+				<!-- <th>Votes</th> -->
 				<th>Creator</th>
 			</tr>
 		</thead>
@@ -30,16 +30,16 @@
 		<tbody>
 			@foreach ($eventts as $eventt)
 				<tr>
-					<td>{{{ $eventt->pic }}}</td>
+					<!-- <td><img src="{{{ User::find($eventt->organizer)->pic }}}" style="max-width: 100px;" /></td> -->
 					<td><a href="{{ URL::to('eventts/'.$eventt->id) }}">{{{ $eventt->name }}}</a></td>
-					<td>{{{ $eventt->elevator }}}</td>
+					<!-- <td>{{{ $eventt->elevator }}}</td> -->
 					<td>{{{ $eventt->type }}}</td>
 					<td>{{{ $eventt->location }}}</td>
-					<td>{{{ $eventt->start_time }}}</td>
-					<td>{{{ $eventt->end_time }}}</td>
-					<td>{{{ $eventt->views }}}</td>
-					<td>{{{ $eventt->votes }}}</td>
-					<td>{{{ $eventt->creator }}}</td>
+					<td>{{{ $eventt->start_time }}}</br>{{{ $eventt->end_time }}}</td>
+					<!-- <td>{{{ $eventt->end_time }}}</td> -->
+					<!-- <td>{{{ $eventt->views }}}</td> -->
+					<!-- <td>{{{ $eventt->votes }}}</td> -->
+					<td>{{ User::find($eventt->organizer)->getNameLink() }}</td>
 				</tr>
 			@endforeach
 		</tbody>

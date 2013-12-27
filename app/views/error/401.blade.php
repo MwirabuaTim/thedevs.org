@@ -3,7 +3,7 @@
 {{-- Web site Title --}}
 @section('title')
 	@parent
-	Not Logged in.
+	Not Logged In
 @stop
 
 @section('css')
@@ -16,11 +16,18 @@
 
 @section('transparent')
 	
-	<div class="error_container">
+	<div class="error-container">
+
         <h1>401</h1>
-        <span class="sad">:(</span>
+    
+        <div id="www">:(</div>
+    
+    	<hr/>
+
         <p>You have to be logged in to access this page.</p>
-        <p>Please <a href="{{ URL::to('login') }}">log in</a> or <a href="{{ URL::to('register') }}">register.</a></p>
+    
+        <p>Please <a href="{{ URL::route('signin') }}" class="_get-sign-in _aqua">log in</a> or 
+        	<a href="{{ URL::route('signup') }}" class="_get-sign-up _aqua">register.</a></p>
     </div>
 
 @stop

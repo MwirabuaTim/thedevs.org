@@ -1,22 +1,32 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Scheduled Maintenance</title>
-	<meta name="viewport" content="width=device-width">
-	@include('partials.errorcss')
-</head>
-<body>
-	<div class="wrapper">
-		<div class="error-spacer"></div>
-		<div role="main" class="main">
-			<h1>Scheduled Maintenance</h1>
+@extends('layouts.scaffold')
 
-			<p>
-				We are under a scheduled maintenance and we'll be back shortly!
-			</p>
-		</div>
+{{-- Web site Title --}}
+@section('title')
+	@parent
+	Scheduled Maintenance
+@stop
+
+@section('css')
+	@include('partials.errorcss')
+@stop
+
+@section('js')
+	@include('partials.errorjs')
+@stop
+
+@section('transparent')
+
+	<div class="error-container">
+
+	    <h1>503</h1>
+
+	    <div id="www">:(</div>
+
+	    <hr/>
+
+		<p>
+			We are under a scheduled maintenance and we'll be back shortly!
+		</p>
+
 	</div>
-</body>
-</html>
+@stop

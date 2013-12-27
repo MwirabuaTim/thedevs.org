@@ -8,11 +8,13 @@
 
 <h1>Devs</h1>
 
+<p>{{ link_to_route('devs.create', 'Add new Dev') }}</p>
+
 @if ($devs->count())
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<th>Pic</th>
+				<th>Picture</th>
 				<th>Name</th>
 				<th>Tagline</th>
 				<th>Location</th>

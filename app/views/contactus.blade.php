@@ -13,7 +13,7 @@
 
 <form action="/gmail" class="contactUs" method="POST">
   <fieldset>
-  	<h3 class="gradient-light">Send us a message</h3>
+  	<legend class="gradient-light">Send us a message</legend>
 
 	  <div class="name">
 	    	  <label for="name">Name</label>
@@ -50,8 +50,4 @@
 
   <p>Thanks for contacting us here at TheDevs.org. We are always looking for ways to improve, so we look forward to addressing your comment.</p>	
 
-@stop
-
-@section('css')
-	{{ HTML::style('css/contactus.css')}}
 @stop

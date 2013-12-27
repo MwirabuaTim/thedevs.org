@@ -2,69 +2,61 @@
 
 @section('main')
 
-<h1>Edit Eventt</h1>
+<h1>Edit Event</h1>
 {{ Form::model($eventt, array('method' => 'PATCH', 'route' => array('eventts.update', $eventt->id))) }}
-	<ul>
+	<ul class="control-group">
         <li>
-            {{ Form::label('name', 'Name:') }}
-            {{ Form::text('name') }}
-        </li>
-
-        <li>
-            {{ Form::label('creator', 'Creator:') }}
-            {{ Form::input('number', 'creator') }}
-        </li>
-
-        <li>
-            {{ Form::label('elevator', 'Tagline:') }}
-            {{ Form::text('elevator') }}
+            {{ Form::label('name', 'Event Name:') }}
+            {{ Form::text('name', null, array('class'=>'form-control _w100')) }}
         </li>
 
         <li>
             {{ Form::label('description', 'Description:') }}
-            {{ Form::textarea('description') }}
+            {{ Form::textarea('description', null, array('class'=>'form-control rich')) }}
         </li>
 
         <li>
             {{ Form::label('type', 'Type:') }}
-            {{ Form::text('type') }}
+            {{ Form::text('type', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
-            {{ Form::label('location', 'Location:') }}
-            {{ Form::text('location') }}
-        </li>
-
-
-        <li>
-            {{ Form::label('time_start', 'Time_start:') }}
-            {{ Form::text('time_start') }}
+            {{ Form::label('map', 'Pin the Location:') }}
+            <div id="single-map">
+                {{ Form::text('map', null, array('id' => 'coords', 'class'=> 'form-control')) }}
+            </div>
         </li>
 
         <li>
-            {{ Form::label('time_end', 'Time_end:') }}
-            {{ Form::text('time_end') }}
+            {{ Form::label('location', 'Location Name:') }}
+            {{ Form::text('location', null, array('class'=>'form-control')) }}
+        </li
+
+        <li>
+            {{ Form::label('start_time', 'Start Time:') }}
+            {{ Form::text('start_time', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
-            {{ Form::label('time_zone', 'Time_zone:') }}
-            {{ Form::text('time_zone') }}
+            {{ Form::label('end_time', 'End Time:') }}
+            {{ Form::text('end_time', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
-            {{ Form::label('notes', 'Notes:') }}
-            {{ Form::textarea('notes') }}
-        </li>
-
-        <li>
+            {{ Form::checkbox('public', null, null, array('class'=> '_inline')) }}
             {{ Form::label('public', 'Public:') }}
-            {{ Form::text('public') }}
         </li>
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
 			{{ link_to_route('eventts.show', 'Cancel', $eventt->id, array('class' => 'btn')) }}
 		</li>
+
+        <li class="hidden">
+            {{ Form::label('notes', 'Notes') }}
+            {{ Form::textarea('notes', null, array('class'=>'form-control hidden')) }}
+        </li>
+
 	</ul>
 {{ Form::close() }}
 

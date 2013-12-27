@@ -1,6 +1,6 @@
 <div class="_mapnav">
 
-  <div class="brick _right">
+  <div class="_brick pull-right">
     <div class="">
       <a href="/devs"><div class="_strip">DEVELOPERS</div><!-- <div class="_tail"></div> --></a>
     </div>

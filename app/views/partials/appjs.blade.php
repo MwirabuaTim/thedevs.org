@@ -40,39 +40,49 @@
       $('._blink-pink').show().fadeOut(1000)
     }, 1200);
   }
-  mapRecord = function(record){
-    coords = record.map;
+  mapRecord = function(_record){
+    coords = _record.map;
+    // console.log(_record);
     mlat = parseFloat(coords.substr(0, coords.indexOf(', ')))
     mlng = parseFloat(coords.substr(coords.indexOf(', ')+2, coords.length))
-
-    // console.log(mlat);
-    // console.log(mlng);
-    var marker = L.marker([mlat, mlng], {
-          icon: myIcon
-          })
-          .bindLabel('<a href="'
-            +window.location.origin+'/'+mymodel+'/'+record.id+'">'
-                +record.name+'</a>', { 
-          //label markers
-          noHide: true,
-          direction: 'auto'
-          }).addTo(map);
-    var popup = L.popup()
-        // .setLatLng(latlng)
-        .setContent('<a href="'
-          +window.location.origin+'/'+mymodel+'/'+record.id+'/edit">Edit</a><br />'
-          +record.description+'</p>')
-        .openOn(marker);
-    marker.bindPopup(popup)
-
-    markersgroup.push([mlat, mlng])
+    if(_record.map == ''){
+      console.log('Invalid map on _record '+ _record.id)
+      mlat = lat
+      mlng = lng
+    }
+    else{
+      _recordName = _pathtype == 'index' ? _record.name : _record.location
+      _recordName = _path == 'devs' ? _record.first_name : _recordName
+      // _recordName = _path == 'devs' ? _record.first_name : _recordName
+      var marker = L.marker([mlat, mlng], {
+            icon: myIcon
+            })
+            .bindLabel('<a href="'
+              +window.location.origin+'/'+mymodel+'/'+_record.id+'">'
+                  +_recordName+'</a>', { 
+            //label markers
+            noHide: true,
+            direction: 'auto'
+            }).addTo(map);
+      var popup = L.popup()
+          // .setLatLng(latlng)
+          .setContent('<a href="'
+            +window.location.origin+'/'+mymodel+'/'+_record.id+'/edit">Edit</a><br />'
+            +_record.description+'</p>')
+          .openOn(marker);
+      marker.bindPopup(popup)
+    }
+    markersgroup.push([mlat, mlng]) //just to define where map will land
     // console.log(marker.getLatLng());
+    console.log(mlat);
+    console.log(mlng);
+
   }
 
   loadMap = function(_div, _path){
     console.log('Loading map for: ' + _path)
     myIcon = L.icon({ // needs to be initialized globally so that it can be referred
-      iconUrl: window.location.origin + '/images/left-dex-green.png',
+      iconUrl: '{{ asset("images/left-dex-green.png") }}',
       iconSize: [20, 20],
       iconAnchor: [10, 10],
       labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
@@ -91,18 +101,23 @@
       }).addTo(map);
 
     $.get('/api/'+_path, function(ddd){ //create markers for all
-    data = ddd
-      if(data ==''){
-         console.log('No data here yet... '+ data)
-      }else{
-          // console.log(data);
-        if(data[0]){ //data is an array of more than one json object
+    _record = ddd
+      if(_record ==''){
+         console.log('No _record here yet... '+ _record)
+      }
+      else{
+        if(_record[0]){ //_record is an array of more than one json object
+          console.log('_record is an array');
+          // console.log(_record);
           mymodel = _path
-          $.each(data, function(key, record){mapRecord(record)})
+          _pathtype = 'index'
+          $.each(_record, function(key, record){mapRecord(record)})
         }
         else{
+          console.log('_record is a single record');
+          // console.log(_record);
           mymodel = _path.substr(0, _path.indexOf('/')) //remove the index after model
-          mapRecord(data)
+          mapRecord(_record)
         }
         map.fitBounds(markersgroup)
         b = L.latLngBounds(markersgroup)
@@ -120,10 +135,10 @@
 
   prefillForm = function(){
     $(".createTemplate form :input").not( "input[name=_token], input[type=submit]" ).each(function(){
-      this.value = ls[this.name]
+      this.value = LS[this.name]
     })
   }
-  richeditor = function(){
+  richEditor = function(){
      tinymce.init({
         selector: "textarea.rich",
         height : '300px',
@@ -135,7 +150,7 @@
         
         plugins: [
           "advlist autolink lists link image charmap print preview anchor",
-          "searchreplace visualblocks code fullscreen",
+          "searchreplace wordcount visualblocks code fullscreen",
           "insertdatetime media table contextmenu paste jbimages"
         ],
         
@@ -143,7 +158,7 @@
         // PUT PLUGIN'S BUTTON on the toolbar
         // ===========================================
         
-        toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages",
+        toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages emoticons preview",
         
         // ===========================================
         // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
@@ -162,19 +177,20 @@
       });
 
   }
+
   fetchPostForm = function(){
     //fetches and writes create form
     // setTimeout(function(){
       $.get( '/'+selected_model+'/createpop', function(createForm) {
       // console.log(createForm);
       $('.createTemplate').html(createForm)
-      ls ? prefillForm() : true;
+      LS ? prefillForm() : true;
       all_data = {} //clean all_data so as not to post old data but the edited data
 
       // tinymce.init({selector:'textarea', height : 300, plugins: "code"});
       // TinyMCE 4.x 
        
-     richeditor()
+      richEditor()
 
       createPostEvent()
 
@@ -191,7 +207,8 @@
     // }, 10000);
     
   }
-  _loadls = function(){
+
+  _loadLS = function(){
     localStorage.setItem('thedevsorgpost', JSON.stringify(all_data));
     localStorage.lat = lat
     localStorage.lng = lng
@@ -204,7 +221,7 @@
         e.preventDefault()
         tinyMCE.triggerSave();
         all_data = $.extend(map_data, $('.createTemplate form').serializeObject());
-        _loadls()  //whether guy is logged in or not, update the data in the ls
+        _loadLS()  //whether guy is logged in or not, update the data in the LS
         if('{{ Sentry::check() }}' == ''){ 
           $('.modal').modal('hide')//hide the createpost form
           $('._sign-in-modal').modal('show')
@@ -224,7 +241,7 @@
     // posting = new Posting(all_data);
     // posting.save()
 
-    console.log('posting ' + all_data + ' to ' + selected_model)
+    console.log('posting all_data to ' + selected_model)
 
     // $.ajax({
     //   url:selected_model,
@@ -244,7 +261,7 @@
 
     // });
 
-    var postxhr = $.post(selected_model, all_data, function(res) {
+    var postxhr = $.post(selected_model, all_data, function(res) { //find an easier way to do this!
       localStorage.status = 'posted'
       console.log('Success, localStorage.status has changed to: ' + localStorage.status);
     })
@@ -287,12 +304,15 @@
 
     pin2map(lat, lng)
 
+    if($('#single-map input')){
+      $('#single-map input')[0].value = lat + ', ' + lng //filling map coords to input box
+    }
   }
 
   pin2map = function(lat, lng){
     // console.log('into pin2map');
     var myIcon = L.icon({
-      iconUrl: '../images/bubble-pink.png',
+      iconUrl: '{{ asset("images/bubble-pink.png") }}',
       iconSize: [20, 20],
       iconAnchor: [10, 10],
       labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
@@ -305,30 +325,32 @@
     // console.log('marker created: ' + marker_new);
 
     
-    popup_new = L.popup()
-      .setContent('<a href="#" class="_step2">Creating here...</a>')
-      .openOn(marker_new)
-    marker_new.bindPopup(popup_new).openPopup()
+    if(!$('#single-map')[0]){ // if not an edit pap page dont attach the popup
+      popup_new = L.popup()
+        .setContent('<a href="#" class="_step2">Creating here...</a>')
+        .openOn(marker_new)
+      marker_new.bindPopup(popup_new).openPopup()
 
-    markersgroup.push([lat, lng])
-    // map.fitBounds(markersgroup)
+      markersgroup.push([lat, lng])
+      // map.fitBounds(markersgroup)$('#single-map')[0]
 
 
-    $('a._step1').html('Next>>').attr('class', '_blade _aqua2pink _step2')
-    $('div._step1').html('Next>>').attr('class', '_addbtn _blade _pink2aqua _step2')
+      $('a._step1').html('Next>>').attr('class', '_blade _aqua2pink _step2')
+      $('div._step1').html('Next>>').attr('class', '_addbtn _blade _pink2aqua _step2')
 
-    $("._step2").each(function(){
-      $(this).on('click', function(e){
-        e.preventDefault()
-        $('._cats').modal('show')
-         _alert('Click "Next" to give a few more details....')
+      $("._step2").each(function(){
+        $(this).on('click', function(e){
+          e.preventDefault()
+          $('._cats').modal('show')
+           _alert('Click "Next" to give a few more details....')
+        })
       })
-    })
-   map_data['map'] = lat + ', ' + lng;  //setting map var for both onmapclick and lazy ls posting
+     map_data['map'] = lat + ', ' + lng;  //setting map var for both onmapclick and lazy LS posting
+   }
 
   }
 
-  pinls = function(){  // $('._addbtn').html('Complete>>').attr('class', '_addbtn _blade _aqua-hover _step2')
+  pinLS = function(){  // $('._addbtn').html('Complete>>').attr('class', '_addbtn _blade _aqua-hover _step2')
     pin2map(lat, lng)
     map.on('click', onMapClick)
 
@@ -366,13 +388,13 @@ var _url = window.location.href;
 var _host = window.location.host;
 var markersgroup = []
 var map_data = {}
-var ls = JSON.parse(localStorage.getItem('thedevsorgpost')); ///what if not set ?
-var all_data = ls ? ls : {}
+var LS = JSON.parse(localStorage.getItem('thedevsorgpost')); ///what if not set ?
+var all_data = LS ? LS : {}
 var lat = ''
 var lng = ''
 var selected_model = localStorage.selected_model
-var data = {}
-
+var _record = {}
+var _pathtype = []
 
 // var _blink = function(){}
 
@@ -382,7 +404,7 @@ var marker_new = L.marker()
 $(document).ready(function(){
   lat = localStorage.lat
   lng = localStorage.lng
-  richeditor()//for form textareas
+  richEditor()//for form textareas
 
   //mapping for home, /posts[blog] and /countries pages
   // if(_path == '/' 
@@ -404,15 +426,32 @@ $(document).ready(function(){
     loadMap('map', _path)
     //these need to be created just once 
   }
-    //mapping for home, /posts[blog] and /countries pages
-  if(_path == 'devs/1' 
-    // || _path ==  '/devs'
-    || _path ==  'eventts/2'){ 
-    loadMap('showmap', _path)
+    // mapping for home, /posts[blog] and /countries pages
+  if($('#single-map')[0] != undefined){ // load map for single entity show & edit view
+    loadMap('single-map', _path)
+    setTimeout(function(){//wait for map to load so you get the _record changed
+      if(_path.indexOf('/edit') > -1){ //make edit map pinnable
+        map.on('click', onMapClick)
+        // console.log(_record);
+        if(_record.map == ''){
+          console.log('_record.map was blank...');
+          mlat = -1.3 // load pin on around nairobi
+          mlng = 36.75+Math.random()*0.1
+          pin2map(mlat, mlng) 
+          markersgroup.pop() //remove last coords if any
+          markersgroup.push([mlat, mlng]) //just to define where map will land
+          map.fitBounds(markersgroup)
+        }
+      }
+      map.panBy([-100, 0]);
+    }, 2000); 
+
   }
+
+ 
     
   if(localStorage.status == 'pending'){// local storage
-    pinls()
+    pinLS()
   }
 
 
@@ -439,7 +478,8 @@ $(document).ready(function(){
     e.preventDefault()
     selected_model = $(".btn-group").find("label.active input").prop('value');
     _alert('Click "Complete>>" to publish your post...')
-    fetchPostForm($('._creates').modal('show'))
+    fetchPostForm()
+    $('._creates').modal('show')
     $('.createTemplate').append($('img.preload').show());
    
   })

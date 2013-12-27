@@ -14,22 +14,23 @@ class CreateDevsTable extends Migration {
 	{
 		Schema::create('devs', function(Blueprint $table) {
 			$table->increments('id');
-			$table->string('name');
+			$table->string('first_name');
+			$table->string('last_name');
 			$table->string('pic');
 			$table->string('video');
 			$table->string('email');
-			$table->string('pass');
+			$table->string('password');
 			$table->string('phone');
 			$table->string('elevator');
 			$table->text('about');
 			$table->string('location');
 			$table->string('map');
 			$table->string('last_map');
+			$table->boolean('public');
+			$table->text('notes');
 			$table->integer('views');
 			$table->integer('votes');
-			$table->text('notes');
 			$table->string('status');
-			$table->string('public');
 			$table->timestamps();
 		});
 	}

@@ -15,7 +15,7 @@
 			<tr>
 				<th>Logo</th>
 				<th>Name</th>
-				<th>Tagline</th>
+				<!-- <th>Tagline</th> -->
 				<th>Type</th>
 				<th>Location</th>
 				<th>Creator</th>
@@ -25,12 +25,12 @@
 		<tbody>
 			@foreach ($orgs as $org)
 				<tr>
-					<td>{{{ $org->logo }}}</td>
+					<td><img src="{{{ $org->logo }}}" style="max-width: 100px;" /></td>
 					<td><a href="{{ URL::to('orgs/'.$org->id) }}">{{{ $org->name }}}</a></td>
-					<td>{{{ $org->elevator }}}</td>
+					<!-- <td>{{{ $org->elevator }}}</td> -->
 					<td>{{{ $org->type }}}</td>
 					<td>{{{ $org->location }}}</td>
-					<td>{{{ $org->creator }}}</td>
+					<td>{{ User::find($org->creator)->getNameLink() }}</td>
 				</tr>
 			@endforeach
 		</tbody>

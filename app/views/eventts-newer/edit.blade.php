@@ -11,7 +11,7 @@
         </li>
 
         <li>
-            {{ Form::label('pic', 'Pic:') }}
+            {{ Form::label('pic', 'Picture Link:') }}
             {{ Form::text('pic') }}
         </li>
 
@@ -36,7 +36,7 @@
         </li>
 
         <li>
-            {{ Form::label('location', 'Location:') }}
+            {{ Form::label('location', 'Location Name:') }}
             {{ Form::text('location') }}
         </li>
 

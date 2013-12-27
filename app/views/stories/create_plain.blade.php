@@ -14,7 +14,7 @@
         </li>
 
         <li>
-            {{ Form::label('location', 'Location:') }}
+            {{ Form::label('location', 'Location Name:') }}
             {{ Form::text('location', null, array('class'=>'form-control')) }}
         </li>
 
@@ -22,7 +22,7 @@
             {{ Form::label('public', 'Public:') }}
             {{ Form::text('public', null, array('class'=>'form-control')) }}
         </li>
-
+        
 		<li>
 			{{ Form::submit('Submit', array('class' => 'btn btn-info form-control')) }}
 		</li>

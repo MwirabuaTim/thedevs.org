@@ -27,6 +27,7 @@ class AuthController extends BaseController {
 			return View::make('account/signin');
 		}
 		else if (isset($_SERVER["HTTP_REFERER"])){
+			// return var_dump($_SERVER["HTTP_REFERER"]);
 			return View::make('account.signin-basic');
 		}
 		return View::make('account/signin');
@@ -154,7 +155,7 @@ class AuthController extends BaseController {
 			'first_name'       => 'required|min:1',
 			'last_name'        => 'required',
 			'email'            => 'required|email|unique:users',
-			'email_confirm'    => 'required|email|same:email',
+			// 'email_confirm'    => 'required|email|same:email',
 			'password'         => 'required|between:3,32',
 			'password_confirm' => 'required|same:password',
 		);

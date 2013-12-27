@@ -17,7 +17,6 @@
 				<th>Description</th>
 				<th>Type</th>
 				<th>Location</th>
-				<th>Map</th>
 				<th>Start_time</th>
 				<th>End_time</th>
 				<th>Time_zone</th>
@@ -41,7 +40,6 @@
 					<td>{{{ $eventt->description }}}</td>
 					<td>{{{ $eventt->type }}}</td>
 					<td>{{{ $eventt->location }}}</td>
-					<td>{{{ $eventt->map }}}</td>
 					<td>{{{ $eventt->start_time }}}</td>
 					<td>{{{ $eventt->end_time }}}</td>
 					<td>{{{ $eventt->time_zone }}}</td>

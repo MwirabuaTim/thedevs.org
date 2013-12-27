@@ -2,42 +2,81 @@
 
 @section('main')
 
-<h1>{{{ $project->name }}}</h1>
+<div class="_w100 _in-block">
+	<h1 class="pull-left">{{{ $project->name }}}</h1>
+	<span class="pull-right">
+		{{ User::getEditLink($project, 'projects') }}
+	</span>
+	
+</div>
+<div id="single-map"></div>
+<img class="_profile-pic" src="{{{ $project->logo }}}" />
 
-<p>{{ link_to_route('projects.index', 'Return to all projects') }}</p>
-
-<table class="table table-striped table-bordered">
-	<thead>
-		<tr>
-			<th>Logo</th>
-			<th>Video</th>
-			<th>Creator</th>
-			<th>Tagline</th>
-			<th>Link</th>
-			<th>Description</th>
-			<th>Type</th>
-			<th>Contacts</th>
-			<th>Location</th>
-			<th>Views</th>
-			<th>Votes</th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<tr>
-			<td>{{{ $project->logo }}}</td>
-			<td>{{{ $project->video }}}</td>
-			<td>{{{ $project->creator }}}</td>
-			<td>{{{ $project->elevator }}}</td>
-			<td>{{{ $project->link }}}</td>
-			<td>{{{ $project->description }}}</td>
-			<td>{{{ $project->type }}}</td>
-			<td>{{{ $project->contacts }}}</td>
-			<td>{{{ $project->location }}}</td>
-			<td>{{{ $project->views }}}</td>
-			<td>{{{ $project->votes }}}</td>
-		</tr>
-	</tbody>
+<table class="_right10 _in-block">
+	<tr>
+		<th>Creator: </th>
+		<td>{{ User::find($project->creator)->getNameLink() }}</td>
+	</tr>
 </table>
+
+<div class="pull-right">
+	<table class="_right10 _in-block">
+		<tr>
+			<th>Type: </th>
+			<td>{{{ $project->type }}}</td>
+		</tr>
+	</table>
+
+	<table class="_right10 _in-block">
+		<tr>
+			<th>Location: </th>
+			<td>{{{ $project->location }}}</td>
+		</tr>
+	</table>
+
+<!-- 	<table class="_stats _right10 _in-block">
+		<tr>
+			<th>Views: </th>
+			<td rowspan="2">{{{ $project->views }}}</td>
+		</tr>
+	</table>
+
+	<table class="_stats _right10 _in-block">
+		<tr>
+			<th>Votes: </th>
+			<td>{{{ $project->votes }}}</td>
+			<td>Up-Dw</td>
+		</tr>
+	</table> -->
+</div>
+
+<p class="_center _f30">"<span class="_f30">{{{ $project->elevator }}}</span>"</p>
+
+
+
+<h4>About {{{ $project->name }}}:</h4>
+<div class="_about">
+	@if(filter_var($project->video, FILTER_VALIDATE_URL))
+<!-- height="315" -->
+	<div class="vid-wrapper pull-left _right10">
+		<div class="media-box">
+		<!-- <div class="vid-wrapper"> -->
+			<iframe src="//www.youtube.com/embed/
+			{{{ substr($project->video, stripos($project->video, 'v=')+2, strlen($project->video)) }}}" 
+			frameborder="0" allowfullscreen></iframe>
+		<!-- </div> -->
+		</div>
+	</div>
+	@endif
+
+	{{ $project->description }}
+
+</div>
+
+<h2 class="contacts-header">Contacts</h2>
+<div class="_w100 _p10">{{ $project->contacts }}</div>
+
+{{ link_to_route('projects.index', 'View all Projects', null, array('class' => 'pull-left btn btn-link')) }}
+
 
 @stop

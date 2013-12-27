@@ -48,6 +48,7 @@ class EventtsController extends BaseController {
 
 		if ($validation->passes())
 		{
+			$input['organizer'] = Sentry::getUser()->id;
 			$this->eventt->create($input);
 
 			return Redirect::route('eventts.index');

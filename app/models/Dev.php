@@ -1,28 +1,29 @@
 <?php
 
-class Dev extends Eloquent {
+class Dev extends User {
 	protected $guarded = array();
 
 	public static $rules = array(
-		// 'name' => 'required',
+		'first_name' => 'required',
+		// 'last_name' => 'required',
 		// 'pic' => 'required',
 		// 'video' => 'required',
 		// 'email' => 'required',
-		// 'pass' => 'required',
+		// 'password' => 'required',
 		// 'phone' => 'required',
 		// 'elevator' => 'required',
 		// 'about' => 'required',
 		// 'location' => 'required',
 		// 'map' => 'required',
 		// 'last_map' => 'required',
+		// 'public' => 'required',
+		// 'notes' => 'required',
 		// 'views' => 'required',
 		// 'votes' => 'required',
-		// 'notes' => 'required',
-		// 'status' => 'required',
-		// 'public' => 'required'
-
+		// 'status' => 'required'
 	);
 }
+
 // users table:
 // ------------
 // `id`

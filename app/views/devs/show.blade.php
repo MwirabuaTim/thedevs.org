@@ -3,27 +3,31 @@
 @section('main')
 
 @if(Sentry::check())
-<div class="_in-blocks">
-	<h1 style="float: left;">{{{ $dev->first_name }}}&nbsp; {{{ $dev->last_name }}}</h1>
-	<span class="_right">
-		{{ link_to_route('devs.edit', 'Edit', array($dev->id), array('class' => 'btn btn-info')) }}
-		@if(Sentry::getUser()->hasAccess('admin'))
+
+<div class="_w100 _in-block">
+	<h1 class="pull-left">{{{ $dev->first_name }}}&nbsp;{{{ $dev->last_name }}}</h1>
+	<span class="pull-right">
+
+		{{ User::getEditLink($dev, 'devs') }}
+
+		@if(Sentry::getUser()->hasAccess('admin'))<!--  admin link -->
 			{{ link_to_route('admin', 'Admin', null, array('class' => 'btn btn-primary')) }}
 		@endif
+
 	</span>
 	
 </div>
 
-<div class="_in-blocks dev">
-	<div id="showmap"></div>
-	<img class="_block" src="{{{ Sentry::getUser()->pic }}}" />
-	<table class="_block _bio table table-striped table-bordered">
+<div class="_w100 _in-block">
+	<div id="single-map"></div>
+	<img class="_profile-pic" src="{{{ $dev->pic }}}" />
+	<table class="_bio table table-striped table-bordered">
 		<tbody>
-			<tr><td>Location</td><td>{{{ Sentry::getUser()->location }}}</td></tr>
-			<tr><td>Email</td><td>{{{ Sentry::getUser()->email }}}</td></tr>
-			<tr><td>Phone</td><td>{{{ Sentry::getUser()->phone }}}</td></tr>
-			<tr><td>Views</td><td>{{{ Sentry::getUser()->votes }}}</td></tr>
-			<tr><td>Votes</td><td>{{{ Sentry::getUser()->views }}}</td></tr>
+			<tr><td>Skills</td><td>Comming soon...</td></tr>
+			<tr><td>Email</td><td>{{{ $dev->email }}}</td></tr>
+			<tr><td>Phone</td><td>{{{ $dev->phone }}}</td></tr>
+			<!-- <tr><td>Views</td><td>{{{ $dev->votes }}}</td></tr> -->
+			<!-- <tr><td>Votes</td><td>{{{ $dev->views }}}</td></tr> -->
 		</tbody>
 	</table>
 </div>
@@ -36,9 +40,9 @@
 <div class="_about">
 	@if(filter_var($dev->video, FILTER_VALIDATE_URL))
 <!-- height="315" -->
-	<div class="videoWrapper _left _right10">
-		<div class="mediaBox">
-		<!-- <div class="videoWrapper"> -->
+	<div class="vid-wrapper pull-left _right10">
+		<div class="media-box">
+		<!-- <div class="vid-wrapper"> -->
 			<iframe src="//www.youtube.com/embed/
 			{{{ substr($dev->video, stripos($dev->video, 'v=')+2, strlen($dev->video)) }}}" 
 			frameborder="0" allowfullscreen></iframe>
@@ -51,19 +55,47 @@
 
 </div>
 
-<a class="pull-left btn btn-warning" href="{{ URL::to('devs') }}">All Devs</a>
-<span class="_right">
+
+<div class="_w100">
+	<h3 class="stories">Stories By {{{ $dev->first_name }}}</h3>
+	<?php $stories = Story::where('creator', $dev->id)->get() ?>
+	@if ($stories->count())
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th width="80%">Title</th>
+					<th>Location</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				@foreach ($stories as $story)
+					<tr>
+						<td>{{ link_to_route('stories.show', $story->name, array($story->id)) }}</td>
+						<td>{{{ $story->location }}}</td>
+						
+	                    <td>{{ User::getEditLink($story, 'stories') }}</td>
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+	@else
+		{{{ $dev->first_name }}} has not written any stories. :(
+	@endif
+</div>
+
+
+<span class="pull-right">
+	{{--! Request::path() --}}
 	@if(Request::path() == 'devs/'.Sentry::getUser()->id)
 		{{ link_to_route('change-email', 'Change Email', null, array('class' => 'btn btn-primary')) }}
 		{{ link_to_route('change-password', 'Change Password', null, array('class' => 'btn btn-primary')) }}
-		{{ link_to_route('logout', 'Logout', null, array('class' => 'btn btn-primary')) }}
-	
-		
+		{{ link_to_route('logout', 'Logout', null, array('class' => 'btn btn-primary')) }}		
 	@endif
 </span>
 
-@else
-	<h4>You have to be logged in to see this.<h4>
+{{ link_to_route('devs.index', 'View all Devs', null, array('class' => 'pull-left btn btn-link')) }}
+
 @endif
 
 @stop

@@ -9,7 +9,7 @@ class DevsController extends BaseController {
 	 */
 	protected $dev;
 
-	public function __construct(User $dev) //the only joint between Dev and User
+	public function __construct(Dev $dev) //the only joint between Dev and User
 	{
 		$this->dev = $dev;
 	}
@@ -69,7 +69,6 @@ class DevsController extends BaseController {
 	public function getAccount()
 	{
 		$id = Sentry::getUser()->id;
-
 		return Redirect::to('devs/'.$id);
 	}
 
@@ -77,7 +76,11 @@ class DevsController extends BaseController {
 	{
 		$dev = $this->dev->findOrFail($id);
 
-		return View::make('devs.show', compact('dev'));
+		if(Sentry::check()):
+			return View::make('devs.show', compact('dev'));
+		else:
+			return View::make('error.401');
+		endif;
 	}
 
 	/**
@@ -116,9 +119,9 @@ class DevsController extends BaseController {
 			'last_name'  => 'required|min:2',
 			'email'   => 'email',
 		);
-
+		$input = Input::all();
 		// Create a new validator instance from our validation rules
-		$validator = Validator::make(Input::all(), $rules);
+		$validator = Validator::make($input, $rules);
 
 		// If validation fails, we'll exit the operation now.
 		if ($validator->fails())
@@ -128,24 +131,25 @@ class DevsController extends BaseController {
 		}
 
 		// Grab the user
-		$user = Sentry::getUser();
+		$user = Sentry::findUserById($id);
 
 		// Update the user information
-		$user->first_name = Input::get('first_name');
-		$user->last_name  = Input::get('last_name');
-		// $user->email		= Input::get('email');
-		$user->phone		= Input::get('phone');
-		$user->pic		= Input::get('pic');
-		$user->video		= Input::get('video');
-		$user->elevator		= Input::get('elevator');
-		$user->about		= Input::get('about');
-		$user->location		= Input::get('location');
-		$user->public		= Input::get('public');
-		$user->notes		= Input::get('notes');
+		// $user->first_name = Input::get('first_name');
+		// $user->last_name  = Input::get('last_name');
+		// // $user->email		= Input::get('email');
+		// $user->phone		= Input::get('phone');
+		// $user->pic		= Input::get('pic');
+		// $user->video		= Input::get('video');
+		// $user->elevator		= Input::get('elevator');
+		// $user->about		= Input::get('about');
+		// $user->map		= Input::get('map');
+		// $user->location		= Input::get('location');
+		// $user->public		= Input::get('public');
+		// $user->notes		= Input::get('notes');
 
 
-
-		$user->save();
+		// $user->save();
+		$user->update($input); //test with oauth!
 
 		// Redirect to the settings page
 		return Redirect::route('devs.show', $id)->with('success', 'Account successfully updated');

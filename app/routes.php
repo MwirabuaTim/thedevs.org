@@ -17,6 +17,42 @@ Route::get('{any}', function($url){
     return Redirect::to(mb_substr($url, 0, -1), 301);
 })->where('any', '(.*)\/$');
 
+/*
+|--------------------------------------------------------------------------
+| Edit Rights
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
+	if($resource == 'stories'){ //check for weird plurals to resolve singular
+		$resource_model = ucwords(substr($resource, 0, strlen($resource) -3).'y');
+	}
+	else{
+		$resource_model = ucwords(substr($resource, 0, strlen($resource) -1));
+	}
+	$record =  $resource_model::find($id);
+
+	if(!Sentry::check()){
+		return View::make('error.401');
+	}
+	else if(!isset($record)){
+		return View::make('error.404');
+	}
+	else if($resource != 'devs'){
+		if( $resource == 'eventts'){
+			$check_field = 'organizer';
+		}
+		else{
+			$check_field = 'creator';
+		}
+		if(!($record->$check_field == Sentry::getUser()->id || Sentry::getUser()->hasAccess('admin'))){
+			return View::make('error.403');
+		}
+	}
+	return View::make($resource.'.edit')->with(strtolower($resource_model), $record);
+	// return var_dump($check_field);
+});
 
 
 //Lie Detector: (enforcing authorized access only)
@@ -63,6 +99,7 @@ Route::get('tos', function(){ return View::make('tos');});
 Route::get('customerservice', function(){ return View::make('customerservice');});
 Route::get('template', function(){return View::make('template');});
 Route::get('contactus', function(){ return View::make('contactus');});
+// Route::get('contactus', array('as' => 'contact-us', 'uses' => function(){ return View::make('contactus');}));
 
 
 //Popup makers
@@ -80,11 +117,11 @@ Route::get('/stories/createpop', function(){return View::make('stories/create_pl
 |
 */
 
-Route::resource('projects', 'ProjectsController');
-
 Route::resource('orgs', 'OrgsController');
 
 Route::resource('eventts', 'EventtsController');
+
+Route::resource('projects', 'ProjectsController');
 
 Route::resource('stories', 'StoriesController');
 
@@ -117,7 +154,23 @@ Route::get('api/eventts', function(){ return Eventt::all();});
 Route::get('api/stories', function(){ return Story::all();});
 
 Route::get('api/{resource}/{id}', function($resource, $id){ 
-	$resource_model = ucwords(substr($resource, 0, strlen($resource) -1));
+	if($resource == 'stories'){ //check for weird plurals to resolve singular
+		$resource_model = ucwords(substr($resource, 0, strlen($resource) -3).'y');
+	}
+	else{
+		$resource_model = ucwords(substr($resource, 0, strlen($resource) -1));
+	}
+	return $resource_model::find($id);
+	// return var_dump($resource_model);
+});
+
+Route::get('api/{resource}/{id}/edit', function($resource, $id){ 
+	if($resource == 'stories'){ //check for weird plurals to resolve singular
+		$resource_model = ucwords(substr($resource, 0, strlen($resource) -3).'y');
+	}
+	else{
+		$resource_model = ucwords(substr($resource, 0, strlen($resource) -1));
+	}
 	return $resource_model::find($id);
 });
 
@@ -164,6 +217,14 @@ Route::post('change-email', 'AuthorizedController@postChangeEmail');
 Route::get('change-password', array('as' => 'change-password', 'uses' => 'AuthorizedController@getChangePass'));
 Route::post('change-password', 'AuthorizedController@postChangePass');
 
+// indexByDev()
+Route::get('devs/{id}/orgs', 'OrgsController@indexByDev', compact('id'))->where('id', '[0-9]+');
+Route::get('devs/{id}/eventts', 'EventtsController@indexByDev', compact('id'))->where('id', '[0-9]+');
+Route::get('devs/{id}/projects', 'ProjectsController@indexByDev', compact('id'))->where('id', '[0-9]+');
+Route::get('devs/{id}/stories', 'StoriesController@indexByDev', compact('id'))->where('id', '[0-9]+');
+Route::get('devs/{id}/kits', 'KitsController@indexByDev', compact('id'))->where('id', '[0-9]+');
+Route::get('devs/{id}/tags', 'TagsController@indexByDev', compact('id'))->where('id', '[0-9]+');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -203,6 +264,7 @@ Route::group(array('prefix' => 'auth'), function()
 	Route::get('logout', array('as' => 'logout', 'uses' => 'AuthController@getLogout'));
 
 });
+
 
 /*
 |--------------------------------------------------------------------------

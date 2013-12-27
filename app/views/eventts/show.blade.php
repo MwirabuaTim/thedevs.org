@@ -1,32 +1,43 @@
 @extends('layouts.scaffold')
 
 @section('main')
-<h1>{{{ $eventt->name }}}</h1>
-<div id="showmap"></div>
-<div class="_in-blocks">
-	<table class="_block pull-left _right10">
+
+
+<div class="_w100 _in-block">
+	<h1 class="pull-left">{{{ $eventt->name }}}</h1>
+	<span class="pull-right">
+		{{ User::getEditLink($eventt, 'eventts') }}
+	</span>
+	
+</div>
+
+<div id="single-map"></div>
+<img class="_profile-pic" src="{{ User::find($eventt->organizer)->pic }}" />
+
+
+
+<div class="">
+	<table class="_in-block _right10">
 		<tr>
-			<th>Type: </th>
+			<th>Organiser: </th>
+			<td>{{ User::find($eventt->organizer)->getNameLink() }}</td>
+		</tr>
+	</table>
+	<table class="_in-block _right10">
+		<tr>
+			<th>Event Type: </th>
 			<td>{{{ $eventt->type }}}</td>
 		</tr>
 	</table>
-	<table class="_block pull-left _right10">
+	<table class="_in-block _right10">
 		<tr>
 			<th>Venue: </th>
 			<td>{{{ $eventt->location }}}</td>
 		</tr>
 	</table>
-	<table class="_block pull-left _right10">
-		<tr>
-			<th>Organiser: </th>
-			<td>{{{ $eventt->creator }}}</td>
-		</tr>
-	</table>
-	</table>
 </div>
-<div class="_in-blocks">
-	<div class="_pic"></div>
-	<table class="_time _block pull-left _right10">
+<div class="_in-block">
+	<table class="_in-block _right10">
 		<tr>
 			<th>Start: </th>
 			<td>{{{ $eventt->start_time }}}</td>
@@ -36,7 +47,7 @@
 			<td>{{{ $eventt->end_time }}}</td>
 		</tr>
 	</table>
-	<table class="_stats _block pull-left _right10">
+<!-- 	<table class="_stats _right10">
 		<tr>
 			<th>Votes: </th>
 			<td>{{{ $eventt->votes }}}</td>
@@ -46,8 +57,8 @@
 			<th>Views: </th>
 			<td rowspan="2">{{{ $eventt->views }}}</td>
 		</tr>
-	</table>
-	<table class="_time _block pull-left _right10">
+	</table> -->
+	<table class="_in-block _right10">
 		<tr>
 			<th>Tickets: </th>
 			<td>Order</td>
@@ -61,6 +72,6 @@
 
 <div class="_w100 _p10">{{ $eventt->description }}</div>
 
+{{ link_to_route('eventts.index', 'View all Events', null, array('class' => 'pull-left btn btn-link')) }}
 
-<p>{{ link_to_route('eventts.index', 'Return to all eventts') }}</p>
 @stop

@@ -3,7 +3,7 @@
 
 @section('title')
 	@parent
-	{{ ucfirst($path) }}
+	 | {{ ucfirst($path) }}
 @stop
 
 @section('css')

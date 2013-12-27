@@ -1,36 +1,35 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Error 404 - Not Found</title>
-	<meta name="viewport" content="width=device-width">
+@extends('layouts.scaffold')
+
+{{-- Web site Title --}}
+@section('title')
+	@parent
+	Page Not Found
+@stop
+
+@section('css')
 	@include('partials.errorcss')
-</head>
-<body>
-	<div class="wrapper">
-		<div class="error-spacer"></div>
-		<div role="main" class="main">
-			<?php $messages = array('We need a map.', 'I think we\'re lost.', 'We took a wrong turn.'); ?>
+@stop
 
-			<h1><?php echo $messages[mt_rand(0, 2)]; ?></h1>
+@section('js')
+	@include('partials.errorjs')
+@stop
 
-			<h2>Server Error: 404 (Not Found)</h2>
+@section('transparent')
+	
+	<div class="error-container">
+        <h1>404</h1>
+        
+        <div id="www">:(</div>
 
-			<hr>
+		<hr>
 
-			<h3>What does this mean?</h3>
+		<p>
+			This page is missing on our servers.
+		</p>
 
-			<p>
-				We couldn't find the page you requested on our servers. We're really sorry
-				about that. It's our fault, not yours. We'll work hard to get this page
-				back online as soon as possible.
-			</p>
-
-			<p>
-				Perhaps you would like to go to our <a href="{{ URL::route('home'); }}">home page</a>?
-			</p>
-		</div>
+		<p>
+			Perhaps you would like to <a href="{{ URL::to('contactus'); }}">report this</a>?
+		</p>
 	</div>
-</body>
-</html>
+
+@stop

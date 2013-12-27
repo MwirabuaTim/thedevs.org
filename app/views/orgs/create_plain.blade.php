@@ -39,7 +39,7 @@
         </li>
 
         <li>
-            {{ Form::label('location', 'Location:') }}
+            {{ Form::label('location', 'Location Name:') }}
             {{ Form::text('location', null, array('class'=>'form-control')) }}
         </li>
 <!-- 

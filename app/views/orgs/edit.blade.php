@@ -7,63 +7,65 @@
 	<ul>
         <li>
             {{ Form::label('name', 'Name:') }}
-            {{ Form::text('name') }}
+            {{ Form::text('name', null, array('class'=> 'form-control')) }}
         </li>
 
         <li>
-            {{ Form::label('logo', 'Logo:') }}
-            {{ Form::text('logo') }}
+            {{ Form::label('logo', 'Logo Link:') }}
+            {{ Form::text('logo', null, array('class'=> 'form-control', 'placeholder' => 'http://...')) }}
         </li>
 
         <li>
-            {{ Form::label('video', 'Video:') }}
-            {{ Form::text('video') }}
-        </li>
-
-        <li>
-            {{ Form::label('creator', 'Creator:') }}
-            {{ Form::input('number', 'creator') }}
+            {{ Form::label('video', 'Youtube Video Link:') }}
+            {{ Form::text('video', null, array('class'=> 'form-control', 'placeholder' => 'http://...')) }}
         </li>
 
         <li>
             {{ Form::label('elevator', 'Tagline:') }}
-            {{ Form::text('elevator') }}
+            {{ Form::text('elevator', null, array('class'=> 'form-control _w100')) }}
         </li>
 
         <li>
             {{ Form::label('description', 'Description:') }}
-            {{ Form::textarea('description') }}
+            {{ Form::textarea('description', null, array('class'=>'form-control rich')) }}
         </li>
 
         <li>
             {{ Form::label('type', 'Type:') }}
-            {{ Form::text('type') }}
+            {{ Form::text('type', null, array('class'=> 'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('contacts', 'Contacts:') }}
-            {{ Form::textarea('contacts') }}
+            {{ Form::textarea('contacts', null, array('class'=>'form-control rich')) }}
         </li>
 
         <li>
-            {{ Form::label('location', 'Location:') }}
-            {{ Form::text('location') }}
+            {{ Form::label('map', 'Pin the Location:') }}
+            <div id="single-map">
+                {{ Form::text('map', null, array('id' => 'coords', 'class'=> 'form-control')) }}
+            </div>
         </li>
 
         <li>
-            {{ Form::label('notes', 'Notes:') }}
-            {{ Form::textarea('notes') }}
+            {{ Form::label('location', 'Location Name:') }}
+            {{ Form::text('location', null, array('class'=> 'form-control')) }}
         </li>
 
         <li>
+            {{ Form::checkbox('public', null, null, array('class'=> '_inline')) }}
             {{ Form::label('public', 'Public:') }}
-            {{ Form::text('public') }}
         </li>
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
 			{{ link_to_route('orgs.show', 'Cancel', $org->id, array('class' => 'btn')) }}
 		</li>
+
+        <li class="hidden">
+            {{ Form::label('notes', 'Notes') }}
+            {{ Form::textarea('notes', null, array('class'=>'form-control hidden')) }}
+        </li>
 	</ul>
 {{ Form::close() }}
 

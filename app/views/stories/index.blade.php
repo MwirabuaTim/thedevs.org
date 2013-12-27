@@ -16,10 +16,10 @@
 		<thead>
 			<tr>
 				<th>Title</th>
-				<th>Body</th>
+				<!-- <th>Body</th> -->
 				<th>Location</th>
-				<th>Views</th>
-				<th>Votes</th>
+				<!-- <th>Views</th> -->
+				<!-- <th>Votes</th> -->
 				<th>Creator</th>
 			</tr>
 		</thead>
@@ -28,11 +28,11 @@
 			@foreach ($stories as $story)
 				<tr>
 					<td><a href="{{ URL::to('stories/'.$story->id) }}">{{{ $story->name }}}</a></td>
-					<td>{{{ $story->body }}}</td>
+					<!-- <td>{{{ $story->body }}}</td> -->
 					<td>{{{ $story->location }}}</td>
-					<td>{{{ $story->views }}}</td>
-					<td>{{{ $story->votes }}}</td>
-					<td>{{{ $story->creator }}}</td>
+					<!-- <td>{{{ $story->views }}}</td> -->
+					<!-- <td>{{{ $story->votes }}}</td> -->
+					<td>{{ User::find($story->creator)->getNameLink() }}</td>
 				</tr>
 			@endforeach
 		</tbody>

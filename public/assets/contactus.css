@@ -94,6 +94,7 @@ form fieldset legend {
 	margin-left: 7px;
 	margin-bottom: 7px;
 	border:2px;
+	width: auto;
 }
 
 legend {
