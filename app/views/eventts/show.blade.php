@@ -6,13 +6,14 @@
 <div class="_w100 _in-block">
 	<h1 class="pull-left">{{{ $eventt->name }}}</h1>
 	<span class="pull-right">
-		{{ User::getEditLink($eventt, 'eventts') }}
+		{{ User::getPublicity($eventt) }} {{ User::getEditLink($eventt) }}
 	</span>
 	
 </div>
 
 <div id="single-map"></div>
-<img class="_profile-pic" src="{{ User::find($eventt->organizer)->pic }}" />
+
+{{ User::getImageLink($eventt, '_profile-pic') }}
 
 
 

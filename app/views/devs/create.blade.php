@@ -8,52 +8,47 @@
 	<ul>
         <li>
             {{ Form::label('first_name', 'First Name:') }}
-            {{ Form::text('first_name') }}
+            {{ Form::text('first_name', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('last_name', 'Last_name:') }}
-            {{ Form::text('last_name') }}
+            {{ Form::text('last_name', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('pic', 'Picture Link:') }}
-            {{ Form::text('pic') }}
+            {{ Form::text('pic', null, array('class'=>'form-control')) }}
         </li>
         
         <li>
             {{ Form::label('email', 'Email:') }}
-            {{ Form::text('email') }}
+            {{ Form::text('email', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('phone', 'Phone:') }}
-            {{ Form::text('phone') }}
+            {{ Form::text('phone', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
             {{ Form::label('elevator', 'Tagline:') }}
-            {{ Form::text('elevator') }}
+            {{ Form::text('elevator', null, array('class'=>'form-control _w100')) }}
         </li>
 
         <li>
             {{ Form::label('about', 'About:') }}
-            {{ Form::textarea('about') }}
+            {{ Form::textarea('about', null, array('class'=>'form-control rich')) }}
         </li>
 
         <li>
             {{ Form::label('location', 'Location Name:') }}
-            {{ Form::text('location') }}
+            {{ Form::text('location', null, array('class'=>'form-control')) }}
         </li>
 
         <li>
+            {{ Form::checkbox('public', null, null, array('class'=>'_inline')) }}
             {{ Form::label('public', 'Public:') }}
-            {{ Form::checkbox('public') }}
-        </li>
-
-        <li>
-            {{ Form::label('notes', 'Notes:') }}
-            {{ Form::textarea('notes') }}
         </li>
 
 		<li>

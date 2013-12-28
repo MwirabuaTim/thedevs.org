@@ -62,10 +62,6 @@
 			{{ link_to_route('projects.show', 'Cancel', $project->id, array('class' => 'btn')) }}
 		</li>
 
-        <li class="hidden">
-            {{ Form::label('notes', 'Notes') }}
-            {{ Form::textarea('notes', null, array('class'=>'form-control hidden')) }}
-        </li>
 	</ul>
 {{ Form::close() }}
 

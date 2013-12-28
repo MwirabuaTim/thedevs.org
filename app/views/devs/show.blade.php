@@ -8,7 +8,9 @@
 	<h1 class="pull-left">{{{ $dev->first_name }}}&nbsp;{{{ $dev->last_name }}}</h1>
 	<span class="pull-right">
 
-		{{ User::getEditLink($dev, 'devs') }}
+		{{ User::getPublicity($dev) }} 
+
+		{{ User::getEditLink($dev) }}
 
 		@if(Sentry::getUser()->hasAccess('admin'))<!--  admin link -->
 			{{ link_to_route('admin', 'Admin', null, array('class' => 'btn btn-primary')) }}
@@ -20,7 +22,7 @@
 
 <div class="_w100 _in-block">
 	<div id="single-map"></div>
-	<img class="_profile-pic" src="{{{ $dev->pic }}}" />
+	{{ User::getImageLink($dev, '_profile-pic') }}
 	<table class="_bio table table-striped table-bordered">
 		<tbody>
 			<tr><td>Skills</td><td>Comming soon...</td></tr>

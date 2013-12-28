@@ -18,8 +18,6 @@
 	
 	<div class="error-container">
         <h1>404</h1>
-        
-        <div id="www">:(</div>
 
 		<hr>
 
@@ -30,6 +28,9 @@
 		<p>
 			Perhaps you would like to <a href="{{ URL::to('contactus'); }}">report this</a>?
 		</p>
+        
+        <div id="www">:(</div>
+        
 	</div>
 
 @stop

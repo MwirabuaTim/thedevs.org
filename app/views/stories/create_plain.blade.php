@@ -19,8 +19,8 @@
         </li>
 
         <li>
+            {{ Form::checkbox('public', null, null, array('class'=>'_inline')) }}
             {{ Form::label('public', 'Public:') }}
-            {{ Form::text('public', null, array('class'=>'form-control')) }}
         </li>
         
 		<li>

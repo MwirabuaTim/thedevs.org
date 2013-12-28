@@ -20,13 +20,13 @@
 
 	    <h1>503</h1>
 
-	    <div id="www">:(</div>
-
 	    <hr/>
 
 		<p>
 			We are under a scheduled maintenance and we'll be back shortly!
 		</p>
+
+	    <div id="www">:(</div>
 
 	</div>
 @stop

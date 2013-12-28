@@ -20,6 +20,8 @@ h1{
 #www {
 	font-size: 8em;
 	line-height: 1.5;
+	width: 520px;
+	margin: 0px auto;
 }
 
 .fb-like{

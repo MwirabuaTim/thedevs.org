@@ -5,12 +5,13 @@
 <div class="_w100 _in-block">
 	<h1 class="pull-left">{{{ $org->name }}}</h1>
 	<span class="pull-right">
-		{{ User::getEditLink($org, 'orgs') }}
+		{{ User::getPublicity($org) }}  {{ User::getEditLink($org) }}
 	</span>
 	
 </div>
 <div id="single-map"></div>
-<img class="_profile-pic" src="{{{ $org->logo }}}" />
+
+{{ User::getImageLink($org, '_profile-pic') }}
 
 <table class="_right10 _in-block">
 	<tr>

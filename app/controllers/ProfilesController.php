@@ -23,7 +23,7 @@ class ProfilesController extends BaseController {
 	{
 		$profiles = $this->profile->all();
 
-		return View::make('profiles.index', compact('profiles'));
+		// return View::make('profiles.index', compact('profiles'));
 	}
 
 	/**
@@ -33,7 +33,7 @@ class ProfilesController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('profiles.create');
+		// return View::make('profiles.create');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class ProfilesController extends BaseController {
 	{
 		$profile = $this->profile->findOrFail($id);
 
-		return View::make('profiles.show', compact('profile'));
+		// return View::make('profiles.show', compact('profile'));
 	}
 
 	/**
@@ -87,7 +87,7 @@ class ProfilesController extends BaseController {
 			return Redirect::route('profiles.index');
 		}
 
-		return View::make('profiles.edit', compact('profile'));
+		// return View::make('profiles.edit', compact('profile'));
 	}
 
 	/**
@@ -123,7 +123,7 @@ class ProfilesController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$this->profile->find($id)->delete();
+		// $this->profile->find($id)->delete();
 
 		return Redirect::route('profiles.index');
 	}

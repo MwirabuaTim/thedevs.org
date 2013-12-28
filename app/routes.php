@@ -25,14 +25,8 @@ Route::get('{any}', function($url){
 */
 
 Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
-	if($resource == 'stories'){ //check for weird plurals to resolve singular
-		$resource_model = ucwords(substr($resource, 0, strlen($resource) -3).'y');
-	}
-	else{
-		$resource_model = ucwords(substr($resource, 0, strlen($resource) -1));
-	}
-	$record =  $resource_model::find($id);
-
+	$record =  User::getRecord($resource, $id);
+	// return var_dump($record);
 	if(!Sentry::check()){
 		return View::make('error.401');
 	}
@@ -40,21 +34,41 @@ Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
 		return View::make('error.404');
 	}
 	else if($resource != 'devs'){
-		if( $resource == 'eventts'){
-			$check_field = 'organizer';
-		}
-		else{
-			$check_field = 'creator';
-		}
-		if(!($record->$check_field == Sentry::getUser()->id || Sentry::getUser()->hasAccess('admin'))){
+		if(!User::hasEditRight($record)){
 			return View::make('error.403');
 		}
 	}
-	return View::make($resource.'.edit')->with(strtolower($resource_model), $record);
-	// return var_dump($check_field);
-});
+	$record_name = strtolower(User::getModel($resource));
 
+	return View::make($resource.'.edit')->with($record_name, $record);
+	// return var_dump(Story::find(3)->id);
+	// return var_dump(User::getModel($resource));
+	// return var_dump($record->id);
 
+})->where('id', '[0-9]+');
+
+/*
+|--------------------------------------------------------------------------
+| Edit Rights
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
+	$record =  User::getRecord($resource, $id);
+	// return var_dump($record->public);
+	if($record->public != 'on'){
+		if(!Sentry::check()){
+		return View::make('error.401');
+		}
+		if(!User::hasEditRight($record)){
+			return View::make('error.500');
+		}
+	}
+	$record_name = strtolower(User::getModel($resource));
+	return View::make($resource.'.show')->with($record_name, $record);
+
+})->where('id', '[0-9]+');
 //Lie Detector: (enforcing authorized access only)
 
 // Route::any('{resource_name}/{item_id}/edit', function($resource_name, $item_id)
@@ -154,25 +168,12 @@ Route::get('api/eventts', function(){ return Eventt::all();});
 Route::get('api/stories', function(){ return Story::all();});
 
 Route::get('api/{resource}/{id}', function($resource, $id){ 
-	if($resource == 'stories'){ //check for weird plurals to resolve singular
-		$resource_model = ucwords(substr($resource, 0, strlen($resource) -3).'y');
-	}
-	else{
-		$resource_model = ucwords(substr($resource, 0, strlen($resource) -1));
-	}
-	return $resource_model::find($id);
-	// return var_dump($resource_model);
-});
+	return User::getRecord($resource, $id);
+})->where('id', '[0-9]+');
 
 Route::get('api/{resource}/{id}/edit', function($resource, $id){ 
-	if($resource == 'stories'){ //check for weird plurals to resolve singular
-		$resource_model = ucwords(substr($resource, 0, strlen($resource) -3).'y');
-	}
-	else{
-		$resource_model = ucwords(substr($resource, 0, strlen($resource) -1));
-	}
-	return $resource_model::find($id);
-});
+	return User::getRecord($resource, $id);
+})->where('id', '[0-9]+');
 
 Route::get('api/all', function(){ 
 	$sources = array(
@@ -327,6 +328,7 @@ Route::group(array('prefix' => 'admin'), function()
 	
 	// return User::first();
 	// Route::get('api/devs', function(){ return Dev::all();});
+
 
 // });
 

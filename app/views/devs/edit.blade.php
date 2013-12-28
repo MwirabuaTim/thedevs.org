@@ -100,7 +100,7 @@ Edit Profile
 	</div>
 	<!-- public -->
 	<div class="control-group{{ $errors->first('public', ' error') }} _checkbox">
-        {{ Form::checkbox('public', null, Input::old('public', $dev->public), array('class'=> '_inline')) }}
+        {{ Form::checkbox('public', null, 0, array('class'=> '_inline')) }}
 		{{ Form::label('public', 'Public') }}
         {{ $errors->first('public', '<span class="help-block">:message</span>') }}
 	</div>
