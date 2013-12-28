@@ -5,18 +5,18 @@
 <div class="_w100 _in-block">
 	<h1 class="pull-left">{{{ $org->name }}}</h1>
 	<span class="pull-right">
-		{{ User::getPublicity($org) }}  {{ User::getEditLink($org) }}
+		{{ All::getPublicity($org) }}  {{ All::getEditLink($org) }}
 	</span>
 	
 </div>
 <div id="single-map"></div>
 
-{{ User::getImageLink($org, '_profile-pic') }}
+{{ All::getImageLink($org, '_profile-pic') }}
 
 <table class="_right10 _in-block">
 	<tr>
 		<th>Creator: </th>
-		<td>{{ User::find($org->creator)->getNameLink() }}</td>
+		<td>{{ {{ All::getNameLink($org) }} }}</td>
 	</tr>
 </table>
 

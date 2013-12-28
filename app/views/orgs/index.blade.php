@@ -25,12 +25,13 @@
 		<tbody>
 			@foreach ($orgs as $org)
 				<tr>
-					<td><img src="{{{ $org->logo }}}" style="max-width: 100px;" /></td>
-					<td><a href="{{ URL::to('orgs/'.$org->id) }}">{{{ $org->name }}}</a></td>
+					<td>{{ All::getImageLink($org, '_list-img') }}</td>
+					<td>{{ All::getNameLink($org) }}</td>
 					<!-- <td>{{{ $org->elevator }}}</td> -->
 					<td>{{{ $org->type }}}</td>
 					<td>{{{ $org->location }}}</td>
-					<td>{{ User::find($org->creator)->getNameLink() }}</td>
+					<td>{{ All::getCreatorImageLink($org, '_list-img') }}}
+						<br/>{{ All::getCreatorLink($org) }}</td>
 				</tr>
 			@endforeach
 		</tbody>

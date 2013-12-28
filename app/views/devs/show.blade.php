@@ -5,12 +5,12 @@
 @if(Sentry::check())
 
 <div class="_w100 _in-block">
-	<h1 class="pull-left">{{{ $dev->first_name }}}&nbsp;{{{ $dev->last_name }}}</h1>
+	<h1 class="pull-left">{{ All::getName($dev) }}</h1>
 	<span class="pull-right">
 
-		{{ User::getPublicity($dev) }} 
+		{{ All::getPublicity($dev) }} 
 
-		{{ User::getEditLink($dev) }}
+		{{ All::getEditLink($dev) }}
 
 		@if(Sentry::getUser()->hasAccess('admin'))<!--  admin link -->
 			{{ link_to_route('admin', 'Admin', null, array('class' => 'btn btn-primary')) }}
@@ -22,7 +22,7 @@
 
 <div class="_w100 _in-block">
 	<div id="single-map"></div>
-	{{ User::getImageLink($dev, '_profile-pic') }}
+	{{ All::getImageLink($dev, '_profile-pic') }}
 	<table class="_bio table table-striped table-bordered">
 		<tbody>
 			<tr><td>Skills</td><td>Comming soon...</td></tr>
@@ -76,7 +76,7 @@
 						<td>{{ link_to_route('stories.show', $story->name, array($story->id)) }}</td>
 						<td>{{{ $story->location }}}</td>
 						
-	                    <td>{{ User::getEditLink($story, 'stories') }}</td>
+	                    <td>{{ All::getEditLink($story, 'stories') }}</td>
 					</tr>
 				@endforeach
 			</tbody>

@@ -51,8 +51,7 @@
       mlng = lng
     }
     else{
-      _recordName = _pathtype == 'index' ? _record.name : _record.location
-      _recordName = _path == 'devs' ? _record.first_name : _recordName
+      _recordName = _path.indexOf('devs') > -1 ? _record.first_name : _record.name
       // _recordName = _path == 'devs' ? _record.first_name : _recordName
       var marker = L.marker([mlat, mlng], {
             icon: myIcon
@@ -110,7 +109,6 @@
           console.log('_record is an array');
           // console.log(_record);
           mymodel = _path
-          _pathtype = 'index'
           $.each(_record, function(key, record){mapRecord(record)})
         }
         else{
@@ -394,7 +392,6 @@ var lat = ''
 var lng = ''
 var selected_model = localStorage.selected_model
 var _record = {}
-var _pathtype = []
 
 // var _blink = function(){}
 

@@ -6,22 +6,21 @@
 <div class="_w100 _in-block">
 	<h1 class="pull-left">{{{ $eventt->name }}}</h1>
 	<span class="pull-right">
-		{{ User::getPublicity($eventt) }} {{ User::getEditLink($eventt) }}
+		{{ All::getPublicity($eventt) }} {{ All::getEditLink($eventt) }}
 	</span>
 	
 </div>
 
 <div id="single-map"></div>
 
-{{ User::getImageLink($eventt, '_profile-pic') }}
-
+{{ All::getImageLink($eventt, '_profile-pic') }}
 
 
 <div class="">
 	<table class="_in-block _right10">
 		<tr>
 			<th>Organiser: </th>
-			<td>{{ User::find($eventt->organizer)->getNameLink() }}</td>
+			<td>{{ All::getNameLink($eventt) }}</td>
 		</tr>
 	</table>
 	<table class="_in-block _right10">

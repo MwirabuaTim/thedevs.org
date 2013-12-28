@@ -29,15 +29,16 @@
 		<tbody>
 			@foreach ($projects as $project)
 				<tr>
-					<td><img src="{{{ $project->logo }}}" style="max-width: 100px;" /></td>
-					<td><a href="{{ URL::to('projects/'.$project->id) }}">{{{ $project->name }}}</a></td>
+					<td>{{ All::getImageLink($project, '_list-img') }}</td>
+					<td>{{ All::getNameLink($project) }}</td>
 					<!-- <td>{{{ $project->elevator }}}</td> -->
 					<td>{{{ $project->type }}}</td>
 					<td>{{{ $project->location }}}</td>
 					<!-- <td>{{{ $project->link }}}</td> -->
 					<!-- <td>{{{ $project->views }}}</td> -->
 					<!-- <td>{{{ $project->votes }}}</td> -->
-					<td>{{ User::find($project->creator)->getNameLink() }}</td>
+					<td>{{ All::getCreatorImageLink($project, '_list-img') }}
+						<br/>{{ All::getCreatorLink($project) }}</td>
 				</tr>
 			@endforeach
 		</tbody>

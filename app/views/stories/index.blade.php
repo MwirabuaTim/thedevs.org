@@ -27,12 +27,13 @@
 		<tbody>
 			@foreach ($stories as $story)
 				<tr>
-					<td><a href="{{ URL::to('stories/'.$story->id) }}">{{{ $story->name }}}</a></td>
+					<td>{{ All::getNameLink($story) }}</td>
 					<!-- <td>{{{ $story->body }}}</td> -->
 					<td>{{{ $story->location }}}</td>
 					<!-- <td>{{{ $story->views }}}</td> -->
 					<!-- <td>{{{ $story->votes }}}</td> -->
-					<td>{{ User::find($story->creator)->getNameLink() }}</td>
+					<td>{{ All::getCreatorImageLink($story, '_list-img') }}
+						<br/>{{ All::getCreatorLink($story) }}</td>
 				</tr>
 			@endforeach
 		</tbody>

@@ -14,7 +14,6 @@
 	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-				<!-- <th>Pic</th> -->
 				<th>Title</th>
 				<!-- <th>Tagline</th> -->
 				<th>Type</th>
@@ -30,8 +29,7 @@
 		<tbody>
 			@foreach ($eventts as $eventt)
 				<tr>
-					<!-- <td><img src="{{{ User::find($eventt->organizer)->pic }}}" style="max-width: 100px;" /></td> -->
-					<td><a href="{{ URL::to('eventts/'.$eventt->id) }}">{{{ $eventt->name }}}</a></td>
+					<td>{{ All::getNameLink($eventt) }}</td>
 					<!-- <td>{{{ $eventt->elevator }}}</td> -->
 					<td>{{{ $eventt->type }}}</td>
 					<td>{{{ $eventt->location }}}</td>
@@ -39,7 +37,8 @@
 					<!-- <td>{{{ $eventt->end_time }}}</td> -->
 					<!-- <td>{{{ $eventt->views }}}</td> -->
 					<!-- <td>{{{ $eventt->votes }}}</td> -->
-					<td>{{ User::find($eventt->organizer)->getNameLink() }}</td>
+					<td>{{ All::getCreatorImageLink($eventt, '_list-img') }}}
+						<br/>{{ All::getCreatorLink($eventt) }}</td>
 				</tr>
 			@endforeach
 		</tbody>

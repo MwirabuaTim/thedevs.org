@@ -242,6 +242,10 @@ ul._top-right li{
 	text-indent: 10px;
 	font-family: sans-serif; 
 }
+._list-img{
+	width: 100px;
+	max-height: 100px;
+}
 
 .btn{
 	margin: 5px;

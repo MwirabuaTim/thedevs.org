@@ -25,24 +25,21 @@ Route::get('{any}', function($url){
 */
 
 Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
-	$record =  User::getRecord($resource, $id);
+	$record =  All::getRecord($resource, $id);
 	// return var_dump($record);
-	if(!Sentry::check()){
-		return View::make('error.401');
-	}
-	else if(!isset($record)){
+	if(!isset($record)){ //!test for empty records
 		return View::make('error.404');
 	}
 	else if($resource != 'devs'){
-		if(!User::hasEditRight($record)){
+		if(!All::hasEditRight($record)){
 			return View::make('error.403');
 		}
 	}
-	$record_name = strtolower(User::getModel($resource));
+	$record_name = strtolower(All::getModel($resource));
 
 	return View::make($resource.'.edit')->with($record_name, $record);
 	// return var_dump(Story::find(3)->id);
-	// return var_dump(User::getModel($resource));
+	// return var_dump(All::getModel($resource));
 	// return var_dump($record->id);
 
 })->where('id', '[0-9]+');
@@ -55,17 +52,14 @@ Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
 */
 
 Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
-	$record =  User::getRecord($resource, $id);
+	$record =  All::getRecord($resource, $id);
 	// return var_dump($record->public);
 	if($record->public != 'on'){
-		if(!Sentry::check()){
-		return View::make('error.401');
-		}
-		if(!User::hasEditRight($record)){
-			return View::make('error.500');
+		if(!All::hasEditRight($record)){
+			return View::make('error.403');
 		}
 	}
-	$record_name = strtolower(User::getModel($resource));
+	$record_name = strtolower(All::getModel($resource));
 	return View::make($resource.'.show')->with($record_name, $record);
 
 })->where('id', '[0-9]+');
@@ -81,7 +75,7 @@ Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
 	// 	if(!User::adminCheck()):
 	// 		return View::make('admin_filter');			
 	// 	else:
-	// 		return View::make($resource_name, compact($resource_name))->with('id', $item_id); //wrong!
+	// 		return View::make($resource_name, compact($resource_name))->with('id', $item_id); //!test
 	// 	endif;
 	// endif;
 
@@ -168,11 +162,11 @@ Route::get('api/eventts', function(){ return Eventt::all();});
 Route::get('api/stories', function(){ return Story::all();});
 
 Route::get('api/{resource}/{id}', function($resource, $id){ 
-	return User::getRecord($resource, $id);
+	return All::getRecord($resource, $id);
 })->where('id', '[0-9]+');
 
 Route::get('api/{resource}/{id}/edit', function($resource, $id){ 
-	return User::getRecord($resource, $id);
+	return All::getRecord($resource, $id);
 })->where('id', '[0-9]+');
 
 Route::get('api/all', function(){ 
