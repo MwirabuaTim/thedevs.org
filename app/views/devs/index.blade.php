@@ -26,8 +26,8 @@
 		<tbody>
 			@foreach ($devs as $dev)
 				<tr>
-					<td><img src="{{{ $dev->pic }}}" style="max-width: 100px;" /></td>
-					<td><a href="{{ URL::to('devs/'.$dev->id) }}">{{{ $dev->first_name }}}&nbsp;{{{ $dev->last_name }}}</a></td>
+					<td>{{ All::getImageLink($dev, '_list-img') }}</td>
+					<td>{{ All::getNameLink($dev) }}</td>
 					<td>{{{ $dev->elevator }}}</td>
 					<td>{{{ $dev->location }}}</td>
 					<!-- <td>{{{ $dev->views }}}</td> -->
