@@ -19,6 +19,26 @@ Route::get('{any}', function($url){
 
 /*
 |--------------------------------------------------------------------------
+| View Rights - Enforcing authorized access only
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
+	$record =  All::getRecord($resource, $id);
+	// return var_dump($record->public);
+	// if($record->public != 'on'){ //!test public effect first
+	// 	if(!All::hasEditRight($record)){
+	// 		return View::make('error.403');
+	// 	}
+	// }
+	$record_name = strtolower(All::getModel($resource));
+	return View::make($resource.'.show')->with($record_name, $record);
+
+})->where('id', '[0-9]+');
+
+/*
+|--------------------------------------------------------------------------
 | Edit Rights
 |--------------------------------------------------------------------------
 |
@@ -46,54 +66,19 @@ Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
 
 /*
 |--------------------------------------------------------------------------
-| Edit Rights
+| Delete Rights
 |--------------------------------------------------------------------------
 |
+
 */
 
-Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
-	$record =  All::getRecord($resource, $id);
-	// return var_dump($record->public);
-	if($record->public != 'on'){
-		if(!All::hasEditRight($record)){
-			return View::make('error.403');
-		}
-	}
-	$record_name = strtolower(All::getModel($resource));
-	return View::make($resource.'.show')->with($record_name, $record);
-
-})->where('id', '[0-9]+');
-//Lie Detector: (enforcing authorized access only)
-
-// Route::any('{resource_name}/{item_id}/edit', function($resource_name, $item_id)
-// {
-	// if (in_array($resource_name, array('kits', 'tags', 'profiles', 'mydatatypes'))):
-	// 	return View::make('404');
-	// endif;
-
-	// if(in_array($resource_name, array('devs'))):
-	// 	if(!User::adminCheck()):
-	// 		return View::make('admin_filter');			
-	// 	else:
-	// 		return View::make($resource_name, compact($resource_name))->with('id', $item_id); //!test
-	// 	endif;
-	// endif;
-
-	// if (!User::ownerCheck($resource_name, $id)):
-	// 	return View::make('owner_filter');
-	// endif;
-
-	// return true;
-
-// })->before('auth');
-
-// Route::get('{resource}/{id}/delete', function($resource, $id){
-// 		var_dump($resource.'/'.$id);
-// 		// $this->$resource->find($id)->delete();
-// 		return Redirect::to($url, $status, $https);
-// 		Redirect::to_action($action, $parameters, $status);
-// 	}
-// });
+Route::get('{resource}/{id}/delete', function($resource, $id){
+	// $this->$resource->find($id)->delete();
+	$record = All::getRecord($resource, $id);
+	$record->status = 'deleted';
+	$record->save();
+	return $record;
+});
 
 
 //Static Pages
@@ -162,21 +147,11 @@ Route::resource('mydatatypes', 'MydatatypesController');
 // Route::get('api/stories', function(){ return Story::all();});
 
 
-Route::get('api/{path}', function($path){ 
-	if($path == 'all'){
-		return All::getRecords(5);
-	}
-	else{
-		$model = All::getModel($path);
-		$records =  $model::all();
-		foreach ($records as $record) {
-			$record->top_path = All::getPath($record);
-		};
-		return $records;
-	}
-	
-});
-
+Route::get('api/all', 'APIController@getAllRecords');
+// Route::get('api/all', 'APIController@getRandomRecords');
+// Route::get('api/all', 'APIController@getLatestRecords');
+Route::get('api/get-bounds', 'APIController@getCoveredRecords');
+Route::get('api/{path}', 'APIController@getModelRecords', compact('path'));
 
 Route::get('api/{resource}/{id}', function($resource, $id){ 
 	$record = All::getRecord($resource, $id);

@@ -35,8 +35,9 @@
 
 	<form class="mapsearch navbar-form navbar-left col-sm-5" role="search">
 	  <!-- <div class="form-group"> -->
-	    <input type="text" class="form-control" placeholder="Search">
-	  	<button type="submit" class="btn _aqua-hover _search-btn">Submit</button>
+	    <input type="text" class="form-control" 
+        placeholder='Search "JavaScript Developer", "Tech Hub", "TEDx", "Workout App" etc near you...'>
+	  	<button type="submit" class="btn _aqua-hover _search-btn">Search</button>
 	  <!-- </div> -->
 	</form>
     

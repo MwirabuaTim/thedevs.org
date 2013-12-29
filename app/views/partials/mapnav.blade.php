@@ -1,20 +1,25 @@
 <div class="_mapnav">
 
   <div class="_brick pull-right">
-    <div class="">
-      <a href="/devs"><div class="_strip">DEVELOPERS</div><!-- <div class="_tail"></div> --></a>
+    <div class="devs">
+      <a href="/devs"><div class="_strip">DEVELOPERS<span></span></div>
+      <!-- <div class="_tail"></div> --></a>
     </div>
-    <div class="">
-      <a href="/orgs"><div class="_strip">ORGANISATIONS</div><!-- <div class="_tail"></div> --></a>
+    <div class="orgs">
+      <a href="/orgs"><div class="_strip">ORGANISATIONS<span></span></div>
+      <!-- <div class="_tail"></div> --></a>
     </div>
-     <div class="">
-      <a href="/eventts"><div class="_strip">EVENTS</div><!-- <div class="_tail"></div> --></a>
+     <div class="eventts">
+      <a href="/eventts"><div class="_strip">EVENTS<span></span></div>
+      <!-- <div class="_tail"></div> --></a>
     </div>
-    <div class="">
-      <a href="/projects"><div class="_strip">PROJECTS</div><!-- <div class="_tail"></div> --></a>
+    <div class="projects">
+      <a href="/projects"><div class="_strip">PROJECTS<span></span></div>
+      <!-- <div class="_tail"></div> --></a>
     </div>
-     <div class="">
-      <a href="/stories"><div class="_strip">STORIES</div><!-- <div class="_tail"></div> --></a>
+     <div class="stories">
+      <a href="/stories"><div class="_strip">STORIES<span></span></div>
+      <!-- <div class="_tail"></div> --></a>
     </div>
   </div>
 

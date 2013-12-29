@@ -27,12 +27,19 @@ body{
 	background-color: black;
 	border-top: 5px solid aqua;
 	width: 100%;
+	margin-bottom: -5px;
 }
 ._footer ._nav{
 	position: relative;
 	top: 20px;
-	margin: 0px;
-	padding-bottom: 20px;
+	/*margin: 0px;*/
+	/*padding-bottom: 20px;*/
+	float: left;
+}
+._footer ._sign{
+	float: right;
+	margin-top: 20px;
+	/*margin-right: 95px;*/
 }
 ._footer a{
 	color: white;
@@ -89,7 +96,7 @@ ul._top-right{
 	float: right;
 	width: auto;
 	margin-top: 40px;
-	margin-bottom: 25px;
+	margin-bottom: 20px;
 	display: table;
 }
 ul._top-right li{
@@ -208,9 +215,9 @@ ul._top-right li{
 	display: inline;
 }
 ._brick{
-	width:10%;
 	min-width: 150px;
 	clear: none;
+	margin-left: 10px;
 }
 ._blade {
 	padding: 10px 15px;
@@ -250,6 +257,31 @@ ul._top-right li{
 .btn{
 	margin: 5px;
 }
+img{
+	max-width: 100%;
+	height: auto;
+}
+._bg-transparent a{
+	color: aqua;
+}
+._bg-transparent a.btn{
+	color: white;
+}
+._bg-transparent .leaflet-container a{
+	color: #0078A8;
+}
+
+
+._bg-transparent a.btn-link{
+	color: aqua;
+	margin-left: 0px;
+	padding-left: 0px;
+
+}
+/*._transparent btn-link{
+	color: aqua;
+}
+*/
 
 @font-face
 {
@@ -325,10 +357,9 @@ input[type='checkbox']{
 	border-color: green pink white transparent;
 }*/
 #map{
-	/*height: 250px;*/
 	height: 240px;
-	width: calc(100% - 160px);
-	float: left;
+	/*width: calc(100% - 200px);*/
+	/*float: left;*/
 }
 
 form.mapsearch{
@@ -354,6 +385,8 @@ form.mapsearch input{
 	float: right;
 	background-color: #FF6EE8;
 	margin-bottom: 5px;
+	cursor: pointer;
+	z-index: 1000;
 }
 .alert{
 	line-height: 1;
@@ -538,15 +571,13 @@ form ul{
 }
 img._profile-pic{
 	height: 200px;
+	width: 200px;
 	margin-top: -200px;
 	/*display: table;*/
 	z-index: 999;
 	position: absolute;
 }
-table._bio{
-	float:right;
-	color: #333;
-}
+
 ._checkbox input{
 	float: left;
 	width: auto;
@@ -574,7 +605,7 @@ table._bio{
 }
 
 /*leaflet edits*/
-
+/*moving the zoom control*/
 .leaflet-control-container{
 	float: right;
 }
@@ -585,8 +616,33 @@ table._bio{
 	margin-right: 10px;
 	float: right;
 }
-/*addthis edits*/
-.at4-follow{
+
+/*moving the attribution control*/
+
+.leaflet-right{ 
+	width: 100%;
+}
+.leaflet-control-attribution.leaflet-control{
+	float: left;
+}
+
+/*addthis edits for design*/
+div#at4-follow{
+	margin-right: 5%;
+	top: -5px;
+}
+.at4-follow-inner{
+	padding-right: 0px;
+}
+.at4-follow.at4-follow-24 .at4-follow-container {
+	margin: 0px;
+}
+.at4-icon-fw.aticon-google_follow {
+	margin-right: 0px;
+}
+/*addthis edits for bottom version*/
+
+/*.at4-follow{
 	top:auto;
 	bottom: 10px;
 	right: 5%;
@@ -605,7 +661,32 @@ table._bio{
 .at4-arrow{
 	background-color: white;
 }
+*/
 
+
+/*table styling*/
+.table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
+	background-color: transparent;
+}
+.table-bordered>tbody>tr>td, .table-bordered>thead>tr>th {
+	border: 0px;
+}
+.table-bordered>tbody>tr {
+	border-bottom: 1px solid #ddd;
+}
+.table-bordered>thead>tr {
+	border-bottom: 2px solid #ddd;
+}
+.table-bordered {
+	border:0px;
+}
+.table-bordered>thead>tr>th:last-child, .table-striped>tbody>tr>td:last-child{
+	text-align:right;
+}
+table._bio{
+	float:right;
+	/*color: #333;*/
+}
 @media (max-width: 1000px) {
 	._creates .modal-dialog{
 		width: 90%;
@@ -677,6 +758,11 @@ table._bio{
 	}
 	._footer ._nav li{
 		height: 30px;
+	}
+	._footer ._sign {
+		margin-top: -30px;
+		margin-bottom: 30px;
+		float: left;
 	}
 }
 

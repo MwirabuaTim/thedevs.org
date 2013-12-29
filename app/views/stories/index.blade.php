@@ -6,13 +6,12 @@
 
 @section('main')
 
+<h2 class="_inline">Latest Stories...</h2>
 
-<h1>All Stories</h1>
-
-<!-- <p>{{ link_to_route('stories.create', 'Add new story') }}</p> -->
+<!-- <p class="pull-right _top10">{{ link_to_route('stories.create', 'Add One... :)') }}</p> -->
 
 @if ($stories->count())
-	<table class="table table-striped table-bordered">
+	<table class="table table-striped table-bordered _top10">
 		<thead>
 			<tr>
 				<th>Title</th>

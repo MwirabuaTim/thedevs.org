@@ -23,8 +23,7 @@ class CreateStoriesTable extends Migration {
 			$table->integer('votes');
 			$table->text('notes');
 			$table->string('status');
-			$table->string
-('public');
+			$table->string('public');
 			$table->timestamps();
 		});
 	}

@@ -40,6 +40,13 @@
       $('._blink-pink').show().fadeOut(1000)
     }, 1200);
   }
+  bindLabel = function(marker, _record){
+    marker.bindLabel('<a href="/'+_record.top_path+'/'+_record.id+'">'+_record.latest+'</a>', { 
+      //label markers
+      noHide: true,
+      direction: 'auto'
+    })
+  }
   mapRecord = function(_record){
     coords = _record.map;
     // console.log(_record);
@@ -51,23 +58,20 @@
       mlng = lng
     }
     else{
-      // _recordName = _path.indexOf('devs') > -1 ? _record.first_name : _record.name
-      _recordName = _record.top_path == 'devs' ? _record.first_name : _record.name
+      // _recordName = _record.top_path == 'devs' ? _record.first_name+' '+_record.last_name : _record.name
+      _recordName = _record.name
       var marker = L.marker([mlat, mlng], {
             icon: myIcon
             })
-            .bindLabel('<a href="/'+_record.top_path+'/'+_record.id+'">'
-                  +_recordName+'</a>', { 
-            //label markers
-            noHide: true,
-            direction: 'auto'
-            }).addTo(map);
       var popup = L.popup()
           // .setLatLng(latlng)
-          .setContent('<a href="/'+_record.top_path+'/'+_record.id+'/edit">Edit</a><br />'
-            +_record.description+'</p>')
+          .setContent('<a href="/'+_record.top_path+'/'+_record.id+'">'+_recordName+'</a>')
           .openOn(marker);
       marker.bindPopup(popup)
+
+      _record.latest ? bindLabel(marker, _record) : ''
+
+      marker.addTo(map);
     }
     markersgroup.push([mlat, mlng]) //just to define where map will land
     // console.log(marker.getLatLng());
@@ -79,7 +83,7 @@
   loadMap = function(_div, _path){
     console.log('Loading map for: ' + _path)
     myIcon = L.icon({ // needs to be initialized globally so that it can be referred
-      iconUrl: '{{ asset("images/left-dex-green.png") }}',
+      iconUrl: '{{ asset("images/bubble-pink.png") }}',
       iconSize: [20, 20],
       iconAnchor: [10, 10],
       labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
@@ -92,8 +96,8 @@
       }).setView([51.505, -0.09], 5); 
     
     L.tileLayer('http://{s}.tile.cloudmade.com/5e9427487a6142f7934b07d07a967ba3/997/256/{z}/{x}/{y}.png', {
-        attribution: 'EuroHackTrip',
-        maxZoom: 18,
+        attribution: '(Most recent records ones are labelled)',
+        maxZoom: 25,
         // opacity: 0.5
       }).addTo(map);
 
@@ -106,7 +110,12 @@
         if(_record[0]){ //_record is an array of more than one json object
           console.log('_record is an array');
           // console.log(_record);
-          $.each(_record, function(key, record){mapRecord(record)})
+          $.each(_record, function(key, record){
+            mapRecord(record)
+            //append count on sidebar
+            $('.'+record.top_path+' span')
+            .html(' ('+record.model_count+')&nbsp;')
+          })
         }
         else{
           console.log('_record is a single record');
@@ -117,10 +126,16 @@
         b = L.latLngBounds(markersgroup)
         lat = b.getCenter().lat
         lng = b.getCenter().lng
+
       }
 
-    }).done(function() { // has to happen when the map is done loading baby!
-      
+    }).done(function() { // has to happen when the map is done loading
+
+        // map.on('moveend', function(){
+        //   b = map.getBounds()
+        //   getNewMarkers(b)
+        // });
+
     }).fail(function() {
       console.log('check your db bro...');
     })
@@ -306,7 +321,7 @@
   pin2map = function(lat, lng){
     // console.log('into pin2map');
     var myIcon = L.icon({
-      iconUrl: '{{ asset("images/bubble-pink.png") }}',
+      iconUrl: '{{ asset("images/left-dex-green.png") }}',
       iconSize: [20, 20],
       iconAnchor: [10, 10],
       labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
@@ -351,6 +366,15 @@
     var x = $('.panel-group label input#'+localStorage.selected_model).parent()[0]
     x.className = 'cats btn panel _aqua-hover active'
     $('button._step3').removeAttr('disabled')
+  }
+
+  getNewMarkers = function(b){
+    // setTimeout(function(){
+      $.get('api/get-bounds', b, function(m){
+        console.log(m);
+      })
+    // }, 500);
+    
   }
 
 //$(window).load(function(){
@@ -440,7 +464,6 @@ $(document).ready(function(){
 
   }
 
- 
     
   if(localStorage.status == 'pending'){// local storage
     pinLS()

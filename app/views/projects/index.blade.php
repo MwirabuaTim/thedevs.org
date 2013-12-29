@@ -6,12 +6,12 @@
 
 @section('main')
 
-<h1>All Projects</h1>
+<h2 class="_inline">Latest Projects...</h2>
 
-<!-- <p>{{ link_to_route('projects.create', 'Add new project') }}</p> -->
+<!-- <p class="pull-right _top10">{{ link_to_route('projects.create', 'Add One... :)') }}</p> -->
 
 @if ($projects->count())
-	<table class="table table-striped table-bordered">
+	<table class="table table-striped table-bordered _top10">
 		<thead>
 			<tr>
 				<th>Logo</th>

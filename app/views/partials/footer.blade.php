@@ -7,6 +7,6 @@
             <li class="link"><a href="{{ URL::to('privacy') }}">&#8226;&nbsp;Privacy Policy&nbsp;</a></li>
             <li class="link"><a href="{{ URL::to('contactus') }}">&#8226;&nbsp;Contact Us&nbsp;</a></li>
         </ul>
-
+		<span class="_sign">&copy;TheDevs.Org 2014</span>
     </div>
 </div>

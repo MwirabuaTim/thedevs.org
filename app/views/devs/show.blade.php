@@ -23,7 +23,7 @@
 <div class="_w100 _in-block">
 	<div id="single-map"></div>
 	{{ All::getImageLink($dev, '_profile-pic') }}
-	<table class="_bio table table-striped table-bordered">
+	<table class="_bio table table-bordered">
 		<tbody>
 			<tr><td>Skills</td><td>Comming soon...</td></tr>
 			<tr><td>Email</td><td>{{{ $dev->email }}}</td></tr>
@@ -65,8 +65,8 @@
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th width="80%">Title</th>
-					<th>Location</th>
+					<th>Title</th>
+					<th class="pull-right">Location</th>
 				</tr>
 			</thead>
 
@@ -74,9 +74,9 @@
 				@foreach ($stories as $story)
 					<tr>
 						<td>{{ link_to_route('stories.show', $story->name, array($story->id)) }}</td>
-						<td>{{{ $story->location }}}</td>
+						<td class="pull-right">{{{ $story->location }}}
+								{{ All::getEditLink($story, 'stories') }}</td>
 						
-	                    <td>{{ All::getEditLink($story, 'stories') }}</td>
 					</tr>
 				@endforeach
 			</tbody>

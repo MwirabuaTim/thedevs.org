@@ -89,7 +89,7 @@
     {{ HTML::script('js/jquery-ui-timepicker-addon.js') }}
     {{ HTML::script('js/jquery-ui-sliderAccess.js') }}
 
-
+    <!-- libs -->
     {{ HTML::script('js/plugins.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/underscore.js') }}
@@ -102,7 +102,7 @@
     <!-- tinymce rich editor -->
     {{ HTML::script('tinymce/tinymce.min.js') }}
 
-    @include('partials.appjs') <!-- Inlining Custom js for all pages -->
+    @include('partials.alljs') <!-- Inlining Custom js for all pages -->
     @yield('js') <!-- Inlining page-specific JS -->
 
 

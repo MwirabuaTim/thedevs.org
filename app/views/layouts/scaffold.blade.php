@@ -21,7 +21,7 @@
 	@endif
 
 	@if('' !== $__env->yieldContent('main'))
-	<div class="_bg-white _w100">@yield('main')</div>
+	<div class="_bg-transparent _w100">@yield('main')</div>
 	@endif
 
 @stop

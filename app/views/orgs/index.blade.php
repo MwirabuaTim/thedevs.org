@@ -6,11 +6,12 @@
 
 @section('main')
 
-<h1>All Orgs</h1>
-<!-- <p>{{ link_to_route('orgs.create', 'Add new org') }}</p> -->
+<h2 class="_inline">Latest Orgs...</h2>
+
+<!-- <p class="pull-right _top10">{{ link_to_route('orgs.create', 'Add One... :)') }}</p> -->
 
 @if ($orgs->count())
-	<table class="table table-striped table-bordered">
+	<table class="table table-striped table-bordered _top10">
 		<thead>
 			<tr>
 				<th>Logo</th>
@@ -30,7 +31,7 @@
 					<!-- <td>{{{ $org->elevator }}}</td> -->
 					<td>{{{ $org->type }}}</td>
 					<td>{{{ $org->location }}}</td>
-					<td>{{ All::getCreatorImageLink($org, '_list-img') }}}
+					<td>{{ All::getCreatorImageLink($org, '_list-img') }}
 						<br/>{{ All::getCreatorLink($org) }}</td>
 				</tr>
 			@endforeach
