@@ -20,7 +20,7 @@
 	<table class="_in-block _right10">
 		<tr>
 			<th>Organiser: </th>
-			<td>{{ All::getNameLink($eventt) }}</td>
+			<td>{{ All::getCreatorLink($eventt) }}</td>
 		</tr>
 	</table>
 	<table class="_in-block _right10">

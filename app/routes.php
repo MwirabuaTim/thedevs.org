@@ -155,42 +155,42 @@ Route::resource('mydatatypes', 'MydatatypesController');
 // Route::get('api/stories', function(){ return Response::json(['stories'=> json_decode(Story::all())]);});
 
 
-Route::get('api/devs', function(){ return Dev::all();});
-Route::get('api/orgs', function(){ return Org::all();});
-Route::get('api/projects', function(){ return Project::all();});
-Route::get('api/eventts', function(){ return Eventt::all();});
-Route::get('api/stories', function(){ return Story::all();});
+// Route::get('api/devs', function(){ return Dev::all();});
+// Route::get('api/orgs', function(){ return Org::all();});
+// Route::get('api/projects', function(){ return Project::all();});
+// Route::get('api/eventts', function(){ return Eventt::all();});
+// Route::get('api/stories', function(){ return Story::all();});
+
+
+Route::get('api/{path}', function($path){ 
+	if($path == 'all'){
+		return All::getRecords(5);
+	}
+	else{
+		$model = All::getModel($path);
+		$records =  $model::all();
+		foreach ($records as $record) {
+			$record->top_path = All::getPath($record);
+		};
+		return $records;
+	}
+	
+});
+
 
 Route::get('api/{resource}/{id}', function($resource, $id){ 
-	return All::getRecord($resource, $id);
+	$record = All::getRecord($resource, $id);
+	$record->top_path = $resource;
+	return $record;
 })->where('id', '[0-9]+');
 
 Route::get('api/{resource}/{id}/edit', function($resource, $id){ 
-	return All::getRecord($resource, $id);
+	$record = All::getRecord($resource, $id);
+	$record->top_path = $resource;
+	return $record;
 })->where('id', '[0-9]+');
 
-Route::get('api/all', function(){ 
-	$sources = array(
-		Org::all(),
-		Project::all(),
-		Eventt::all(),
-		Story::all()
-		);
-	$i = 0;
-	$sources_array = array();
-	foreach ($sources as $source) {
-		$source_array[$i] = json_decode($source, TRUE);
-		$i+=1;
-	}
-	// return Response::json(Org::all());
-	// return json_decode(Org::all());
-	// return Org::all();
-	return var_dump(Org::all());
 
-	// $source_array = json_decode($source, TRUE);
-	// var_dump($sources);
-	// return Org::all();
-});
 /*
 |--------------------------------------------------------------------------
 | Account Routes

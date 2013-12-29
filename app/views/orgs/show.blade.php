@@ -16,7 +16,7 @@
 <table class="_right10 _in-block">
 	<tr>
 		<th>Creator: </th>
-		<td>{{ {{ All::getNameLink($org) }} }}</td>
+		<td>{{ All::getCreatorLink($org) }}</td>
 	</tr>
 </table>
 

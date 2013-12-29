@@ -51,13 +51,12 @@
       mlng = lng
     }
     else{
-      _recordName = _path.indexOf('devs') > -1 ? _record.first_name : _record.name
-      // _recordName = _path == 'devs' ? _record.first_name : _recordName
+      // _recordName = _path.indexOf('devs') > -1 ? _record.first_name : _record.name
+      _recordName = _record.top_path == 'devs' ? _record.first_name : _record.name
       var marker = L.marker([mlat, mlng], {
             icon: myIcon
             })
-            .bindLabel('<a href="'
-              +window.location.origin+'/'+mymodel+'/'+_record.id+'">'
+            .bindLabel('<a href="/'+_record.top_path+'/'+_record.id+'">'
                   +_recordName+'</a>', { 
             //label markers
             noHide: true,
@@ -65,8 +64,7 @@
             }).addTo(map);
       var popup = L.popup()
           // .setLatLng(latlng)
-          .setContent('<a href="'
-            +window.location.origin+'/'+mymodel+'/'+_record.id+'/edit">Edit</a><br />'
+          .setContent('<a href="/'+_record.top_path+'/'+_record.id+'/edit">Edit</a><br />'
             +_record.description+'</p>')
           .openOn(marker);
       marker.bindPopup(popup)
@@ -108,13 +106,11 @@
         if(_record[0]){ //_record is an array of more than one json object
           console.log('_record is an array');
           // console.log(_record);
-          mymodel = _path
           $.each(_record, function(key, record){mapRecord(record)})
         }
         else{
           console.log('_record is a single record');
           // console.log(_record);
-          mymodel = _path.substr(0, _path.indexOf('/')) //remove the index after model
           mapRecord(_record)
         }
         map.fitBounds(markersgroup)
@@ -378,8 +374,7 @@ function initStyle() {
 
 var _path = window.location.pathname;
 _path = _path.substr(1, _path.length)
-if(_path ==''){_path = 'orgs'}
-var mymodel = ''
+if(_path ==''){_path = 'all'}
 var selected_model = _path
 // console.log(_path);
 var _url = window.location.href;

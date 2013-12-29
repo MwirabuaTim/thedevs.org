@@ -106,4 +106,42 @@ class All extends Eloquent {
 		return $model::find($id);
 	}
 
+	public static function getRecords($num){ 
+		$sources = array(
+			Dev::all(),
+			Org::all(),
+			Project::all(),
+			Eventt::all(),
+			Story::all()
+			);
+
+		$source_array = array();
+		$names_arr = array();
+		foreach ($sources as $source) {
+			foreach ($source as $record) {
+				// $record->classname = get_class($record);
+				$record->top_path = All::getPath($record);
+			};
+			// $source->first()->classname = get_class($source->first());
+			array_push($source_array, json_decode($source, TRUE));
+			array_push($names_arr, get_class($source->first())); 
+		}
+		$big_arr = array_merge(
+				$source_array[0], 
+				$source_array[1], 
+				$source_array[2],
+				$source_array[3],
+				$source_array[4]
+			);
+		shuffle($big_arr);
+		array_splice($big_arr, $num);
+
+
+		// return $names_arr;
+		return $big_arr;
+	}
+	public static function getLatestRecords($num){
+		//updated_at sortin magic
+	}
+
 }

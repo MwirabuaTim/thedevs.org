@@ -15,7 +15,7 @@
 <table class="_right10 _in-block">
 	<tr>
 		<th>Author: </th>
-		<td>{{ All::getNameLink($story) }}</td>
+		<td>{{ All::getCreatorLink($story) }}</td>
 	</tr>
 </table>
 
