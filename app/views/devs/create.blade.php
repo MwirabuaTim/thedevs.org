@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Create Dev</h1>
+<h1>Creating a Dev</h1>
 
 {{ Form::open(array('route' => 'devs.store')) }}
 	<ul>
@@ -47,11 +47,12 @@
         </li>
 
         <li>
-            {{ Form::checkbox('public', null, null, array('class'=>'_inline')) }}
-            {{ Form::label('public', 'Public:') }}
+            {{ Form::select('public', array('on' => 'Public', 'off' => 'Not Public'), 'on', 
+                array('class'=>'btn btn-sm btn-primary', 'id'=>'public')) }}
+            {{ Form::label('public', 'Visibility of this page to the world') }}
         </li>
 
-		<li>
+		<li class="_top10">
 			{{ Form::submit('Submit', array('class' => 'btn btn-info')) }}
 		</li>
 	</ul>

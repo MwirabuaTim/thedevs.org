@@ -21,7 +21,7 @@ class EventtsController extends BaseController {
 	 */
 	public function index()
 	{
-		$eventts = $this->eventt->all();
+		$eventts = $this->eventt->orderBy('created_at', 'desc')->paginate(10);
 
 		return View::make('eventts.index', compact('eventts'));
 	}
@@ -48,7 +48,6 @@ class EventtsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$input['organizer'] = Sentry::getUser()->id;
 			$this->eventt->create($input);
 
 			return Redirect::route('eventts.index');

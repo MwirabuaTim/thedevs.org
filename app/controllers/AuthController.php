@@ -28,7 +28,9 @@ class AuthController extends BaseController {
 		}
 		else if (isset($_SERVER["HTTP_REFERER"])){
 			// return var_dump($_SERVER["HTTP_REFERER"]);
-			return View::make('account.signin-basic');
+			// return View::make('account.signin-basic');
+			// return Response::view('account.signin-basic');
+			return Response::view('account.signin');
 		}
 		return View::make('account/signin');
 	}
@@ -60,7 +62,8 @@ class AuthController extends BaseController {
 			if(isset($input['status'])){//its from the popup
 				// return Request::path();
 				// return var_dump($uri);
-				return Redirect::to('auth/signin')->withInput()->withErrors($validator);
+				// return Redirect::to('auth/signin')->withInput()->withErrors($validator);
+				return Response::json(array('errors' => json_decode($validator->messages())));
 			}
 			else{
 				// return var_dump($uri.' '.$urx);
@@ -74,21 +77,29 @@ class AuthController extends BaseController {
 			// Try to log the user in
 			Sentry::authenticate(Input::only('email', 'password'), Input::get('remember-me', 0));
 
+	
+			//check for any pending posts and assign then to the signed in user
+			$redirect = All::completePosting();
+
 			// Get the page we were before
-			$redirect = Session::get('loginRedirect', 'account');
+			$redirect = !empty($redirect) ? $redirect : Session::get('loginRedirect', 'account');
 
 			// Unset the page we were before from the session
 			Session::forget('loginRedirect');
 
 			// Redirect to the users page
 			if(isset($input['status'])){//its from the popup
-				return Response::json(array('success' => Lang::get('auth/message.signin.success')));
-				// return Response::json(array('success' => true));
+				return Response::json(array(
+					'success' => Lang::get('auth/message.signin.success'),
+					'redirect' => $redirect
+						));
 			}
 			else{
 				return Redirect::to($redirect)->with('success', Lang::get('auth/message.signin.success'));
 			}
 			
+
+
 		}
 		catch (Cartalyst\Sentry\Users\WrongPasswordException $e)
 		{
@@ -113,7 +124,8 @@ class AuthController extends BaseController {
 
 		// Ooops.. something went wrong	
 		if(isset($input['status'])){//its from the popup
-			return Redirect::to('auth/signin')->withInput()->withErrors($this->messageBag);
+			// return Redirect::to('auth/signin')->withInput()->withErrors($this->messageBag);
+			return Response::json(array('errors' => $this->messageBag));
 		}
 		else{
 			return Redirect::back()->withInput()->withErrors($this->messageBag);
@@ -137,7 +149,10 @@ class AuthController extends BaseController {
 			return View::make('account.signup');
 		}
 		else if (isset($_SERVER["HTTP_REFERER"])){
-			return View::make('account.signup-basic');
+			// return var_dump($_SERVER["HTTP_REFERER"]);
+			// return View::make('account.signup-basic');
+			// return Response::view('account.signup-basic');
+			return Response::view('account.signup');
 		}
 		return View::make('account.signup');
 	}
@@ -168,7 +183,8 @@ class AuthController extends BaseController {
 		{
 			// Ooops.. something went wrong
 			if(isset($input['status'])){//its from the popup
-				return Redirect::to('auth/signup')->withInput()->withErrors($validator);
+				// return Redirect::to('auth/signup')->withInput()->withErrors($validator);
+				return Response::json(array('errors' => json_decode($validator->messages())));
 			}
 			else{
 				return Redirect::back()->withInput()->withErrors($validator);
@@ -201,6 +217,7 @@ class AuthController extends BaseController {
 			// Redirect to the register page			
 			if(isset($input['status'])){//its from the popup
 				return Response::json(array('success' => Lang::get('auth/message.signup.success')));
+				// return Redirect::back()->with('success', Lang::get('auth/message.signup.success'));
 			}
 			else{
 				return Redirect::back()->with('success', Lang::get('auth/message.signup.success'));
@@ -211,15 +228,13 @@ class AuthController extends BaseController {
 			$this->messageBag->add('email', Lang::get('auth/message.account_already_exists'));
 		}
 
-		// Ooops.. something went wrong
-		// return Redirect::back()->withInput()->withErrors($this->messageBag);
-		
+		// Ooops.. something went wrong		
 		if(isset($input['status'])){//its from the popup
-			return Redirect::to('auth/signup')->with('success', Lang::get('auth/message.signup.success'));
+			// return Redirect::to('auth/signup')->with('success', Lang::get('auth/message.signup.success'));
+			return Response::json(array('errors' => $this->messageBag));
 		}
 		else{
-			return Redirect::back()->with('success', Lang::get('auth/message.signup.success'));
-			// return Redirect::to('auth/signup')->withInput()->withErrors($this->messageBag);
+			return Redirect::to('auth/signup')->withInput()->withErrors($this->messageBag);
 		}
 	}
 

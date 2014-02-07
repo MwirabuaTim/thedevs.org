@@ -13,14 +13,14 @@ Group Management ::
 		Group Management
 
 		<div class="pull-right">
-			<a href="{{ route('create/group') }}" class="btn btn-small btn-info"><i class="icon-plus-sign icon-white"></i> Create</a>
+			<a href="{{ route('create/group') }}" class="btn btn-sm btn-info"><i class="icon-plus-sign icon-white"></i> Create</a>
 		</div>
 	</h3>
 </div>
 
 {{ $groups->links() }}
 
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped admin">
 	<thead>
 		<tr>
 			<th class="span1">@lang('admin/groups/table.id')</th>
@@ -39,8 +39,8 @@ Group Management ::
 			<td>{{ $group->users()->count() }}</td>
 			<td>{{ $group->created_at->diffForHumans() }}</td>
 			<td>
-				<a href="{{ route('update/group', $group->id) }}" class="btn btn-mini">@lang('button.edit')</a>
-				<a href="{{ route('delete/group', $group->id) }}" class="btn btn-mini btn-danger">@lang('button.delete')</a>
+				<a href="{{ route('update/group', $group->id) }}" class="btn btn-sm btn-info">@lang('button.edit')</a>
+				<a href="{{ route('delete/group', $group->id) }}" class="btn btn-sm btn-danger">@lang('button.delete')</a>
 			</td>
 		</tr>
 		@endforeach

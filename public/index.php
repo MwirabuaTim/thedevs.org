@@ -19,6 +19,8 @@
 */
 
 require __DIR__.'/../bootstrap/autoload.php';
+// require __DIR__.'/../../thedevs/bootstrap/autoload.php';
+// require './thedevs/bootstrap/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,8 @@ require __DIR__.'/../bootstrap/autoload.php';
 */
 
 $app = require_once __DIR__.'/../bootstrap/start.php';
+// $app = require_once __DIR__.'/../../thedevs/bootstrap/start.php';
+// $app = require_once './thedevs/bootstrap/start.php';
 
 /*
 |--------------------------------------------------------------------------

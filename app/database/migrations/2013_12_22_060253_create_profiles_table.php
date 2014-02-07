@@ -23,7 +23,7 @@ class CreateProfilesTable extends Migration {
 			$table->string('link');
 			$table->string('location');
 			$table->string('about');
-			$table->string('image');
+			$table->string('pic');
 			$table->string('code');
 			$table->string('field1');
 			$table->string('field2');
@@ -31,6 +31,7 @@ class CreateProfilesTable extends Migration {
 			$table->string('field4');
 			$table->string('field5');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

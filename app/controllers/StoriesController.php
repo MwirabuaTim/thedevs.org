@@ -21,7 +21,7 @@ class StoriesController extends BaseController {
 	 */
 	public function index()
 	{
-		$stories = $this->story->all();
+		$stories = $this->story->orderBy('created_at', 'desc')->paginate(10);
 
 		return View::make('stories.index', compact('stories'));
 	}
@@ -48,7 +48,6 @@ class StoriesController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$input['creator'] = Sentry::getUser()->id;
 			$this->story->create($input);
 
 			return Redirect::route('stories.index');

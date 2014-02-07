@@ -21,6 +21,7 @@ class CreateMydatatypesTable extends Migration {
 			$table->float('myfloat');
 			$table->biginteger('mybigint');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

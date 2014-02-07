@@ -21,7 +21,7 @@ class ProjectsController extends BaseController {
 	 */
 	public function index()
 	{
-		$projects = $this->project->all();
+		$projects = $this->project->orderBy('created_at', 'desc')->paginate(10);
 
 		return View::make('projects.index', compact('projects'));
 	}
@@ -48,7 +48,6 @@ class ProjectsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$input['creator'] = Sentry::getUser()->id;
 			$this->project->create($input);
 
 			return Redirect::route('projects.index');

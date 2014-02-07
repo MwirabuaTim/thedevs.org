@@ -25,6 +25,7 @@ class CreateStoriesTable extends Migration {
 			$table->string('status');
 			$table->string('public');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

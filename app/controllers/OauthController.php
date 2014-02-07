@@ -8,7 +8,7 @@ class OauthController extends BaseController {
 
 
 
-	public function oauth()
+	public function session()
 	{
 	    if(Request::segment(2) == 'facebook'){
 	    	$provider = OAuth2::provider('facebook', array(
@@ -28,12 +28,14 @@ class OauthController extends BaseController {
 	        'secret' => 'ZOGyJqHOl5xMfGVQ-wTInqUs',
 	   		));
 	    }
-	    // if(Request::segment(2) == 'github'){
-	    // 	$provider = OAuth2::provider('github', array(
-	    //     'id' => '494491330565385',
-	    //     'secret' => '1dd38781d55ed1825724e433ef1ce6e3',
-	   	// 	));
-	    // }
+	    if(Request::segment(2) == 'github'){
+	    	$provider = OAuth2::provider('github', array(
+	        'id' => '67d050b4c06ad12d95be',
+	        'secret' => '4a03507448e3ffd9904eaa7b6fc7d3d75c373739',
+			'scope' => 'user:email' //read access for all scope
+	   		));
+	    }
+
 	    // if(Request::segment(2) == 'stackexchange'){
 	    // 	$provider = OAuth2::provider('stackexchange', array(
 	    //     'id' => '494491330565385',
@@ -62,21 +64,13 @@ class OauthController extends BaseController {
 	            // Here you should use this information to A) look for a user B) help a new user sign up with existing data.
 	            // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
 
-	            // return var_dump($data);
-	         //    array(10) { 
-	         //    	["first_name"]=> string(7) "Timothy" 
-		        //     ["last_name"]=> string(8) "Mwirabua" 
-		        //     ["username"]=> string(0) "" 
-		        //     ["email"]=> string(19) "techytimo@gmail.com" 
-		        //     ["uid"]=> string(21) "102781440230010907892" 
-		        //     ["link"]=> string(45) "https://plus.google.com/102781440230010907892" 
-		        //     ["location"]=> string(0) "" 
-		        //     ["about"]=> string(0) "" 
-		        //     ["pic"]=> string(92) "https://lh5.googleusercontent.com/-zUWNGKX5CAk/AAAAAAAAAAI/AAAAAAAABkQ/EVTWGvn6hIs/photo.jpg" 
-		        //     ["code"]=> string(70) "ya29.1.AADtN_U_QB6R6ah5LrlRMzFuUv87s58kknaKM2242jZMH0INH5VknQmhe1Eg0CQ" 
-		        // }
-		        // 
-	            $this->checkAndSave($data);
+	            // return Response::json($data);
+	
+	            $user_id = $this->checkAndSave($data);
+	            if ($user_id == false){
+					return Redirect::back()->with('error', 'Your email was not public. Please join with another provider.');
+					//return Response::json(array());
+				}
 	        }
 
 	        catch (OAuth2_Exception $e)
@@ -87,7 +81,13 @@ class OauthController extends BaseController {
 
         // return Redirect::to('auth/signin')->with('oauth', $data);
         // return Response::json(array('success' => Lang::get('auth/message.signin.success')));
-        return Redirect::home();
+        // return Redirect::to('devs/'.$user_id);
+        // return Redirect::back(); //breaks some times
+
+		//check for any pending posts and assign then to the signed in user
+		$redirect = All::completePosting();
+		$redirect = !empty($redirect) ? $redirect : Session::get('loginRedirect', 'account');
+        return Redirect::to($redirect); // so you can complete creating the post you were creating. temp solutin
 	}
 
 	public function checkAndSave($data){
@@ -102,8 +102,7 @@ class OauthController extends BaseController {
 
 		// 	3. log in user
 
-		$profile = Profile::where('uid', $data
-			['uid'])->first();
+		$profile = Profile::where('uid', $data['uid'])->first();
 		if (!empty($profile)) { //update profile
 			$profile->provider = Request::segment(2);
 			// $profile->first_name = $data['first_name'];
@@ -141,31 +140,41 @@ class OauthController extends BaseController {
 			//update user if we have new values
 
 			$user_update['first_name'] = $data['first_name'] != '' ? $data['first_name'] : $user['first_name']; 
+			$user_update['first_name'] = $user['first_name'] != '' ? $user_update['first_name'] : $data['username']; //case git
 			$user_update['last_name'] = $data['last_name'] != '' ? $data['last_name'] : $user['last_name']; 
 			$user_update['email'] = $data['email'] != ''? $data['email'] : $user['email']; 
 			$user_update['pic'] = $data['pic'] != '' ? $data['pic'] : $user['pic']; 
+			$user_update['pic'] = $user['pic'] != '' ? $user['pic'] : $user_update['pic']; //no need to update
 			$user_update['location'] = $data['location'] != '' ? $data['location'] : $user['location']; 
-			$user_update['about'] = $data['about'] != '' ? $data['about'] :$user['about'];
+			$user_update['elevator'] = substr($data['about'], 100) != '' ? '' : $data['about']; //elevator must not > 100
+			$user_update['elevator'] = $user['elevator'] != '' ? $user['elevator'] : $user_update['elevator']; //no need to update
+			$user_update['about'] = $user['about'] != '' ? $user['about'] : $data['about']; //no need to update
 
-			$x = User::find($user->id)->update($user_update);
+			User::find($user->id)->update($user_update);
 
 			
 		}
-		else { // no user, register one
+		elseif(empty($data['email'])){
+			return false;
+
+		}else { // no user, register onesubstr($data['about'], 100) != '' ? '' : $data['about'];
 			$user = new User;
 			$user->email = $data['email'];
 			$user->first_name = $data['first_name'];
 			$user->last_name = $data['last_name'];
 			$user->pic = $data['pic'];
-			$user->elevator = $data['about'];
-			// $user->about = $data['about'];
+			$user->elevator = substr($data['about'], 100) != '' ? '' : $data['about'];
+			$user->about = substr($data['about'], 100) != '' ? $data['about'] : '';
 			$user->location = $data['location'];
+			$user->public = 'on';
 			$user->activated = 1;
 			// return var_dump('trying to create user: </br>'.$user);
-			$user->save();		
+			$user->save();
+
 		}
 		$user_interface = Sentry::findUserById($user->id);
 		Sentry::login($user_interface, false);
+		return $user->id;
 		// return var_dump(Sentry::getUser()->id);
 
 		// $code = Input::get('code');

@@ -1,10 +1,5 @@
 @extends('layouts.scaffold')
-
-{{-- Web site Title --}}
-@section('title')
-@parent
-:: Terms of Use
-@stop
+<?php $title = 'Terms of Service' ?>
 
 @section('main')
 <div class="clearfix">
@@ -13,9 +8,4 @@
 	<p>Coming soon...</p>
 
 </div>
-@stop
-
-
-@section('css')
-	{{ HTML::style('css/tos.css')}} 
 @stop

@@ -100,7 +100,7 @@ return array(
 	*/
 
 	// 'password' => 'safari.2013',
-	'password' => 'cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30',
+	'password' => 'cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30', //same as username for postmark
 
 	/*
 	|--------------------------------------------------------------------------

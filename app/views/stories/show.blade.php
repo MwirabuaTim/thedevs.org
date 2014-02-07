@@ -1,4 +1,6 @@
 @extends('layouts.scaffold')
+<?php $title = All::getName($story) ?>
+<?php $og_image = All::getImage($story) ?>
 
 @section('main')
 
@@ -24,7 +26,7 @@
 	<table class="_right10 _in-block">
 		<tr>
 			<th>Location: </th>
-			<td>{{{ $story->location }}}</td>
+			<td>{{ All::getLocation($story) }}</td>
 		</tr>
 	</table>
 
@@ -43,8 +45,14 @@
 		</tr>
 	</table> -->
 </div>
-<div class="_w100 _p10">{{ $story->body }}</div>
 
-{{ link_to_route('stories.index', 'View all Stories', null, array('class' => 'pull-left btn btn-link')) }}
+<div class="_alerts">
+	<div class="_alert _data"><span class="_dismiss pull-right"></span></div>
+	<div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div>
+</div>
+
+<div class="_w100 _p10">{{ All::getContent($story) }}</div>
+
+@include('partials.comments')
 
 @stop

@@ -11,17 +11,27 @@
             TheDevs.org
         @show
     </title>
-    <meta name="description" content="">
+    <meta name="description" content="TheDevs.Org maps and connects Developers, Organizations, Events, Projects & Stories in Tech Worldwide.">
     <meta name="viewport" content="width=device-width">
+    <meta property="og:image" 
+    content="{{ isset($og_image) ? $og_image : asset('images/devs.png') }}" />
 
     <!-- CSS -->
     {{ HTML::style('css/bootstrap.min.css')}}
     {{ HTML::style('jqueryui/css/jquery-ui-1.10.3.custom.min.css') }}
     {{ HTML::style('css/jquery-ui-timepicker-addon.css') }}
 
-    <!-- LeafletJS CSS -->
+    <!-- Leaflet JS CSS -->
     {{ HTML::style('leaflet/leaflet.css') }}
     {{ HTML::style('leaflet_label/leaflet.label.css') }}
+    {{ HTML::style('leaflet_mc/default.css') }}
+    {{ HTML::style('leaflet_mc/mc.css') }}
+    {{ HTML::style('leaflet_lc/locate.css') }}
+    {{ HTML::style('leaflet_lc/locate.0.5.css') }}
+    {{ HTML::style('leaflet_lc/locate.ie.css') }}
+
+    <!-- Joyride JS CSS-->
+    {{ HTML::style('joyridejs/joyride-2.1.css') }}
 
     <!-- Custom CSS for all pages -->
     {{ HTML::style('assets/general.css')}}
@@ -39,13 +49,18 @@
     <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}">
 
     <!-- ICO -->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="{{ asset('images/favicon5.png') }}">
 
 </head>
 <body>
-    <!--[if lt IE 7]>
-        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+
+    <!--[if IE]>
+         <h4>Please download <a href="http://www.google.com/chrome/‎">Chrome</a>, <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.apple.com/safari/‎">Safari</a> browser to get the best of this site. </h4>
     <![endif]-->
+
+    <img class="social-logo hidden" 
+    src="{{ isset($og_image) ? $og_image : asset('images/devs.png') }}">
+    
     <div class="_wrapper">
         
         <!-- Container -->
@@ -77,9 +92,29 @@
         @include('partials.footer')
 
         @include('partials.modals')
-        <img class="preload" alt="Loading..."  src="{{ asset('images/loadingbar.gif') }}">
+        <img class="preload hidden" alt="Loading..."  src="{{ asset('images/loadingbar.gif') }}">
         <!-- <img class="saveloader" alt="Loading..."  src="{{ asset('images/loading-bar.gif') }}"> -->
     </div>
+     <!-- Joyride js Demo Order -->
+    <ol id="demo" style="display:none" data-joyride> 
+    
+      <!-- This tip will be display as a modal -->
+      <li><h3>Welcome to TheDevs.Org</h3></li>
+      <li data-class="devs" data-options="tipLocation:right"><h3>
+        Awesome and Proffessional Dev Profiles from all over the world...</h3></li>
+      <li data-class="projects" data-options="tipLocation:right"><h3>
+        List your Projects beautifully under your Profile...</h3></li>
+      <li data-class="stories" data-options="tipLocation:right"><h3>
+        Tell us Interesting Stories about your Journey in Tech...</h3></li>
+      <li data-class="orgs" data-options="tipLocation:right"><h3>
+        Do you know a Tech Organisation that is not in the map? Pin It!</h3></li>
+      <li data-class="eventts" data-options="tipLocation:right" data-button="OK"><h3>
+        Give us 411 about some interesting Tech Events around you!</h3></li>
+        
+      <li data-button="X"><h3>Join and Create with us Today :)</h3></li>
+
+    </ol>
+
 </body>
 
 
@@ -89,55 +124,41 @@
     {{ HTML::script('js/jquery-ui-timepicker-addon.js') }}
     {{ HTML::script('js/jquery-ui-sliderAccess.js') }}
 
-    <!-- libs -->
+    <!-- Libs -->
     {{ HTML::script('js/plugins.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
-    {{ HTML::script('js/underscore.js') }}
-    {{ HTML::script('js/backbone.js') }}
+    {{ HTML::script('js/bootstrap-confirmation.js') }}
+    {{--! HTML::script('js/underscore.js') --}}
+    {{--! HTML::script('js/backbone.js') --}}
+
+    <!-- Joyride JS-->
+    {{ HTML::script('joyridejs/jquery.joyride-2.1.js') }}
 
     <!-- Leaflet JS -->
     {{ HTML::script('leaflet/leaflet.js') }}
     {{ HTML::script('leaflet_label/leaflet.label.js') }}
+    {{ HTML::script('leaflet_mc/mc.js') }}
+    {{ HTML::script('leaflet_mc/mc-src.js') }}
+    {{ HTML::script('leaflet_lc/locate.js') }}
 
     <!-- tinymce rich editor -->
     {{ HTML::script('tinymce/tinymce.min.js') }}
 
-    @include('partials.alljs') <!-- Inlining Custom js for all pages -->
-    @yield('js') <!-- Inlining page-specific JS -->
+    <!-- Inlining JS for all pages -->
+    @include('partials.alljs') 
+    <!-- Inlining page-specific JS -->
+    @yield('js') 
 
-
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <!-- Google Analytics -->
     <script>
-      // var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-      // (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      // g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-      // s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
-    
-    <!-- facebook connect -->
-    <div id="fb-root"></div>
-    <script type="text/javascript">
-        // (function(d, s, id) {
-        //   var js, fjs = d.getElementsByTagName(s)[0];
-        //   if (d.getElementById(id)) return;
-        //   js = d.createElement(s); js.id = id;
-        //   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=320691077999812";
-        //   fjs.parentNode.insertBefore(js, fjs);
-        // }(document, 'script', 'facebook-jssdk'));
-    </script>
-    
-    <!-- uservoice plugin -->
-    <script>
-        // (function(){
-        // var uv=document.createElement('script');
-        // uv.type='text/javascript';
-        // uv.async=true;
-        // uv.src='//widget.uservoice.com/DaBJd20KGXiNvgpEJT8A.js';
-        // var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()
-    </script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-
+      ga('create', 'UA-47203427-1', 'thedevs.org');
+      ga('send', 'pageview');
+    </script>
 
     <!-- AddThis Smart Layers BEGIN -->
     <!-- Go to http://www.addthis.com/get/smart-layers to customize -->
@@ -150,15 +171,15 @@
           'services' : 'facebook,twitter,google_plusone_share,linkedin,email,more',
 
         }, 
-        'follow' : {
-          'services' : [
-            {'service': 'facebook', 'id': 'thedevsorg'},
-            {'service': 'twitter', 'id': 'thedevsorg'},
-            {'service': 'google_follow', 'id': '113061438023381974773'}
-          ]
-        },  
-        'whatsnext' : {},  
-        'recommended' : {},
+        // 'follow' : {
+        //   'services' : [
+        //     {'service': 'facebook', 'id': 'thedevsorg'},
+        //     {'service': 'twitter', 'id': 'thedevsorg'},
+        //     {'service': 'google_follow', 'id': '113061438023381974773'}
+        //   ]
+        // },  
+        // 'whatsnext' : {},  
+        // 'recommended' : {},
         'responsive' : {
           maxWidth: '550px',
           minWidth: '0px'

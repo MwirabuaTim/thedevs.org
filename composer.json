@@ -7,7 +7,8 @@
 		"laravel/framework": "4.0.*",
 		"way/generators": "dev-master",
 		"cartalyst/sentry": "2.0.*",
-		"madewithlove/laravel-oauth2": "0.2.*"
+		"madewithlove/laravel-oauth2": "0.2.*",
+		"jenssegers/agent": "*"
 	},
 	"autoload": {
 		"classmap": [

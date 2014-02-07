@@ -2,6 +2,7 @@
 
 class Kit extends Eloquent {
 	protected $guarded = array();
+	protected $softDelete = true;
 
 	public static $rules = array(
 		// 'name' => 'required',

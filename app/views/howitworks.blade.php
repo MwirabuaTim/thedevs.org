@@ -1,13 +1,5 @@
 @extends('layouts.scaffold')
-
-{{-- Web site Title --}}
-@section('title')
-@parent
-:: How it Works
-@stop
-
-@section('css')
-@stop
+<?php $title = 'How it Works' ?>
 
 @section('main')
 <div class="clearfix">

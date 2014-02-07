@@ -95,7 +95,8 @@ Route::filter('admin-auth', function()
 	if ( ! Sentry::getUser()->hasAccess('admin'))
 	{
 		// Show the insufficient permissions page
-		return App::abort(403);
+		// return App::abort(403);
+		return View::make('error.403');
 	}
 });
 

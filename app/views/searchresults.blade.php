@@ -139,7 +139,7 @@
                 <span class="blue">
     
 
-<!-- <a id="bookshelf" class="btn btn-primary btn-small" href="{{ $item["ItemLinks"]["ItemLink"][3]["URL"] }}">Add To Bookshelf</a> -->
+<!-- <a id="bookshelf" class="btn btn-primary btn-sm" href="{{ $item["ItemLinks"]["ItemLink"][3]["URL"] }}">Add To Bookshelf</a> -->
 
 <!-- <form method="POST" action="{{ URL::to('bookshelf/store') }}"> -->
     <input name="name" style="display:none;" class="name" value="{{ $name }}"/>
@@ -154,7 +154,7 @@
     <input name="usedprice" style="display:none;" class="usedprice" value="{{ $usedprice }}"/>
     <input name="largeimg" style="display:none;" class="largeimg" value="{{ $largeimg }}"/>
 
-<input type="submit" id="bookshelf" class="btn btn-primary btn-small" value="Add To Bookshelf"/>
+<input type="submit" id="bookshelf" class="btn btn-primary btn-sm" value="Add To Bookshelf"/>
 <!-- </form> -->
 
 <form method="POST" action="{{ URL::to('wishlist') }}">
@@ -173,7 +173,7 @@
     <input name="largeimg" style="display:none;" class="largeimg" value="{{ $largeimg }}"/>
 
 
-<input type="submit" id="wishlist" class="btn btn-primary btn-small" value="Add To Wishlist"/>
+<input type="submit" id="wishlist" class="btn btn-primary btn-sm" value="Add To Wishlist"/>
 </form>
                 </span>
             </span> 

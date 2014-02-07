@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+    RewriteEngine On
+
+
+    RewriteCond %{HTTP_HOST} ^(www.)?thedevs.org$
+    RewriteCond %{REQUEST_URI} !^/thedevs/
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /thedevs/$1
+    RewriteCond %{HTTP_HOST} ^(www.)?thedevs.org$
+    RewriteRule ^(/)?$ thedevs/index.php [L]
+</IfModule>

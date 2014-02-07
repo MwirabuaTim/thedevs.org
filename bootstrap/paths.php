@@ -14,6 +14,9 @@ return array(
 	*/
 
 	'app' => __DIR__.'/../app',
+	// 'app' => __DIR__.'/../../thedevs/app',
+	// 'app' => './thedevs/app',
+	
 
 	/*
 	|--------------------------------------------------------------------------
@@ -27,6 +30,8 @@ return array(
 	*/
 
 	'public' => __DIR__.'/../public',
+	// 'public' => __DIR__.'/thedevs',
+	// 'public' => './',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -40,6 +45,8 @@ return array(
 	*/
 
 	'base' => __DIR__.'/..',
+	// 'base' => __DIR__.'/../../thedevs',
+	// 'base' => './thedevs',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -53,5 +60,7 @@ return array(
 	*/
 
 	'storage' => __DIR__.'/../app/storage',
+	// 'storage' => __DIR__.'/../../thedevs/app/storage',
+	// 'storage' => './thedevs/app/storage',
 
 );

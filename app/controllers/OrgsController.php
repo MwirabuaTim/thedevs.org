@@ -21,7 +21,7 @@ class OrgsController extends BaseController {
 	 */
 	public function index()
 	{
-		$orgs = $this->org->all();
+		$orgs = $this->org->orderBy('created_at', 'desc')->paginate(10);
 
 		return View::make('orgs.index', compact('orgs'));
 	}
@@ -49,7 +49,6 @@ class OrgsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$input['creator'] = Sentry::getUser()->id;
 			$this->org->create($input);
 
 			return Redirect::route('orgs.index');

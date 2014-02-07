@@ -1,6 +1,6 @@
 <script type="text/javascript">
 
-  $.fn.serializeObject = function() // creates serialized object method for forms
+  $.fn.serializeObject = function() //for forms
   {
       var o = {};
       var a = this.serializeArray();
@@ -17,6 +17,81 @@
       return o;
   };
 
+  loggedIn = function(){
+    if('{{ Sentry::check() }}' == '1'){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  isMain = function(){
+    if($.inArray(_path, ['.', 'devs', 'orgs', 'eventts', 'projects', 'stories']) > -1){
+      return true
+    }
+    return false
+  }
+
+  clickLogger = function(){
+    $(document).bind('click', function(e) {
+      // console.log(this.className + ' clicked')
+      // console.log(this)
+      // console.log($(this))
+      // console.log(e)
+      // console.log(e.target)
+      console.log('Clicked: '+e.target.tagName +'#' + e.target.id + ' .' + e.target.className)
+
+    })
+  }
+    
+  gitData = function(contribs){  // https://gist.github.com/remy/4654404
+    var messages = [],
+        total = 0, 
+        d_active = 0, 
+        top_day = 0, 
+        streak = 0, 
+        top_streak = 0, 
+        inwe = false, 
+        w_streak = 0,
+        w_row = 0, 
+        w_total = 0;
+    contribs.forEach(function (c) {
+      total+=c[1]; 
+      if (c[1] !== 0) { //if there is a contribution on the day
+        d_active++;
+        streak ++;
+        if (c[1] > top_day) top_day = c[1]; //breaking previous day_count record
+      }else{
+        if(streak > top_streak) top_streak = streak;
+        streak = 0;
+      }
+      var d = new Date(c[0]).getDay(); 
+      if (d === 6 || d === 7) {
+        inwe = true;
+        if (c[1] !== 0) {
+          w_total++; 
+          w_streak++;
+          if (w_streak > w_row) w_row = w_streak;
+        } else {
+          w_streak = 0;
+        }
+      } else {
+        inwe = false;
+      }
+    });
+
+    // if (w_row > 2) console.log('Take a break. Have a kitkat')
+    messages.push(total+' Commits. ')
+    messages.push('Active Days: '+d_active+ '/365. ')
+    messages.push('Longest Streak: '+top_streak+ ' days.')
+    messages.push('Peak: '+ top_day + ' Commits/Day.')
+    messages.push('Weekends: '+w_total + '/52.')
+    messages.push('Weekends in a row: ' + w_row) 
+    return messages
+  }
+
+
     //   function random_hover_color() {
   //       var letters = '0123456789ABCDEF'.split('');
   //       var color = '#';
@@ -30,58 +105,32 @@
   //       })
   //   }
   // $('._pink2aqua').random_hover_color();
+
+
   _alert = function(msg){
-    $('._alert').each(function(){ 
-      this.innerHTML = msg
-    })
-    $('._alert').css('display', 'inline-block') 
-    $('._blink-pink').css('display', 'block') 
-    _blind = setInterval(function(){
-      $('._blink-pink').show().fadeOut(1000)
-    }, 1200);
-  }
-  bindLabel = function(marker, _record){
-    marker.bindLabel('<a href="/'+_record.top_path+'/'+_record.id+'">'+_record.latest+'</a>', { 
-      //label markers
-      noHide: true,
-      direction: 'auto'
-    })
-  }
-  mapRecord = function(_record){
-    coords = _record.map;
-    // console.log(_record);
-    mlat = parseFloat(coords.substr(0, coords.indexOf(', ')))
-    mlng = parseFloat(coords.substr(coords.indexOf(', ')+2, coords.length))
-    if(_record.map == ''){
-      console.log('Invalid map on _record '+ _record.id)
-      mlat = lat
-      mlng = lng
-    }
-    else{
-      // _recordName = _record.top_path == 'devs' ? _record.first_name+' '+_record.last_name : _record.name
-      _recordName = _record.name
-      var marker = L.marker([mlat, mlng], {
-            icon: myIcon
-            })
-      var popup = L.popup()
-          // .setLatLng(latlng)
-          .setContent('<a href="/'+_record.top_path+'/'+_record.id+'">'+_recordName+'</a>')
-          .openOn(marker);
-      marker.bindPopup(popup)
+      $('._alert').remove()
+      _blinker1 = _blinker.clone();
+      _blinker1.appendTo('._alerts')
+      _blinker1.append(msg)
 
-      _record.latest ? bindLabel(marker, _record) : ''
+      $('._alert._data').css('display', 'inline-block')
+      $('._alert._bg-pink').css('display', 'block')
+      $('._dismiss').click(function(){
+        $('._alert').remove()
+      })
 
-      marker.addTo(map);
-    }
-    markersgroup.push([mlat, mlng]) //just to define where map will land
-    // console.log(marker.getLatLng());
-    console.log(mlat);
-    console.log(mlng);
-
+      setTimeout(function(){
+        _height = parseInt($('._alert').css('height'))
+        $('._alert._bg-pink').css('margin-top', -_height+'px')
+      }, 1000)
+      
+      setTimeout(function(){
+        $('._alert').remove()
+      }, 10000)
   }
 
   loadMap = function(_div, _path){
-    console.log('Loading map for: ' + _path)
+    // console.log('Loading map for: ' + _path)
     myIcon = L.icon({ // needs to be initialized globally so that it can be referred
       iconUrl: '{{ asset("images/bubble-pink.png") }}',
       iconSize: [20, 20],
@@ -94,52 +143,159 @@
       doubleClickZoom: true,
       attributionControl: false,
       }).setView([51.505, -0.09], 5); 
-    
-    L.tileLayer('http://{s}.tile.cloudmade.com/5e9427487a6142f7934b07d07a967ba3/997/256/{z}/{x}/{y}.png', {
-        attribution: '(Most recent records ones are labelled)',
-        maxZoom: 25,
+
+    L.tileLayer(
+    'http://{s}.tile.cloudmade.com/5e9427487a6142f7934b07d07a967ba3/997/256/{z}/{x}/{y}.png', {
+        // attribution: '',
+        maxZoom: 18,
+        // noWrap: true,
         // opacity: 0.5
       }).addTo(map);
+    marker_cluster = new L.MarkerClusterGroup();
+    lc = L.control.locate().addTo(map);
+    // fetchMapData()
+  }
 
-    $.get('/api/'+_path, function(ddd){ //create markers for all
+
+  fetchMapData = function(){
+    $.get('/'+_path+'/api/', function(ddd){ //create markers for all
     _record = ddd
       if(_record ==''){
          console.log('No _record here yet... '+ _record)
       }
       else{
-        if(_record[0]){ //_record is an array of more than one json object
-          console.log('_record is an array');
-          // console.log(_record);
-          $.each(_record, function(key, record){
-            mapRecord(record)
-            //append count on sidebar
-            $('.'+record.top_path+' span')
-            .html(' ('+record.model_count+')&nbsp;')
-          })
-        }
-        else{
-          console.log('_record is a single record');
-          // console.log(_record);
-          mapRecord(_record)
-        }
-        map.fitBounds(markersgroup)
-        b = L.latLngBounds(markersgroup)
-        lat = b.getCenter().lat
-        lng = b.getCenter().lng
-
+        afterFetch(_record)
       }
-
-    }).done(function() { // has to happen when the map is done loading
-
-        // map.on('moveend', function(){
-        //   b = map.getBounds()
-        //   getNewMarkers(b)
-        // });
 
     }).fail(function() {
       console.log('check your db bro...');
     })
-    
+  }
+
+  domFetch = function(){
+    _record = $.parseJSON($('.page_data').html())
+    afterFetch(_record)
+    // $('.page_data').remove() //no point
+  }
+
+  afterFetch = function(_r){
+    if(_r[0]){ //_r is an array of more than one json object
+      // console.log('_r is an array');
+      // console.log(_r);
+      $.each(_r, function(key, record){
+        _record = record //keeping things straight for the label
+        //appending count on sidebar
+        $('.'+record.model_path+' span')
+        .html('('+record.model_count+')')
+
+        mapRecord(record)
+      })
+
+    }
+    else{
+      // console.log('single _r');
+      // console.log(_r);
+      mapRecord(_r)
+    }
+  }
+
+
+  mapRecord = function(_record){
+    coords = _record.map;
+    // console.log(_record);
+    mlat = parseFloat(coords.substr(0, coords.indexOf(', ')))
+    mlng = parseFloat(coords.substr(coords.indexOf(', ')+2, coords.length))
+    if(_record.map == ''){
+      console.log('Invalid map on '+ _record.model + _record.id)
+      mlat = lat
+      mlng = lng
+    }
+    else{
+      _recordName = _record.name
+      marker = L.marker([mlat, mlng], {
+            icon: myIcon
+            })
+      var popup = L.popup()
+          .setContent('<a href="/'+_record.model_path+'/'+_record.id+'">'+_recordName+'</a>')
+          .openOn(marker);
+      marker.bindPopup(popup)
+
+      // marker.addTo(map);
+      marker_cluster.addLayer(marker);
+    }
+    markersgroup.push([mlat, mlng]) //just to define where map will land
+    // console.log(mlat);
+    // console.log(mlng);
+    setTimeout(function(){
+      afterMapping()
+    }, 1000)
+
+  }
+
+  _locate = function(){
+     // window.location.pathname == '/' ? lc.locate() : true 
+    try{
+      window.location.pathname == '/' ? lc.locate() : true //locate only at home
+    }
+    catch(err){
+      if (err.code==1){
+        console.log("User denied geolocation.");
+      }
+      else if(err.code==2)
+      {
+        console.log("Position unavailable.");
+      }
+      else if(err.code==3)
+      {
+        console.log("Timeout expired.");
+      }
+      else
+      {
+        console.log("ERROR:"+ err.message);
+      }
+    }
+  } 
+  
+  window.alert = function() { //preventing (geolocation) alerts
+                   // run some code when the alert pops up
+      console.log('alerting about geolocation?');
+      // window.alert.apply(window,arguments);
+                   // run some code after the alert
+      console.log('done alerting');
+      _alert('TheDevs.Org needs location. Check your location settings.');
+        // On Chrome > Settings > Content settings > Location > Manage exceptions
+  };
+
+
+  afterMapping = function(){
+    b = L.latLngBounds(markersgroup)
+    lat = b.getCenter().lat
+    lng = b.getCenter().lng
+
+    if(markersgroup.length == 1) {
+      map.setZoom(5)
+      map.panTo([lat, lng])
+      map.panBy([-100, 0]);
+    }
+    else{
+      _locate()
+      bindLabel(marker, _record)
+      map.fitBounds(markersgroup)
+    }
+    map.addLayer(marker_cluster);
+
+    // map.on('moveend', function(){
+    //   b = map.getBounds()
+    //   getNewMarkers(b)
+    // });
+  }
+
+  bindLabel = function(marker, _record){
+    marker.bindLabel('<a href="/'+_record.model_path+'/'+_record.id+'"> Latest '+_record.model+'</a>', { 
+      //label markers
+      noHide: true,
+      direction: 'auto'
+    })
   }
 
   prefillForm = function(){
@@ -147,99 +303,131 @@
       this.value = LS[this.name]
     })
   }
-  richEditor = function(){
-     tinymce.init({
-        selector: "textarea.rich",
-        height : '300px',
-        width : '100%',
-        
-        // ===========================================
-        // INCLUDE THE PLUGIN
-        // ===========================================
-        
-        plugins: [
-          "advlist autolink lists link image charmap print preview anchor",
-          "searchreplace wordcount visualblocks code fullscreen",
-          "insertdatetime media table contextmenu paste jbimages"
-        ],
-        
-        // ===========================================
-        // PUT PLUGIN'S BUTTON on the toolbar
-        // ===========================================
-        
-        toolbar: "insertfile undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages emoticons preview",
-        
-        // ===========================================
-        // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
-        // ===========================================
-        
-        relative_urls: false
-        
-      });
-       // TinyMCE
-       //datepicker
-      $('#start_time, #end_time').datetimepicker({
-        dateFormat: 'dd M yy',
-        timeFormat: 'hh:mm tt z',
-        addSliderAccess: true,
-        sliderAccessArgs: { touchonly: false }
-      });
 
+  richEditor = function(){
+    tinymce.init({
+      selector: "textarea.rich",
+      height : '200px',
+      width : '100%',
+      // theme: 'advanced',
+
+      theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
+      font_size_style_values: "10px, 12px,13px,14px,16px,18px,20px",
+      
+      // ===========================================
+      // INCLUDE THE PLUGIN
+      // ===========================================
+      
+      plugins: [
+        "advlist autolink lists link image charmap print preview anchor",
+        "searchreplace wordcount visualblocks code fullscreen",
+        "insertdatetime media table contextmenu paste jbimages"
+      ],
+      
+      // ===========================================
+      // PUT PLUGIN'S BUTTON on the toolbar
+      // ===========================================
+      
+      toolbar: "insertfile undo redo | fontselect | fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages emoticons preview",
+
+      
+      // ===========================================
+      // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
+      // ===========================================
+      
+      relative_urls: false
+      
+    });
+     // TinyMCE
+     //datepicker
+    $('#start_time, #end_time').datetimepicker({
+      dateFormat: 'dd M yy',
+      timeFormat: 'hh:mm tt z',
+      addSliderAccess: true,
+      sliderAccessArgs: { touchonly: false }
+    });
+
+    $(document).on('focusin', function(e) { //fixing focus on tinymce popup input 
+      if ($(e.target).closest(".mce-window").length) {
+          e.stopImmediatePropagation();
+      }
+    });
   }
 
   fetchPostForm = function(){
     //fetches and writes create form
-    // setTimeout(function(){
-      $.get( '/'+selected_model+'/createpop', function(createForm) {
+    $.get( '/'+selected_model+'/createpop', function(createForm) {
       // console.log(createForm);
       $('.createTemplate').html(createForm)
+
+      $('img.preload').hide()
+      // richEditor()
+      setTimeout(function(){ richEditor() }, 1000);
+
+      titl = $('.createTemplate h2').clone() // moving the title
+      $('.createTemplate h2').remove()
+      $('._creates .modal-title').html(titl)
+
+      // bttn = $('.createTemplate input[type="submit"]').clone() // moving the submit button
+      // $('.createTemplate input[type="submit"]').remove()
+      $('._creates .modal-footer').remove() 
+
       LS ? prefillForm() : true;
       all_data = {} //clean all_data so as not to post old data but the edited data
 
-      // tinymce.init({selector:'textarea', height : 300, plugins: "code"});
-      // TinyMCE 4.x 
-       
-      richEditor()
-
+      localStorage.thedevsorgstatus = 'posting'
+      localStorage.lat = lat
+      localStorage.lng = lng
+      localStorage.selected_model = selected_model
+      setInterval(function(){ saveToLS() }, 5000); // Autosave to LS every 5 secs
       createPostEvent()
 
-      }).done(function(p) {
-          console.log( "done");
-          $('img.preload').hide()
-        })
-        .fail(function(p) {
-          console.log( "error");
-        })
-        .always(function(p) {
-          console.log( "finished");
-        });
-    // }, 10000);
-    
+    }).done(function(p) {
+        console.log("done");
+      })
+      .fail(function(p) {
+        console.log( "error");
+      })
+      // .always(function(p) {
+      //   console.log( "finished");
+      // });
   }
 
-  _loadLS = function(){
-    localStorage.setItem('thedevsorgpost', JSON.stringify(all_data));
-    localStorage.lat = lat
-    localStorage.lng = lng
-    localStorage.selected_model = selected_model
-    localStorage.status = 'pending'
+  saveToLS = function(){
+      tinyMCE.triggerSave();
+      all_data = $.extend({}, map_data, $('.createTemplate form').serializeObject());
+      LS = $.extend(LS, all_data);
+      localStorage.setItem('thedevsorgpost', JSON.stringify(LS));
   }
+
   createPostEvent = function(){
       $( ".createTemplate input[type='submit']" ).on('click', function(e){
       // $('.createTemplate form').on('submit', function(){
         e.preventDefault()
-        tinyMCE.triggerSave();
-        all_data = $.extend(map_data, $('.createTemplate form').serializeObject());
-        _loadLS()  //whether guy is logged in or not, update the data in the LS
-        if('{{ Sentry::check() }}' == ''){ 
-          $('.modal').modal('hide')//hide the createpost form
-          $('._sign-in-modal').modal('show')
+        $('.createTemplate input[type="submit"]').attr('disabled', 'on') //prevent double-submission!
+
+        saveToLS()//keeps updating all_data and LS
+
+        _creator = 'undefined' == typeof all_data['start_time'] ? 'creator' : 'organizer'
+
+        if(loggedIn()){
+          // console.log('Already logged in')
+          <?php if(Sentry::check()): ?>
+          all_data[_creator] = "{{ Sentry::getUser()->id }}"
+          <?php endif; ?>
         }
         else{
-          console.log('Already logged in')
-          postData()
+          all_data[_creator] = 2
+          all_data['status'] = "{{ session_id() }}"
+          all_data['public'] = 'off'
+           
+          $('.modal').modal('hide')//hide the createpost form
+          $('._sign-in-modal').modal('show')
+          $('._sign-in-modal .modal-title').html('Log in to complete...')
+          $('._sign-up-modal .modal-title').html('Sign Up to complete...')
         }
- 
+
+        postData()
       })
   }
   postData = function(){
@@ -250,7 +438,9 @@
     // posting = new Posting(all_data);
     // posting.save()
 
-    console.log('posting all_data to ' + selected_model)
+    // console.log('posting all_data to ' + selected_model)
+    // console.log(JSON.stringify(all_data));
+    $('img.preload').show()
 
     // $.ajax({
     //   url:selected_model,
@@ -258,8 +448,8 @@
     //   dataType:"json",
     //   data: all_data,
     //   success:function(dd){ 
-    //     localStorage.status = 'posted'
-    //     console.log('localStorage.status has changed to: ' + localStorage.status);
+    //     localStorage.removeItem('thedevsorgpost')
+    //     console.log('Success, Posted.');
     //   }
     //   , error:function(dd){ 
     //     console.log('failed to post')
@@ -269,51 +459,48 @@
     //   }
 
     // });
-
-    var postxhr = $.post(selected_model, all_data, function(res) { //find an easier way to do this!
-      localStorage.status = 'posted'
-      console.log('Success, localStorage.status has changed to: ' + localStorage.status);
+    var postxhr = $.post(selected_model, all_data, function(resp) { //find an easier way to do this!
+      console.log('Success, Posted.');
+      $('img.preload').hide()
+      localStorage.thedevsorgstatus = 'posted'
+      loggedIn() ? window.location.pathname = selected_model : true;
     })
-      .fail(function() {
-        console.log( "Error" );
+      .fail(function(resp) {
+        console.log('Error: ' + JSON.stringify(resp));
       })
-      .done(function(res) {
-        console.log( "Response is " + res.statusText);
-      });
+      // .done(function(resp) {
+      //   console.log( "Done, response is a page.");
+      // });
      
     postxhr.always(function() {
       console.log( "finished" );
     });
 
-    $('img.preload').show()
-
-    setTimeout(function(){
-       afterPosting()
-    }, 3000);
-
   }
-
-
-  afterPosting = function(){
-    $('img.preload').hide()
-    $('.modal').modal('hide')
-    // loadMap('map', selected_model)
-    window.location.pathname = selected_model
-    //working on making this happen after Bacbone save is complete! damnit!
-  }
-
 
   onMapClick = function(e) {
-    
-    _alert('Click "Next" to give a few more details...')
-    clearInterval(_blind);
-
+    $('button._step3').removeAttr('disabled')
+    if($('._alert')[0]){
+      _alert('Click "Next" to give a few more details....')
+    }
     lat = e.latlng.lat
     lng = e.latlng.lng
 
+    // console.log(lat)
+    // console.log(lng)
+
     pin2map(lat, lng)
 
-    if($('#single-map input')){
+    //pulling all coordinates into one world
+    lng = lng > 180 ? lng%360 : lng
+    lng = lng > 180 ? lng-360 : lng
+    lng = lng < -180 ? lng%360 : lng
+    lng = lng < -180 ? lng+360 : lng
+
+    console.log(lat)
+    console.log(lng)
+
+    if($('#single-map input')[0]){
       $('#single-map input')[0].value = lat + ', ' + lng //filling map coords to input box
     }
   }
@@ -326,7 +513,7 @@
       iconAnchor: [10, 10],
       labelAnchor: [6, 0] // as I want the label to appear 2px past the icon (10 + 2 - 6)
     });
-    console.log('mapping lat: ' + lat + ' and lng is: '+ lng);
+    // console.log('mapping lat: ' + lat + ' and lng is: '+ lng);
     marker_new
       .setLatLng({'lat': lat, 'lng': lng})
       .setIcon(myIcon)
@@ -334,32 +521,25 @@
     // console.log('marker created: ' + marker_new);
 
     
-    if(!$('#single-map')[0]){ // if not an edit pap page dont attach the popup
+    if(!$('#single-map')[0]){ // if not an edit page dont attach the popup
       popup_new = L.popup()
-        .setContent('<a href="#" class="_step2">Creating here...</a>')
+        .setContent('<a href="#" class="_step3">Creating here...</a>')
         .openOn(marker_new)
+      $('._addbtn').html('<span class="_blade _aqua2pink _step3">Complete>></span>')
+      // $('.leaflet-popup-content').html('<a href="#" class="_step3">Complete>></a>')
       marker_new.bindPopup(popup_new).openPopup()
 
       markersgroup.push([lat, lng])
       // map.fitBounds(markersgroup)$('#single-map')[0]
 
-
-      $('a._step1').html('Next>>').attr('class', '_blade _aqua2pink _step2')
-      $('div._step1').html('Next>>').attr('class', '_addbtn _blade _pink2aqua _step2')
-
-      $("._step2").each(function(){
-        $(this).on('click', function(e){
-          e.preventDefault()
-          $('._cats').modal('show')
-           _alert('Click "Next" to give a few more details....')
-        })
-      })
-     map_data['map'] = lat + ', ' + lng;  //setting map var for both onmapclick and lazy LS posting
+      map_data['map'] = lat + ', ' + lng;  //setting map var for both onmapclick and lazy LS posting
    }
+    setTimeout(function(){ _step3() }, 500)
+    $('._inst').show()
 
   }
 
-  pinLS = function(){  // $('._addbtn').html('Complete>>').attr('class', '_addbtn _blade _aqua-hover _step2')
+  pinLS = function(){ 
     pin2map(lat, lng)
     map.on('click', onMapClick)
 
@@ -370,7 +550,7 @@
 
   getNewMarkers = function(b){
     // setTimeout(function(){
-      $.get('api/get-bounds', b, function(m){
+      $.post('/api', b, function(m){
         console.log(m);
       })
     // }, 500);
@@ -385,11 +565,7 @@ function initStyle() {
 
   if($('.alert')){
   $('.alert').slideToggle(1000); 
-  // setTimeout(function(){$('.alert').slideToggle(1000)}, 5000);
-  // <div class="alert alert-success alert-block" style="display: block;">
-  // <button type="button" class="close" data-dismiss="alert">×</button>
-  // You have successfully logged out!
-  // </div>
+  setTimeout(function(){$('.alert').slideToggle(1000)}, 5000);
   }
 
   //$("img.preload").fadeOut(500, function() {});
@@ -398,8 +574,9 @@ function initStyle() {
 
 var _path = window.location.pathname;
 _path = _path.substr(1, _path.length)
-if(_path ==''){_path = 'all'}
-var selected_model = _path
+if(_path ==''){_path = '.'}
+var _model = _path.substr(0, _path.indexOf('/'))
+var _id = _path.substr(_path.indexOf('/')+1, _path.length1)
 // console.log(_path);
 var _url = window.location.href;
 var _host = window.location.host;
@@ -409,108 +586,138 @@ var LS = JSON.parse(localStorage.getItem('thedevsorgpost')); ///what if not set 
 var all_data = LS ? LS : {}
 var lat = ''
 var lng = ''
-var selected_model = localStorage.selected_model
+var selected_model = localStorage.selected_model // is set else undefined
 var _record = {}
+var marker = {}
+var lc = {} //leaflet locate control
 
-// var _blink = function(){}
+window.setInterval(function(){$('._alert._bg-pink').show().fadeOut(1000)}, 1500);
+var _blinker = $('._alert').clone()
+$('._alert').remove()
+'undefined' != typeof myalert ? _alert(myalert) : true //api to interact with from backend
 
 var marker_new = L.marker() 
-
 
 $(document).ready(function(){
   lat = localStorage.lat
   lng = localStorage.lng
   richEditor()//for form textareas
+  // $(document).joyride()
+  $("a._demo").click(function(e){
+    e.preventDefault()
+    $("#demo").joyride({autoStart: true})
+  });
 
-  //mapping for home, /posts[blog] and /countries pages
-  // if(_path == '/' 
-  //   || _path ==  '/posts'
-  //   || _path ==  '/countries'){ 
-  // } //end if(window.location.pathname == '/'  ...
-  $(document).bind('click', function(e) {
-    // console.log(this.className + ' clicked')
-    // console.log(this)
-    // console.log($(this))
-    // console.log(e)
-    // console.log(e.target)
-    console.log('Clicked: '+e.target.tagName +'#' + e.target.id + ' .' + e.target.className)
+  // clickLogger();
 
-  })
-
-
-  if($('#map')[0] != undefined){
-    loadMap('map', _path)
+  if($('#thedevsmap')[0] != undefined){
+    loadMap('thedevsmap', _path)
+    // fetchMapData() //from API
+    domFetch() //from DOM
     //these need to be created just once 
   }
     // mapping for home, /posts[blog] and /countries pages
   if($('#single-map')[0] != undefined){ // load map for single entity show & edit view
     loadMap('single-map', _path)
+    // fetchMapData()
+    domFetch()
+
     setTimeout(function(){//wait for map to load so you get the _record changed
       if(_path.indexOf('/edit') > -1){ //make edit map pinnable
         map.on('click', onMapClick)
         // console.log(_record);
-        if(_record.map == ''){
-          console.log('_record.map was blank...');
+        if(_record.map == ''){ // _record.map was blank...
           mlat = -1.3 // load pin on around nairobi
           mlng = 36.75+Math.random()*0.1
           pin2map(mlat, mlng) 
           markersgroup.pop() //remove last coords if any
           markersgroup.push([mlat, mlng]) //just to define where map will land
-          map.fitBounds(markersgroup)
+          map.fitBounds(markersgroup) 
         }
       }
-      map.panBy([-100, 0]);
     }, 2000); 
-
   }
 
-    
-  if(localStorage.status == 'pending'){// local storage
+
+  if(localStorage.thedevsorgstatus == 'posting' && isMain()){// local storage
     pinLS()
+    _postName = LS.name ? LS.name : LS.first_name
+    $('._addbtn').html('<span class="_blade _aqua2pink _step3">Complete>></span>')
+    $('a._step2').attr('class', '_step3')
+    _alert('<u class="_step3">Complete creating "'+LS.name+'"</u>')
+    $('._inst').show()
   }
 
+  $('._clearLS').on('click', function(){
+    localStorage.removeItem('thedevsorgpost');
+    localStorage.thedevsorgstatus = 'cleared';
+    $('._alert').remove()
+  })
 
-  $('._step1').click(function(e){
-    if(map){e.preventDefault()}    
-    _alert('Click on the map to add an organisation, project, event or story...')
-    map.on('click', onMapClick)
-    console.log('step 1 done');
-    pin2map(lat, lng) // just to load pin on map center first time
+  _git = []
+  if(_model == 'devs'){ // _id is a number
+    $.get('/devs/'+parseInt(_id)+'/api/github', function(cyr){
+      _git = gitData(JSON.parse(cyr))
+      _git.map(function(e){return e[1]})
+      $('._git').append('<a href="'+_gitlink+'">Github Year: </a>')
+      for(var i=0, len=_git.length; i < len; i++){
+        $('._git').append(' <span class="_in-block">' +_git[i]+ '</span>')
+      }
+    })
+  }
+
+  $('._step1').click(function(e){ 
+    e.preventDefault()
+    // _alert('2. Select the category you want to post....')
+    $('._cats').modal('show')
+  })
+
+  $('._step2').on('click', function(e){
+    if(map){e.preventDefault()}
+
+    $('._pin-map .modal-body').css('height', $(window).height()*0.7+'px')
+    $('._pin-map .modal-dialog').css('margin', '0px')
+    // $('#map-container').html($('#thedevsmap').clone())
+    
+    $('._pin-map').modal('show')
+    setTimeout(function(){
+      loadMap('pinmap', _path)
+      domFetch() // add markers on map
+      map.on('click', onMapClick)
+
+      if(lc._circle){
+        lat = lc._circle._latlng.lat
+        lng = lc._circle._latlng.lng
+      }
+    }, 1000);
+    
   })
 
 
-  // $('._step2').attr({'data-toggle': 'modal', 'data-target': '._cats'})
-
    
   $('label.cats').on('click', function(){
-    $('button._step3').removeAttr('disabled').attr('class', '_step3 btn _pink2aqua') //add _pink2aqua
-    $('div._step2').html('Complete>>').attr('class', '_addbtn _blade _aqua-hover _step3')
-    $('_nav li a._step2').html('Complete>>').attr('class', '_blade _aqua2pink _step3')
-    $('.leaflet-popup-content a._step2').html('Complete>>').attr('class', '_step3')
+    selected_model = $(".btn-group").find("label.active input").prop('value');
+    $('button._step2').removeAttr('disabled') //enabled
   })
 
   $('._step3').on('click', function(e){ 
     e.preventDefault()
-    selected_model = $(".btn-group").find("label.active input").prop('value');
-    _alert('Click "Complete>>" to publish your post...')
+
+    $('.createTemplate').append($('img.preload').show());
     fetchPostForm()
     $('._creates').modal('show')
-    $('.createTemplate').append($('img.preload').show());
-   
   })
 
-  _step4 = function(){ // after log in
-    if(localStorage.status == 'pending'){//there is data that has not been posted
-      postData()
-    }
-    else{
-      location.reload()
-    }
+  _step3 =  function(){
+      $('._step3').on('click', function(e){ 
+        e.preventDefault()
+        fetchPostForm()
+        $('._pin-map').modal('hide')
+        $('.createTemplate').append($('img.preload').show());
+        fetchPostForm()
+        $('._creates').modal('show')
+      })
   }
-
-
-
-
     // $('button._step3').click( function(e){ 
     //   e.preventDefault()
     //   console.log('message');
@@ -536,70 +743,64 @@ $(document).ready(function(){
         if(ddd['success']){
           _alert(ddd['success']);
           $('._sign-up-modal').modal('hide')
-          // _step4() //no point of reloading after sign-up
         }
         else{
-          // console.log(ddd)
-          $('._sign-up-modal form').children().remove()
-          $('._sign-up-modal form').append(ddd)
+          // console.log(JSON.stringify(ddd.errors))
+          $('p._pink').remove()
+          $.each(ddd['errors'], function(key, value) {
+            $('<p class="_pink _top10">'+value+'</p>').insertBefore(
+              $('._sign-up-modal form input[name="'+key+'"]'))
+          })
         }
       })
     })
 
-    // $('._oauth').on('click', function(e){
-    //   e.preventDefault()
-    //   $.get($(this).attr('href'), function(ddd){
-    //     if(ddd['success']){
-    //       _alert(ddd['success']);
-    //       $('._sign-up-modal').modal('hide')
-    //       _step4()
-    //     }
-    //     else{
-    //       console.log(ddd)
-    //     }
-    //   })
-    // })
-
     $('._sign-in-modal form').on('submit', function(e){
       e.preventDefault()
+      $('._sign-in-modal form input[type="submit"]').attr('disabled', 'on');
       $('img.preload').show()
       $.post($(this).attr('action'), $(this).serializeArray(), function(ddd){
         if(ddd['success']){
           _alert(ddd['success']);
-          console.log(ddd['success']);
-          _step4()
-
+          window.location.pathname = ddd['redirect']
         }
         else{
-          // console.log(ddd)
-          $('._sign-in-modal form').children().remove()
-          $('._sign-in-modal form').append(ddd)
+          // console.log(JSON.stringify(ddd.errors))
+          $('._sign-in-modal form input[type="submit"]').removeAttr('disabled');
+          $('p._pink').remove()
+          $.each(ddd['errors'], function(key, value) {
+            $('<p class="_pink _top10">'+value+'</p>').insertBefore(
+              $('._sign-in-modal form input[name="'+key+'"]'))
+          })
+          $('<p class="_pink _top10">Please check your details...</p>').insertBefore(
+              $('._sign-in-modal form input[name="email"]'))
         }
       })
       $('img.preload').hide()
       // modal('show')
     })
 
-
-  //autocomplete for colleges search 
-  $(".searchcolleges").autocomplete({
+  //autocomplete for search 
+  $("._search").autocomplete({
       source: function (request, response) {
         $.ajax({
-            url: "{{ URL::to('colleges/ajax') }}",
+            url: "{{ URL::to('api/search') }}",
             type: "GET",
             cache: false,
             dataType: "json",
             success: function (data) {
-                //console.log(data[0] ? data[0].name : "No results");
-                var arr = [];
-                //var ids = [];
-                $(data).each(function( index ) {
-                  arr.push({label:this.name, value:this.name, id:this.id });
-                  //ids.push({value:this.id});
-                });
-                //console.log(arr);
-                //arr = arr.reverse();
-                response(arr);
+              // console.log(JSON.stringify(data))
+              var arr = [];
+              for(var ary in data){
+               // console.log(data[arr]);
+               data[ary].location = data[ary].location == '' ? 'unknown location' : data[ary].location
+                arr.push({
+                  label:data[ary].model + ': "'+ data[ary].name + '" from '+ data[ary].location, 
+                  value:data[ary].name, 
+                  id:data[ary].id, 
+                  class:data[ary].model_path});
+              }
+              response(arr);
             },
             data: {
                 term: request.term
@@ -607,10 +808,22 @@ $(document).ready(function(){
         });
       },
     select: function( event, ui ) {
-    window.location.href = "{{ URL::to('colleges/"+ ui.item.id +"') }}";
+    window.location.href = "{{ URL::to('"+ ui.item.class+"/"+ ui.item.id +"') }}";
     }
   });
 
+  _holder = 'Search "JavaScript", "Android", "Developer", "Tech Hub", "TEDx", "Conf" etc near you...';
+  $('._search').click(function(){
+      // console.log(this.value);
+      if (this.value==_holder) this.value=''
+  }).blur(function(){
+      if (this.value=='') this.value=_holder
+  }).val(_holder);
+
+  $('._search').click(function(e){
+    e.preventDefault()
+    // $('._search').val() == _holder$('._api-search').val('Type here to search...')
+  })
 
   //doublescroll
   if(document.getElementById('doublescroll')){
@@ -634,36 +847,15 @@ $(document).ready(function(){
       DoubleScroll(document.getElementById('doublescroll'));
 
   }
-
-  jQuery('.btn-danger').click(function(evnt) {
-      evnt.preventDefault();
-      var title = "Confirm";
-      var message = "Are you sure you want to delete?";
-      var btn = $(this);
-      console.log(btn);
-
-      function formSubmit(){
-          btn.parent('form').submit();
+  //delete confirmation
+  $('.btn-danger, ._del').click(function(e){
+    e.preventDefault();
+  })
+  $('.btn-danger, ._del').confirmation({
+      'href' : './delete',
+      'onCancel' : function(){
+        $('.popover').fadeOut(200);
       }
-
-      if (!jQuery('#dataConfirmModal').length) {
-          jQuery('body').append('<div id="dataConfirmModal" \
-           class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" \
-           aria-hidden="true"><div class="modal-header"> \
-           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">× \
-           </button><h3 id="dataConfirmLabel">'+title+'</h3></div><div class="modal-body"> \
-           '+message+'</div><div class="modal-footer"><button class="btn btn-success" \
-            data-dismiss="modal" aria-hidden="true">No</button><a class="btn btn-danger"  \
-            data-dismiss="modal" id="dataConfirmOK">Yes</a></div> \
-            </div>');
-      } 
-
-      jQuery('#dataConfirmModal').find('.modal-body').text(message);
-      jQuery('a#dataConfirmOK').on('click', function(){
-          formSubmit();
-      });
-      jQuery('#dataConfirmModal').modal({show:true});
-
   })
 
 })

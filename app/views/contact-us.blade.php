@@ -1,10 +1,5 @@
 @extends('layouts.scaffold')
-
-{{-- Page title --}}
-@section('title')
-Contact us ::
-@parent
-@stop
+<?php $title = 'Contact Us' ?>
 
 {{-- Page content --}}
 @section('main')

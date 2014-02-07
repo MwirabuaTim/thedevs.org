@@ -1,6 +1,7 @@
 <?php
 
 class Profile extends Eloquent {
+	protected $softDelete = true;
 	protected $fillable = array(
 		'provider', 
 		'first_name', 

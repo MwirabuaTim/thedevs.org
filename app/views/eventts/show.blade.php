@@ -1,4 +1,6 @@
 @extends('layouts.scaffold')
+<?php $title = All::getName($eventt) ?>
+<?php $og_image = All::getImage($eventt) ?>
 
 @section('main')
 
@@ -14,7 +16,6 @@
 <div id="single-map"></div>
 
 {{ All::getImageLink($eventt, '_profile-pic') }}
-
 
 <div class="">
 	<table class="_in-block _right10">
@@ -32,7 +33,7 @@
 	<table class="_in-block _right10">
 		<tr>
 			<th>Venue: </th>
-			<td>{{{ $eventt->location }}}</td>
+			<td>{{ All::getLocation($eventt) }}</td>
 		</tr>
 	</table>
 </div>
@@ -58,7 +59,7 @@
 			<td rowspan="2">{{{ $eventt->views }}}</td>
 		</tr>
 	</table> -->
-	<table class="_in-block _right10">
+<!-- 	<table class="_in-block _right10">
 		<tr>
 			<th>Tickets: </th>
 			<td>Order</td>
@@ -67,11 +68,16 @@
 			<th>Remaining: </th>
 			<td>200</td>
 		</tr>
-	</table>
+	</table> -->
 </div>
 
-<div class="_w100 _p10">{{ $eventt->description }}</div>
+<div class="_alerts">
+	<div class="_alert _data"><span class="_dismiss pull-right"></span></div>
+	<div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div>
+</div>
 
-{{ link_to_route('eventts.index', 'View all Events', null, array('class' => 'pull-left btn btn-link')) }}
+<div class="_w100 _p10">{{ All::getContent($eventt) }}</div>
+
+@include('partials.comments')
 
 @stop

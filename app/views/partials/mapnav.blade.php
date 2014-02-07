@@ -24,11 +24,11 @@
   </div>
 
 
-  <div id="map"></div>
+  <div id="map-container" class="_bottom10"><div id="thedevsmap"></div></div>
 
-  <div class="_addbtn _blade _aqua-hover _step1">+Add</div>
+  <div class="_alerts _bottom10">
+    <div class="_alert _data"><span class="_dismiss pull-right"></span></div>
+    <div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div>
+  </div>
 
-
-  <div class="_alert"></div>
-  <!-- <div class="_alert _blink-pink"></div> -->
 </div>

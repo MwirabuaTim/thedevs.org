@@ -29,12 +29,33 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info _aqua-hover pull-left" data-dismiss="modal">Back</button>
-        <button type="button" class="btn btn-info _step3" data-dismiss="modal" disabled>Next</button>
+        <button type="button" class="btn btn-info _step2 _pink2aqua" data-dismiss="modal" disabled>Next</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+
+<!-- Modal -->
+<div class="modal fade _pin-map" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Click on the map to add location to your post...</h4>
+      </div>
+      <div class="modal-body">
+       <div id="pinmap"></div>
+      </div>
+      <div class="modal-footer">
+        <p class="_left">You can Zoom and Drag the Map to be accurate.</p>
+        <button type="button" class="btn btn-info _aqua-hover pull-left" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-info _step3 _pink2aqua" data-dismiss="modal" disabled>Next</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- <a role="menuitem" tabindex="-1" href="#">Action</a> -->
 <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li> -->
@@ -59,16 +80,17 @@
         <div class="cell social-signin">
           <a href="/auth/facebook" class="_oauth facebook sign-up"><span class="icon-social-facebook"></span>Sign in with Facebook</a>
           <a href="/auth/google" class="_oauth google sign-up"><span class="icon-social-google"></span>Sign in with Google</a>
-          <a href="#/auth/twitter" class="_oauth twitter sign-up"><span class="icon-social-twitter"></span>Sign in with Twitter</a>
+          <a href="/auth/github" class="_oauth github sign-up"><span class="icon-social-github"></span>Sign in with Github</a>
 
         </div>
 
         <div class="cell neutral email-signin">
 
-          <h4 class="_inline">Sign in with Email:</h4>
-            <span class="pull-right _bottom10" >
-              Or <a href="/auth/signup" class="_get-sign-up">Create Account</a>
+          <h4>Sign in with Email:
+            <span class="pull-right" >
+              <a href="/auth/signup" class="_get-sign-up">Register</a>
             </span>
+          </h4>
           <!-- <span class="or module">or</span> -->
           <form accept-charset="UTF-8" action="/auth/signin" class="new_user" id="new-session" method="post">
             <input name="utf8" type="hidden" value="✓">
@@ -110,16 +132,17 @@
         <div class="cell social-signin">
           <a href="/auth/facebook" class="_oauth facebook sign-up"><span class="icon-social-facebook"></span>Sign up with Facebook</a>
           <a href="/auth/google" class="_oauth google sign-up"><span class="icon-social-google"></span>Sign up with Google</a>
-          <a href="#" class="_oauth twitter sign-up"><span class="icon-social-twitter"></span>Sign up with Twitter</a>
+          <a href="/auth/github" class="_oauth github sign-up"><span class="icon-social-github"></span>Sign up with Github</a>
 
         </div>
 
         <div class="cell neutral email-signup">
 
-          <h4 class="_inline">Sign up with Email:</h4>
-            <span class="pull-right _bottom10" >
-              Or <a href="/auth/signin" class="_get-sign-in">Sign In</a>
+          <h4>Sign up with Email:
+            <span class="pull-right" >
+              <a href="/auth/signin" class="_get-sign-in">Sign In</a>
             </span>
+          </h4>
           <!-- <span class="or module">or</span> -->
           <form accept-charset="UTF-8" action="/auth/signup" class="new_user" id="new-session" method="post">
             <input name="utf8" type="hidden" value="✓">

@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'OTLnBbuxuQ5Zgy0cUuDfn0BkmtqvYv7Z',
+	'key' => 'PoASH2vwVg7zEzDSmd9dVNliU3eKv2k0',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -116,6 +116,7 @@ return array(
 
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
+		'Jenssegers\Agent\AgentServiceProvider',
 
 	),
 
@@ -183,7 +184,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 
 		'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-
+		'Agent'            => 'Jenssegers\Agent\Facades\Agent',
 	),
 
 );

@@ -2,6 +2,7 @@
 
 class Dev extends User {
 	protected $guarded = array();
+	protected $softDelete = true;
 
 	public static $rules = array(
 		'first_name' => 'required',

@@ -17,6 +17,44 @@ Route::get('{any}', function($url){
     return Redirect::to(mb_substr($url, 0, -1), 301);
 })->where('any', '(.*)\/$');
 
+
+/*
+|--------------------------------------------------------------------------
+| The API
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
+// Route::get('orgs/api', function(){ return Response::json(['orgs'=> json_decode(Org::all())]);});
+// Route::get('devs/api', function(){ return Response::json(['devs'=> json_decode(Dev::all())]);});
+// Route::get('projects/api', function(){ return Response::json(['projects'=> json_decode(Project::all())]);});
+// Route::get('eventts/api', function(){ return Response::json(['eventts'=> json_decode(Eventt::all())]);});
+// Route::get('stories/api', function(){ return Response::json(['stories'=> json_decode(Story::all())]);});
+
+
+// Route::get('api', function(){ return All::getRandomRecords(); });
+// Route::get('api', function(){ return All::getLatestRecords(); });
+Route::get('api', function(){ return All::getAllRecords(); });
+Route::post('api', function(){ return All::getCoveredRecords(); });
+Route::get('api/search', function(){ return All::ajaxByLetters(); });
+Route::get('{path}/api', function($path){ return All::getModelRecords($path); });
+
+Route::get('{resource}/{id}/api', function($resource, $id){ 
+	return All::getRecord($resource, $id);
+})->where('id', '[0-9]+');
+
+Route::get('{resource}/{id}/edit/api', function($resource, $id){ 
+	return All::getRecord($resource, $id);
+})->where('id', '[0-9]+');
+
+Route::get('devs/{id}/api/github', function($id){ 
+	$user = User::find($id);
+	return All::getGitStats($user);
+})->where('id', '[0-9]+');
+
+
+
 /*
 |--------------------------------------------------------------------------
 | View Rights - Enforcing authorized access only
@@ -25,13 +63,14 @@ Route::get('{any}', function($url){
 */
 
 Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
+	
 	$record =  All::getRecord($resource, $id);
-	// return var_dump($record->public);
-	// if($record->public != 'on'){ //!test public effect first
-	// 	if(!All::hasEditRight($record)){
-	// 		return View::make('error.403');
-	// 	}
-	// }
+	if(!isset($record)){ //!test for empty records
+		return View::make('error.404');
+	}
+	if($record->public != 'on' && !All::hasEditRight($record)){
+		return View::make('error.403');
+	}
 	$record_name = strtolower(All::getModel($resource));
 	return View::make($resource.'.show')->with($record_name, $record);
 
@@ -44,23 +83,24 @@ Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
 |
 */
 
+
+
 Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
 	$record =  All::getRecord($resource, $id);
 	// return var_dump($record);
 	if(!isset($record)){ //!test for empty records
 		return View::make('error.404');
 	}
-	else if($resource != 'devs'){
+	// else if($resource != 'devs'){
 		if(!All::hasEditRight($record)){
 			return View::make('error.403');
 		}
-	}
+	// }
 	$record_name = strtolower(All::getModel($resource));
+	$$record_name = $record;
 
-	return View::make($resource.'.edit')->with($record_name, $record);
-	// return var_dump(Story::find(3)->id);
-	// return var_dump(All::getModel($resource));
-	// return var_dump($record->id);
+	return View::make($resource.'.edit', compact($record_name));
+	// return View::make($resource.'.edit')->with($record_name, $record); //fails online
 
 })->where('id', '[0-9]+');
 
@@ -73,12 +113,15 @@ Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
 */
 
 Route::get('{resource}/{id}/delete', function($resource, $id){
-	// $this->$resource->find($id)->delete();
-	$record = All::getRecord($resource, $id);
-	$record->status = 'deleted';
-	$record->save();
-	return $record;
-});
+	// $record = All::getRecord($resource, $id); //formats and returns json hence cant be deleted as an object
+	$model = All::getModel($resource);
+	$record =  $model::find($id);//queries db
+	if(All::hasEditRight($record)):
+		$record->delete();
+		return Redirect::route($resource.'.index');
+	endif;
+	return var_dump('no rights!');
+})->where('id', '[0-9]+');
 
 
 //Static Pages
@@ -92,16 +135,17 @@ Route::get('tos', function(){ return View::make('tos');});
 Route::get('customerservice', function(){ return View::make('customerservice');});
 Route::get('template', function(){return View::make('template');});
 Route::get('contactus', function(){ return View::make('contactus');});
+Route::post('contactus', 'ContactUsController@gmail');
 // Route::get('contactus', array('as' => 'contact-us', 'uses' => function(){ return View::make('contactus');}));
 
 
 //Popup makers
 //-------------------------------------------------------------------------
 
-Route::get('/orgs/createpop', function(){return View::make('orgs/create_plain');});
-Route::get('/projects/createpop', function(){return View::make('projects/create_plain');});
-Route::get('/eventts/createpop', function(){return View::make('eventts/create_plain');});
-Route::get('/stories/createpop', function(){return View::make('stories/create_plain');});
+Route::get('/orgs/createpop', function(){return View::make('orgs/createpop');});
+Route::get('/projects/createpop', function(){return View::make('projects/createpop');});
+Route::get('/eventts/createpop', function(){return View::make('eventts/createpop');});
+Route::get('/stories/createpop', function(){return View::make('stories/createpop');});
 
 /*
 |--------------------------------------------------------------------------
@@ -123,47 +167,6 @@ Route::resource('kits', 'KitsController');
 Route::resource('tags', 'TagsController');
 
 Route::resource('mydatatypes', 'MydatatypesController');
-
-
-/*
-|--------------------------------------------------------------------------
-| The API
-|--------------------------------------------------------------------------
-|
-|
-|
-*/
-// Route::get('api/orgs', function(){ return Response::json(['orgs'=> json_decode(Org::all())]);});
-// Route::get('api/devs', function(){ return Response::json(['devs'=> json_decode(Dev::all())]);});
-// Route::get('api/projects', function(){ return Response::json(['projects'=> json_decode(Project::all())]);});
-// Route::get('api/eventts', function(){ return Response::json(['eventts'=> json_decode(Eventt::all())]);});
-// Route::get('api/stories', function(){ return Response::json(['stories'=> json_decode(Story::all())]);});
-
-
-// Route::get('api/devs', function(){ return Dev::all();});
-// Route::get('api/orgs', function(){ return Org::all();});
-// Route::get('api/projects', function(){ return Project::all();});
-// Route::get('api/eventts', function(){ return Eventt::all();});
-// Route::get('api/stories', function(){ return Story::all();});
-
-
-Route::get('api/all', 'APIController@getAllRecords');
-// Route::get('api/all', 'APIController@getRandomRecords');
-// Route::get('api/all', 'APIController@getLatestRecords');
-Route::get('api/get-bounds', 'APIController@getCoveredRecords');
-Route::get('api/{path}', 'APIController@getModelRecords', compact('path'));
-
-Route::get('api/{resource}/{id}', function($resource, $id){ 
-	$record = All::getRecord($resource, $id);
-	$record->top_path = $resource;
-	return $record;
-})->where('id', '[0-9]+');
-
-Route::get('api/{resource}/{id}/edit', function($resource, $id){ 
-	$record = All::getRecord($resource, $id);
-	$record->top_path = $resource;
-	return $record;
-})->where('id', '[0-9]+');
 
 
 /*
@@ -284,22 +287,25 @@ Route::group(array('prefix' => 'admin'), function()
 */
 
 
-// Route::get('sandbox', function(){ 
-
+Route::get('sandbox/10', function(){ 
+	$path = Request::path();
 	// $update = array('video' => 'new video ');
 	// $update['first_name'] = 'new name';
 	// $update['last_name'] = '';
 	// User::find(1)->update($update);
 	// return User::find(1);
 
-	// echo '<br/>'.(isset($update['last_name']) ? 'last_name isset as '.$update['last_name'] : 'last_name isnt set');
+	// echo '<br/>'.(!empty($update['last_name']) ? 'last_name isset as '.$update['last_name'] : 'last_name isnt set');
 	// echo '<br/>'.(is_null($update['last_name']) ? 'last_name is_null as '.$update['last_name'] : 'last_name isnt null');
 	
-	// return User::first();
-	// Route::get('api/devs', function(){ return Dev::all();});
+	// return stripos($path, 'cd');
+	// return substr($path, 0, 7);
+	// $x = stripos($path, '/');
+	// $y = substr($path, 0, $x);
+	// $z = substr($path, $x+1, strlen($path));
+	// return empty($x) ? ucwords($path) : $z;
 
-
-// });
+});
 
 // Route::get('/users', 'UserController@index');
 // Route::get('/users/create', 'UserController@create');

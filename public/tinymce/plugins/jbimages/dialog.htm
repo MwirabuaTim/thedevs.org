@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<form class="form-inline" id="upl" name="upl" action="ci/index.php/upload/{#jbimages_dlg.lang_id}" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="jbImagesDialog.inProgress();">
+	<form class="form-inline" id="upl" name="upl" action="/thedevs/tinymce/plugins/jbimages/ci/index.php?/upload/{#jbimages_dlg.lang_id}" method="post" enctype="multipart/form-data" target="upload_target" onsubmit="jbImagesDialog.inProgress();">
 		
 		<h2>{#jbimages_dlg.select_an_image}</h2>
 		
@@ -22,12 +22,12 @@
 			<button type="submit" class="btn">{#jbimages_dlg.upload}</button>
 		</p>
 		
-		<p id="the_plugin_name"><a href="http://justboil.me/" target="_blank" title="JustBoil.me Images - a TinyMCE Images Upload Plugin">JustBoil.me Images Plugin</a></p>
+		<p id="the_plugin_name"><a href="http://justboil.me/" target="_blank" title="JustBoil.me Images - a TinyMCE Images Upload Plugin">Images cannot Exceed 2MB each.</a></p>
 		<div id="close_link"><a href="#" onclick="tinyMCEPopup.close(); return false;">Close [&times;]</a></div>
 	
 	</form>
 
-	<iframe id="upload_target" name="upload_target" src="ci/index.php/blank"></iframe>
+	<iframe id="upload_target" name="upload_target" src="/thedevs/tinymce/plugins/jbimages/ci/index.php/blank"></iframe>
 
 </body>
 </html>

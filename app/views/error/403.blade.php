@@ -21,7 +21,8 @@
 		<hr>
 
 		<p>
-			You don't have the necessary permissions to access to this page.
+			<!-- You don't have the necessary permissions to access to this page. -->
+			This page is not visible to the Public.
 		</p>
 
 		<p>

@@ -24,6 +24,7 @@ class CreateTagsTable extends Migration {
 			$table->string('status4');
 			$table->string('status5');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

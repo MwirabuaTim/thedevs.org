@@ -23,6 +23,7 @@ class CreateKitsTable extends Migration {
 			$table->integer('votes');
 			$table->string('status');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

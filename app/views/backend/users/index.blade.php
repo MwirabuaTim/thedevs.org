@@ -13,7 +13,7 @@ User Management ::
 		User Management
 
 		<div class="pull-right">
-			<a href="{{ route('create/user') }}" class="btn btn-small btn-info"><i class="icon-plus-sign icon-white"></i> Create</a>
+			<a href="{{ route('create/user') }}" class="btn btn-sm btn-info"><i class="icon-plus-sign icon-white"></i> Create</a>
 		</div>
 	</h3>
 </div>
@@ -23,7 +23,7 @@ User Management ::
 
 {{ $users->links() }}
 
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-bordered table-striped admin">
 	<thead>
 		<tr>
 			<th class="span1">@lang('admin/users/table.id')</th>
@@ -45,15 +45,15 @@ User Management ::
 			<td>@lang('general.' . ($user->isActivated() ? 'yes' : 'no'))</td>
 			<td>{{ $user->created_at->diffForHumans() }}</td>
 			<td>
-				<a href="{{ route('update/user', $user->id) }}" class="btn btn-mini">@lang('button.edit')</a>
+				<a href="{{ route('update/user', $user->id) }}" class="btn btn-sm">@lang('button.edit')</a>
 
 				@if ( ! is_null($user->deleted_at))
-				<a href="{{ route('restore/user', $user->id) }}" class="btn btn-mini btn-warning">@lang('button.restore')</a>
+				<a href="{{ route('restore/user', $user->id) }}" class="btn btn-sm btn-warning">@lang('button.restore')</a>
 				@else
 				@if (Sentry::getId() !== $user->id)
-				<a href="{{ route('delete/user', $user->id) }}" class="btn btn-mini btn-danger">@lang('button.delete')</a>
+				<a href="{{ route('delete/user', $user->id) }}" class="btn btn-sm btn-danger">@lang('button.delete')</a>
 				@else
-				<span class="btn btn-mini btn-danger disabled">@lang('button.delete')</span>
+				<span class="btn btn-sm btn-danger disabled">@lang('button.delete')</span>
 				@endif
 				@endif
 			</td>

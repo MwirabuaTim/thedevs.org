@@ -10,10 +10,30 @@ Edit Profile
 <div class="_in-block _w100 _top10">
 	<h4 class="pull-left">Edit Your Profile</h4>
 </div>
-{{ Form::model($dev, array('method' => 'PATCH', 'route' => array('devs.update', $dev->id))) }}
+
+{{ Form::open(array('route' => array('devs.update', $dev->id), 'method' => 'PUT')) }}
+
+<span class="pull-right">
+	{{--! Request::path() --}}
+	@if(All::hasEditRight($dev))
+		@if(Sentry::getUser()->hasAccess('admin'))
+			{{ All::getDeleteLink($dev) }}
+		@endif
+
+		{{ Form::select('public', array('on' => 'Public', 'off' => 'Not Public',), 
+			Input::old('public', $dev->public), 
+			array('class'=>'btn btn-sm btn-primary', 'id'=>'public')) }}
+		{{ link_to_route('change-email', 'Change Email', null, array('class' => 'btn btn-sm btn-primary')) }}
+		{{ link_to_route('change-password', 'Change Password', null, array('class' => 'btn btn-sm btn-primary')) }}
+	@endif
+</span>
+
+
+
+{{--! Form::model($dev, array('method' => 'PATCH', 'route' => array('devs.update', $dev->id))) --}}
 	<!-- CSRF Token -->
 	<input type="hidden" name="_token" value="{{ csrf_token() }}" />
-
+	
 	<!-- First Name -->
 	<div class="control-group{{ $errors->first('first_name', ' error') }}">
 		<label class="control-label" for="first_name">First Name</label>
@@ -32,14 +52,7 @@ Edit Profile
 			{{ $errors->first('last_name', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
-	<!-- Email - @tim implement activation of changed emails -->
-<!-- 	<div class="control-group{{ $errors->first('email', ' error') }}">
-		<label class="control-label" for="email">Email</label>
-		<div class="controls">
-			<input class="form-control" type="text" name="email" id="email" value="{{ Input::old('email', $dev->email) }}" />
-			{{ $errors->first('email', '<span class="help-block">:message</span>') }}
-		</div>
-	</div> -->
+	
 	<!-- phone -->
 	<div class="control-group{{ $errors->first('phone', ' error') }}">
 		<label class="control-label" for="phone">Phone</label>
@@ -82,7 +95,7 @@ Edit Profile
 	</div>
 	<!-- Mapping -->
 	<div class="control-group{{ $errors->first('map', ' error') }}">
-		<label class="control-label" for="map">Pin Your Location:</label>
+		<label class="control-label" for="map">Click on the map to pin anywhere...</label>
 		<div class="controls">
 			<div id="single-map">
 				<input class="hidden" type="text" name="map" value="{{ Input::old('map', $dev->map) }}" />
@@ -98,17 +111,21 @@ Edit Profile
 			{{ $errors->first('location', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
-	<!-- public -->
-	<div class="control-group{{ $errors->first('public', ' error') }} _checkbox">
-        {{ Form::checkbox('public', null, 0, array('class'=> '_inline')) }}
-		{{ Form::label('public', 'Public') }}
-        {{ $errors->first('public', '<span class="help-block">:message</span>') }}
+
+	<!-- Contacts -->
+	<div class="control-group{{ $errors->first('contacts', ' error') }}">
+		{{ Form::label('contacts', 'Contacts:', array('class'=>'control-label')) }}
+		<div class="controls">
+            {{ Form::textarea('contacts', All::getContacts($dev), array('class'=>'form-control rich')) }}
+			{{ $errors->first('contacts', '<span class="help-block">:message</span>') }}
+		</div>
 	</div>
+
 	<!-- notes -->
 	<div class="hidden control-group{{ $errors->first('notes', ' error') }}">
 		{{ Form::label('notes', 'Notes:', array('class'=>'control-label')) }}
 		<div class="controls">
-            {{ Form::textarea('notes', Input::old('notes', $dev->notes), array('class'=>'form-control')) }}
+            {{ Form::textarea('notes', Input::old('notes', $dev->notes), array('class'=>'form-control rich')) }}
 			{{ $errors->first('notes', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
@@ -118,7 +135,7 @@ Edit Profile
 	<div class="control-group">
 		<div class="controls _in-block _w100 _top10">
 			{{ link_to_route('devs.show', 'Back', $dev->id, array('class' => 'btn btn-default')) }}
-			<button type="submit" class="btn btn-primary pull-right">Update</button>
+			<button type="submit" class="btn btn-primary _left10">Update</button>
 		</div>
 	</div>
 

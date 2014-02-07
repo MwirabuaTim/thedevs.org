@@ -1,4 +1,6 @@
 @extends('layouts.scaffold')
+<?php $title = All::getName($org) ?>
+<?php $og_image = All::getImage($org) ?>
 
 @section('main')
 
@@ -31,7 +33,7 @@
 	<table class="_right10 _in-block">
 		<tr>
 			<th>Location: </th>
-			<td>{{{ $org->location }}}</td>
+			<td>{{ All::getLocation($org) }}</td>
 		</tr>
 	</table>
 
@@ -52,7 +54,12 @@
 	</table> -->
 </div>
 
-<p class="_center _f30">"<span class="_f30">{{{ $org->elevator }}}</span>"</p>
+<div class="_alerts">
+	<div class="_alert _data"><span class="_dismiss pull-right"></span></div>
+	<div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div>
+</div>
+
+<p class="_layer _center _f30">"{{ All::getTagline($org) }}"</p>
 
 
 
@@ -71,15 +78,13 @@
 	</div>
 	@endif
 
-	{{ $org->description }}
+{{ All::getContent($org) }}
 
 </div>
 
-<h2 class="contacts-header">Contacts</h2>
-<div class="_w100 _p10">{{ $org->contacts }}</div>
+<h2 class="_layer">Contacts</h2>
+<div class="_layer">{{ $org->contacts }}</div>
 
-{{ link_to_route('orgs.index', 'View all Orgs', null, array('class' => 'pull-left btn btn-link')) }}
-
-
+@include('partials.comments')
 
 @stop

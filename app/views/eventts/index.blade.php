@@ -6,11 +6,16 @@
 
 @section('main')
 
+<div class="_addbtn _center _top10 _bottom10">
+	<span class="_blade _aqua2pink _step1">+Create</span>
+</div>
+
 <h2 class="_inline">Latest Events...</h2>
 
 <!-- <p class="pull-right _top10">{{ link_to_route('eventts.create', 'Add One... :)') }}</p> -->
 
-@if ($eventts->count())
+@if($eventts->count())
+	{{ $eventts->links() }}
 	<table class="table table-striped table-bordered _top10">
 		<thead>
 			<tr>
@@ -27,12 +32,12 @@
 		</thead>
 
 		<tbody>
-			@foreach ($eventts as $eventt)
+			@foreach($eventts as $eventt)
 				<tr>
 					<td>{{ All::getNameLink($eventt) }}</td>
-					<!-- <td>{{{ $eventt->elevator }}}</td> -->
+					<!-- <td>{{ All::getTagline($eventt) }}</td> -->
 					<td>{{{ $eventt->type }}}</td>
-					<td>{{{ $eventt->location }}}</td>
+					<td>{{ All::getLocation($eventt) }}</td>
 					<td>{{{ $eventt->start_time }}}</br>{{{ $eventt->end_time }}}</td>
 					<!-- <td>{{{ $eventt->end_time }}}</td> -->
 					<!-- <td>{{{ $eventt->views }}}</td> -->
@@ -43,6 +48,7 @@
 			@endforeach
 		</tbody>
 	</table>
+	{{ $eventts->links() }}
 @else
 	There are no eventts
 @endif

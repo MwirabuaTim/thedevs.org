@@ -5,21 +5,17 @@
         </span>
         <span class="_tagline">Where Developers Connect</span>
     </a>
-   <!-- <div class="pull-right"> -->
+   <div class="_layer _bottom5">
     	<ul class="_nav _brick _top-right">
             @if (Sentry::check())
                 <?php $id = Sentry::getUser()->id; ?>
-                <li {{ (Request::is('devs/'.$id .'/books') ? 'class="active"' : '') }}>
+                <li {{ ( Request::is('devs/'.$id) ? 'class="active"' : '') }}>
                 	<a class="_blade _aqua-hover" href="{{ URL::to('devs/'.$id.'') }}">
-                	My Account</a>
-                </li>
-                <li {{ (Request::is('user/'.$id .'/books') ? 'class="active"' : '') }}>
-                	<a class="_blade _aqua2pink _step1" href="{{ URL::to('/') }}">
-                	+Create</a>
+                	My Profile</a>
                 </li>
             @else
                 <li class="" {{ (Request::is('auth/signin') ? 'class="active"' : '') }}>
-                	<a class="_blade _aqua2pink" href="{{ URL::to('howitworks') }}">
+                	<a class="_blade _aqua2pink _demo" href="{{ URL::to('howitworks') }}" type="button">
                 	Demo</a>
                 </li>
                 <li {{ (Request::is('auth/signup') ? 'class="active"' : '') }}>
@@ -31,14 +27,11 @@
                 
             @endif
         </ul>
-    <!-- </div> -->
+    
+        <input class="_search form-control ui-autocomplete-input" name="term" type="text" autocomplete="off">
+	  	<div class="_search-icon"></div>
 
-	<form class="mapsearch navbar-form navbar-left col-sm-5" role="search">
-	  <!-- <div class="form-group"> -->
-	    <input type="text" class="form-control" 
-        placeholder='Search "JavaScript Developer", "Tech Hub", "TEDx", "Workout App" etc near you...'>
-	  	<button type="submit" class="btn _aqua-hover _search-btn">Search</button>
-	  <!-- </div> -->
-	</form>
+    </div>
+
     
 </div>

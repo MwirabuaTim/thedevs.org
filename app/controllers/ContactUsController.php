@@ -37,5 +37,55 @@ class ContactUsController extends BaseController {
 
 		# TODO !
 	}
+    public function gmail() //@tim, bookcheetah
+    {
 
+    		Mail::send('emails.contactus', Input::all(), function($message)
+    		{
+
+    			$email = $_POST['email'];
+          $name = $_POST['name'];
+          $subject = $_POST['subject'];
+          $msg = $_POST['msg'];
+
+          $message->from(array($email => $name));
+          $message->to(array('info@thedevs.org' => 'TheDevs Organisation'));   
+          $message->subject($subject); 
+
+    		});
+        return Redirect::back()->with('success', 'Thank you for contacting us. We will get back to you shortly');
+
+        Mail::send('emails.contactus', array('token'=>'SAMPLE'), function($message){
+            $message = Swift_Message::newInstance();
+            $email = $_POST['email']; 
+            $name = $_POST['name'];
+            $message->setFrom(array($email => $name));
+            $message->setTo(array('info@thedevs.org' => 'TheDevs Organisation'));   
+            
+            $subject = $_POST['subject'];   
+            $message->setSubject($subject); 
+
+            $msg = $_POST['msg'];   
+            $message->setBody($msg);
+
+            $transport = Swift_SmtpTransport::newInstance('smtp.postmarkapp.com', 2525, 'ssl')
+            ->setUsername('cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30')
+            ->setPassword('cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30');
+            // $transport = Swift_SmtpTransport::newInstance('localhost', 25);
+            //Supposed to allow local domain sending to work from what I read
+            $transport->setLocalDomain('[127.0.0.1]');
+
+            $mailer = Swift_Mailer::newInstance($transport);
+            //Send the message
+            $result = $mailer->send($message);
+
+            if($result){
+                
+                 return Redirect::to('contactus')->with('success', 'You have posted successfully');
+            }else{
+                return Redirect::to('contactus')->with('fail', 'Your details were not submitted');
+            }
+        });
+        return Redirect::back();
+    }
 }

@@ -13,7 +13,7 @@ Group Update ::
 		Group Update
 
 		<div class="pull-right">
-			<a href="{{ route('groups') }}" class="btn btn-small btn-inverse"><i class="icon-circle-arrow-left icon-white"></i> Back</a>
+			<a href="{{ route('groups') }}" class="btn btn-sm btn-inverse"><i class="icon-circle-arrow-left icon-white"></i> Back</a>
 		</div>
 	</h3>
 </div>
