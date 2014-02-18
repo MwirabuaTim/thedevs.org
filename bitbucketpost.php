@@ -116,7 +116,7 @@ class Deploy {
 
           // apache own
           exec('sudo chown -R www-data:www-data '.$this->_directory, $output);
-          $this->log('Making ' .shell_exec('whoami').' the owner... '.implode(' ', $output));
+          $this->log('Changing the owner to '.shell_exec('whoami').implode(' ', $output));
 
           // Discard any changes to tracked files since our last deploy
           exec('git reset --hard HEAD', $output);
