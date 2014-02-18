@@ -29,7 +29,7 @@
 	<span class="_blade _aqua2pink _step1 _left10">Create</span>
 </div>
 
-<a href="/" class="_inst _clearLS _hide aqua">Delete Pending Post</a>
+<a href="/" class="_inst _clearLS _hide">Delete Pending Post</a>
 <!-- <a href="#" class="_inst _step3 pull-right _hide">Proceed Posting</a> -->
 
 @stop
