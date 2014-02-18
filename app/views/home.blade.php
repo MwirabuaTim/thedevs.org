@@ -11,7 +11,7 @@
 	</legend>
 
 	<h2 class="_center">
-		“Location-Based Resource For Developers.”
+		“Location-Based Resource For Developers”
 	</h2>
 
 	<hr>
