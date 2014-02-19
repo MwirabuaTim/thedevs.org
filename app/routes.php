@@ -68,7 +68,7 @@ Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
 	if(!isset($record)){ //!test for empty records
 		return View::make('error.404');
 	}
-	if($record->public != 'on' && !All::hasEditRight($record)){
+	if($record->public == 'off' && !All::hasEditRight($record)){
 		return View::make('error.403');
 	}
 	$record_name = strtolower(All::getModel($resource));

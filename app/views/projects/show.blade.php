@@ -58,7 +58,7 @@
 	<div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div>
 </div>
 
-<p class="_layer _center _f30">"{{ All::getTagline($project) }}"</p>
+<p class="_layer _center _f30">{{ All::getTagline($project) }}</p>
 
 
 
@@ -85,5 +85,6 @@
 <div class="_layer">{{ $project->contacts }}</div>
 
 @include('partials.comments')
+@include('partials.links')
 
 @stop

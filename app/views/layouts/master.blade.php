@@ -114,6 +114,16 @@
       <li data-button="X"><h3>Join and Create with us Today :)</h3></li>
 
     </ol>
+    
+    <!-- Contact Us Sidebar -->
+    <div class="slide-out-div">
+        <a class="handle" href="http://link-for-non-js-users.html">Content</a>
+        <h3>Contact me</h3>
+        <p><a href="https://twitter.com/intent/tweet?&screen_name=techytimo&hashtags=thedevsorg" target="_blank">
+        @techytimo</a></p>
+        <p>tim@thedevs.org</p>
+        <p>+254711451409</p>
+    </div>
 
 </body>
 
@@ -134,6 +144,9 @@
     <!-- Joyride JS-->
     {{ HTML::script('joyridejs/jquery.joyride-2.1.js') }}
 
+    <!-- Masonry JS-->
+    {{ HTML::script('js/masonry.pkgd.min.js') }}
+
     <!-- Leaflet JS -->
     {{ HTML::script('leaflet/leaflet.js') }}
     {{ HTML::script('leaflet_label/leaflet.label.js') }}
@@ -148,6 +161,7 @@
     @include('partials.alljs') 
     <!-- Inlining page-specific JS -->
     @yield('js') 
+
 
     <!-- Google Analytics -->
     <script>
@@ -187,5 +201,27 @@
         });
     </script>
     <!-- AddThis Smart Layers END -->
+
+    <!-- Sidebar JS-->
+    {{ HTML::script('js/jquery.tabSlideOut.v1.3.js') }}
+
+    <script type="text/javascript">
+    $(function(){
+        $('.slide-out-div').tabSlideOut({
+            tabHandle: '.handle',                     //class of the element that will become your tab
+            pathToTabImage: '/images/contact_tab.jpg', //path to the image for the tab //Optionally can be set using css
+            imageHeight: '122px',                     //height of tab image           //Optionally can be set using css
+            imageWidth: '40px',                       //width of tab image            //Optionally can be set using css
+            tabLocation: 'right',                     //side of screen where tab lives, top, right, bottom, or left
+            speed: 300,                               //speed of animation
+            action: 'click',                          //options: 'click' or 'hover', action to trigger animation
+            topPos: '200px',                          //position from the top/ use if tabLocation is left or right
+            leftPos: '20px',                          //position from left/ use if tabLocation is bottom or top
+            fixedPosition: false                      //options: true makes it stick(fixed position) on scroll
+        });
+
+    });
+
+    </script>
 
 </html>

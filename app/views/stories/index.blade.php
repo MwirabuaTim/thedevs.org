@@ -16,30 +16,21 @@
 
 @if($stories->count())
 	{{ $stories->links() }}
-	<table class="table table-striped table-bordered _top10">
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Location</th>
-				<!-- <th>Views</th> -->
-				<!-- <th>Votes</th> -->
-				<th>Creator</th>
-			</tr>
-		</thead>
-
-		<tbody>
+	<div id="container" class="js-masonry"
+  		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
 			@foreach($stories as $story)
-				<tr>
-					<td>{{ All::getNameLink($story) }}</td>
-					<td>{{ All::getLocation($story) }}</td>
-					<!-- <td>{{{ $story->views }}}</td> -->
-					<!-- <td>{{{ $story->votes }}}</td> -->
-					<td>{{ All::getCreatorImageLink($story, '_list-img') }}
-						<br/>{{ All::getCreatorLink($story) }}</td>
-				</tr>
+				<div class="item">
+					<div class="img"><a href="stories/{{ $story->id }}">
+						<img src="{{ All::getImage($story) }}" alt="{{ All::getName($story) }}">
+					</a></div>
+					<div class="name">{{ All::getNameLink($story) }}</div>
+					<div class="location">{{ All::getLocation($story) }}</div>
+					<div class="creator">By: {{ All::getCreatorLink($story) }}</div>
+					<!-- <div>{{{ $story->views }}}</div> -->
+					<!-- <div>{{{ $story->votes }}}</div> -->
+				</div>
 			@endforeach
-		</tbody>
-	</table>
+	</div>
 	{{ $stories->links() }}
 @else
 	There are no stories

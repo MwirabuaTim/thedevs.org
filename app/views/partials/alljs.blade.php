@@ -602,6 +602,7 @@ $(document).ready(function(){
   lat = localStorage.lat
   lng = localStorage.lng
   richEditor()//for form textareas
+  $(".slide-out-div").show(); //show 'Contact' sidebar
   // $(document).joyride()
   $("a._demo").click(function(e){
     e.preventDefault()
@@ -646,6 +647,9 @@ $(document).ready(function(){
     $('a._step2').attr('class', '_step3')
     _alert('<u class="_step3">Complete creating "'+LS.name+'"</u>')
     $('._inst').show()
+  }
+  if(!isMain()){
+    $('span.links').show();
   }
 
   $('._clearLS').on('click', function(){

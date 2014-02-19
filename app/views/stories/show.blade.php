@@ -54,5 +54,6 @@
 <div class="_w100 _p10">{{ All::getContent($story) }}</div>
 
 @include('partials.comments')
+@include('partials.links')
 
 @stop

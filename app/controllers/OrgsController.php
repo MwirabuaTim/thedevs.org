@@ -21,7 +21,7 @@ class OrgsController extends BaseController {
 	 */
 	public function index()
 	{
-		$orgs = $this->org->orderBy('created_at', 'desc')->paginate(10);
+		$orgs = $this->org->orderBy('created_at', 'desc')->paginate(15);
 
 		return View::make('orgs.index', compact('orgs'));
 	}

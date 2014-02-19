@@ -32,7 +32,7 @@
 	
 </div>
 
-<p class="_layer _center _f30">"{{ All::getTagline($dev) }}"</p>
+<p class="_layer _center _f30">{{ All::getTagline($dev) }}</p>
 
 
 
@@ -198,5 +198,6 @@
 </div>
 
 @include('partials.comments')
+@include('partials.links')
 
 @stop

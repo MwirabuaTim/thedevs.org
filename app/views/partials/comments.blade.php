@@ -13,12 +13,3 @@
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-<div class="pull-right">
-{{ link_to_route('devs.index', 'Devs', null, array('class' => 'btn btn-sm btn-link')) }}
-{{ link_to_route('orgs.index', 'Orgs', null, array('class' => 'btn btn-sm btn-link')) }}
-{{ link_to_route('eventts.index', 'Events', null, array('class' => 'btn btn-sm btn-link')) }}
-{{ link_to_route('projects.index', 'Projects', null, array('class' => 'btn btn-sm btn-link')) }}
-{{ link_to_route('stories.index', 'Stories', null, array('class' => 'btn btn-sm btn-link')) }}
-{{--! link_to_route('home', 'Home', null, array('class' => 'btn btn-sm btn-link pull-right')) --}}
-</div>

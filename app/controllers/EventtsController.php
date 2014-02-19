@@ -21,7 +21,7 @@ class EventtsController extends BaseController {
 	 */
 	public function index()
 	{
-		$eventts = $this->eventt->orderBy('created_at', 'desc')->paginate(10);
+		$eventts = $this->eventt->orderBy('created_at', 'desc')->paginate(15);
 
 		return View::make('eventts.index', compact('eventts'));
 	}

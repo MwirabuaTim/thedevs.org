@@ -154,11 +154,11 @@ class All extends Eloquent {
 
 	public static function getTagline($record){ //not called/used for stories
 		if(All::hasEditRight($record) && empty($record->elevator)):
-            return All::getNamedEditLink($record, 'Add your tagline here...');
+            return All::getNamedEditLink($record, '"Add your tagline here..."');
         elseif(empty($record->elevator)):
         	return '';
         else:
-        	return $record->elevator;
+        	return '"'.$record->elevator.'"';
 		endif;
 	}
 

@@ -16,32 +16,23 @@
 
 @if($devs->count())
 	{{ $devs->links() }}
-	<table class="table table-striped table-bordered _top10">
-		<thead>
-			<tr>
-				<th>Picture</th>
-				<th>Name</th>
-				<th>Tagline</th>
-				<th>Location</th>
-				<!-- <th>Views</th> -->
-				<!-- <th>Votes</th> -->
-			</tr>
-		</thead>
-
-		<tbody>
+	<div id="container" class="js-masonry"
+  		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
 			@foreach($devs as $dev)
-				<tr>
-					<td>{{ All::getImageLink($dev, '_list-img') }}</td>
-					<td>{{ All::getNameLink($dev) }}</td>
-					<td>{{ All::getTagline($dev) }}</td>
-					<td>{{ All::getLocation($dev) }}</td>
-					<!-- <td>{{{ $dev->views }}}</td> -->
-					<!-- <td>{{{ $dev->votes }}}</td> -->
-				</tr>
+				<div class="item">
+					<div class="img">{{ All::getImageLink($dev, '_list-img') }}</div>
+					<div class="name">{{ All::getNameLink($dev) }}</div>
+					<div class="location">{{ All::getLocation($dev) }}</div>
+					<div class="tagline">{{ All::getTagline($dev) }}</div>
+					<!-- <div>{{{ $dev->views }}}</div> -->
+					<!-- <div>{{{ $dev->votes }}}</div> -->
+				</div>
 			@endforeach
-		</tbody>
-	</table>
+	</div>
 	{{ $devs->links() }}
+
 @endif
+
+
 
 @stop

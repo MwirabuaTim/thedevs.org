@@ -16,38 +16,27 @@
 
 @if($eventts->count())
 	{{ $eventts->links() }}
-	<table class="table table-striped table-bordered _top10">
-		<thead>
-			<tr>
-				<th>Title</th>
-				<!-- <th>Tagline</th> -->
-				<th>Type</th>
-				<th>Location</th>
-				<th>Time</th>
-				<!-- <th>Time_end</th> -->
-				<!-- <th>Views</th> -->
-				<!-- <th>Votes</th> -->
-				<th>Creator</th>
-			</tr>
-		</thead>
-
-		<tbody>
+	<div id="container" class="js-masonry"
+  		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
 			@foreach($eventts as $eventt)
-				<tr>
-					<td>{{ All::getNameLink($eventt) }}</td>
-					<!-- <td>{{ All::getTagline($eventt) }}</td> -->
-					<td>{{{ $eventt->type }}}</td>
-					<td>{{ All::getLocation($eventt) }}</td>
-					<td>{{{ $eventt->start_time }}}</br>{{{ $eventt->end_time }}}</td>
-					<!-- <td>{{{ $eventt->end_time }}}</td> -->
-					<!-- <td>{{{ $eventt->views }}}</td> -->
-					<!-- <td>{{{ $eventt->votes }}}</td> -->
-					<td>{{ All::getCreatorImageLink($eventt, '_list-img') }}
-						<br/>{{ All::getCreatorLink($eventt) }}</td>
-				</tr>
+				<div class="item">
+					<div class="name">{{ All::getNameLink($eventt) }}</div>
+					<div class="type">Type: {{{ $eventt->type }}}</div>
+					<div class="location">Venue: {{ All::getLocation($eventt) }}</div>
+					<div class="start-time">{{{ $eventt->start_time }}}</div>
+					<div class="to">To</div>
+					<div class="end-time">{{{ $eventt->end_time }}}</div>
+					<div class="creator">By: {{ All::getCreatorLink($eventt) }}</div>
+					<div class="creator-image">{{ All::getCreatorImageLink($eventt, '_list-img') }}</div>
+					<!-- <div class="img"><a href="eventts/{{ $eventt->id }}">
+						<img src="{{ All::getImage($eventt) }}" alt="{{ All::getName($eventt) }}">
+					</a></div> -->
+					<!-- <div class="tagline">{{--! All::getTagline($eventt) --}}</div> -->
+					<!-- <div>{{{ $eventt->views }}}</div> -->
+					<!-- <div>{{{ $eventt->votes }}}</div> -->
+				</div>
 			@endforeach
-		</tbody>
-	</table>
+	</div>
 	{{ $eventts->links() }}
 @else
 	There are no eventts

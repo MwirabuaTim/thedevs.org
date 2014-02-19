@@ -79,5 +79,6 @@
 <div class="_w100 _p10">{{ All::getContent($eventt) }}</div>
 
 @include('partials.comments')
+@include('partials.links')
 
 @stop

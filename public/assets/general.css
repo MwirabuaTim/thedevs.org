@@ -6,7 +6,7 @@ body{
 ._wrapper{
 	position: absolute;
 	width:100%;
-	height: 100%;
+	min-height: 100%;
 	margin: 0px;
 	padding: 0px;
 	font-family: Verdana,Helvetica,Arial,sans-serif;
@@ -20,6 +20,10 @@ body{
 ._container{
 	min-height: calc(100% - 65px);
 	background-color: transparent;
+	padding-bottom: 90px;
+}
+._container a{
+	color: aqua;
 }
 ._footer{
 	display: inline-block;
@@ -28,6 +32,8 @@ body{
 	border-top: 5px solid aqua;
 	width: 100%;
 	margin-bottom: -5px;
+	position: absolute;
+	bottom: 0px;
 }
 ._footer ._nav{
 	position: relative;
@@ -123,7 +129,8 @@ img{
 ._top-left {
 	font-family: devstiny;
 	position: relative;
-	top: 5px;
+	top: 10px;
+	margin-bottom: 15px;
 	color: white;
 }
 ._top-left:hover{
@@ -152,14 +159,16 @@ ul._nav li{
 }
 
 ul._top-right{
-	float: right;
-	width: auto;
-	margin-bottom: 10px;
-	margin-top: -40px;
-	display: table;
+	position: absolute;
+	right: 5%;
+	top: 10px;
 }
 ul._top-right li{
 	margin: 10px 0px 10px 10px;
+}
+ul._top-right li:first-child{
+	position: relative;
+	top: -10px;
 }
 
 ._bg-white{
@@ -340,6 +349,9 @@ ul._top-right li{
 ._blade {
 	padding: 10px 15px;
 }
+a._blade{
+	color: #333;
+}
 ._layer{
 	width: 100% !important;
 	display: inline-block;
@@ -373,12 +385,21 @@ ul._top-right li{
 	color: black;/*#FF8;*/
 	font-family: sans-serif; 
 }
-._list-img{
-	width: 100px;
-	max-height: 100px;
+table ._list-img{
+	width: 150px;
 }
-
-
+.js-masonry .item{
+	border: 5px solid gray;
+	border-radius: 5px;
+	margin: 5px;
+	width: 185px;
+	height: auto;
+	text-align: center;
+}
+/*.js-masonry .item .tagline{
+	width: 150px;
+}
+*/
 @font-face
 {
 font-family: devstiny;
@@ -918,6 +939,19 @@ img._profile-pic{
 	border: 1px solid white;
 	border-radius: 4px;
 }
+._bg-transparent span.links{
+	float:right;
+}
+span.links{
+	display:none;
+}
+.slide-out-div {
+  padding: 10px;
+  width: 150px;
+  background: #ccc;
+  border: 1px solid #29216d;
+  display: none;
+}
 
 @media (max-width: 1000px) {
 	._creates .modal-dialog{
@@ -925,10 +959,31 @@ img._profile-pic{
 		margin: 0px auto;
 	}
 }
-@media (max-width: 780px) {
+@media (max-width: 800px) {
+	._header{
+		text-align: center;
+	}
 	._logo {
 		display: block;
+		font-size: 40px;
 	}
+	._logo ._small {
+		font-size: 35px;
+	}
+	ul._top-right {
+		position: relative;
+		top: -10px;
+		right: 0px;
+	}
+	ul._top-right li:first-child {
+		position: relative;
+		top: 0px;
+		display: block;
+	}
+	ul._top-right li{
+		margin: 10px 0px 10px 5px;
+	}
+	
 
 }
 @media (max-width: 605px) {
@@ -945,34 +1000,10 @@ img._profile-pic{
 	}
 }
 @media (max-width: 550px) {
-	._header{
-		text-align: center;
-	}
-	._logo {
-		font-size: 40px;
-	}
-	._logo ._small {
-		font-size: 35px;
-	}
 	._strip{
 		border-width: 0px 0px 40px 15px;
 		line-height: 40px;
 	}
-	._tagline {
-		font-size: 15px;
-		line-height: 1;
-	}
-
-	ul._top-right{
-		float: none;
-		margin: 0px auto;
-		margin-top: 10px;
-		margin-bottom: 10px;
-	}
-	ul._top-right li{
-		margin: 10px 0px 10px 5px;
-	}
-
 	._blade {
 		padding: 10px 10px;
 	}
@@ -981,6 +1012,10 @@ img._profile-pic{
 	}
 	#map-container{
 		clear: both;
+	}
+	._tagline {
+		font-size: 15px;
+		line-height: 1;
 	}
 	._creates .modal-dialog{
 		width: 100%;

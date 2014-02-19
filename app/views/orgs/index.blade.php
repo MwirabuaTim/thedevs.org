@@ -16,33 +16,23 @@
 
 @if($orgs->count())
 	{{ $orgs->links() }}
-	<table class="table table-striped table-bordered _top10">
-		<thead>
-			<tr>
-				<th>Logo</th>
-				<th>Name</th>
-				<!-- <th>Tagline</th> -->
-				<th>Type</th>
-				<th>Location</th>
-				<th>Creator</th>
-			</tr>
-		</thead>
-
-		<tbody>
+	<div id="container" class="js-masonry"
+  		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
 			@foreach($orgs as $org)
-				<tr> 
-					<td rowspan="2">{{ All::getImageLink($org, '_list-img') }}</td>
-					<td>{{ All::getNameLink($org) }}</td>
-					<!-- <td>{{ All::getTagline($org) }}</td> -->
-					<td>{{{ $org->type }}}</td>
-					<td>{{ All::getLocation($org) }}</td>
-					<td rowspan="2">{{ All::getCreatorImageLink($org, '_list-img') }}
-						<br/>{{ All::getCreatorLink($org) }}</td>
-				</tr>
-				<tr><td>Tagline: </td><td colspan="2" class="_left">{{ All::getTagline($org) }}</td></tr>
+				<div class="item">
+					<div class="img">{{ All::getImageLink($org, '_list-img') }}</div>
+					<div class="name">{{ All::getNameLink($org) }}</div>
+					<div class="type">{{{ $org->type }}}</div>
+					<div class="location">{{ All::getLocation($org) }}</div>
+					<div class="tagline">{{ All::getTagline($org) }}</div>
+					<!-- <div class="creator-image">{{--! All::getCreatorImageLink($org, '_list-img') --}}</div> -->
+					<div class="creator">By: {{ All::getCreatorLink($org) }}</div>
+					<!-- <div>{{{ $org->views }}}</div> -->
+					<!-- <div>{{{ $org->votes }}}</div> -->
+				</div>
 			@endforeach
-		</tbody>
-	</table>
+	</div>
+
 	{{ $orgs->links() }}
 @else
 	There are no orgs
