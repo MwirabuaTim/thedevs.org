@@ -1,6 +1,5 @@
 /bootstrap/compiled.php
 /vendor
-/uploads
 composer.phar
 .DS_Store
 Thumbs.db
