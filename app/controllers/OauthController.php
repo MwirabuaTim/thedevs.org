@@ -1,7 +1,7 @@
 <?php
 
 use OAuth2\OAuth2;
-use OAuth2\Token\Token_Access;
+use OAuth2\Token_Access;
 use OAuth2\Exception as OAuth2_Exception;
 
 class OauthController extends BaseController {
