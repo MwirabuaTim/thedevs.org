@@ -335,11 +335,7 @@ class All extends Eloquent {
 
 	public static function getRecords($path){
     	// return Request::path();
-    	if($path == '/'){
-			$records = All::getAllRecords();
-			return All::simplify($records);
-    	}
-    	elseif (in_array($path, array('devs', 'orgs', 'eventts', 'projects', 'stories'))) {
+    	if (in_array($path, array('devs', 'orgs', 'eventts', 'projects', 'stories'))) {
     		$records = All::getModelRecords($path);
     		return All::simplify($records);
     	}
@@ -352,7 +348,8 @@ class All extends Eloquent {
     	// elseif (substr($path, 0, 5) == 'devs/'){  // stripos($path, 'devs/')  == 0 !
     	// 	return All::getRecord('devs', Request::segment(2));
     	// }
-    	return $path;
+    	$records = All::getAllRecords();
+		return All::simplify($records);
     	// return stripos($path, 'devs/');
     }
     public static function simplify($records){

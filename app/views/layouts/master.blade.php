@@ -61,10 +61,10 @@
     <img class="social-logo hidden" 
     src="{{ isset($og_image) ? $og_image : asset('images/devs.png') }}">
     
+    <!-- Wrapper -->
     <div class="_wrapper">
         
-        <!-- Container -->
-        <div class="_container _middle">
+        <div class="_middle">
 
             @include('partials.header')
 
@@ -87,7 +87,7 @@
             data-width="450" data-show-faces="false"></div>
 
         </div>
-        <!-- ./ container -->
+        <!-- ./ middle stuff -->
 
         @include('partials.footer')
 

@@ -459,7 +459,7 @@
     //   }
 
     // });
-    var postxhr = $.post(selected_model, all_data, function(resp) { //find an easier way to do this!
+    var postxhr = $.post('/'+selected_model, all_data, function(resp) { //find an easier way to do this!
       console.log('Success, Posted.');
       $('img.preload').hide()
       localStorage.thedevsorgstatus = 'posted'
@@ -677,7 +677,7 @@ $(document).ready(function(){
   })
 
   $('._step2').on('click', function(e){
-    if(map){e.preventDefault()}
+    'undefined' != typeof map ? e.preventDefault() : console.log('Please create from a different page.')
 
     $('._pin-map .modal-body').css('height', $(window).height()*0.7+'px')
     $('._pin-map .modal-dialog').css('margin', '0px')
