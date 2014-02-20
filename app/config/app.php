@@ -117,7 +117,6 @@ return array(
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
-		'Codesleeve\AssetPipeline\AssetPipelineServiceProvider',
 
 	),
 

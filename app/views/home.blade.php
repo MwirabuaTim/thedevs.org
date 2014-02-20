@@ -24,8 +24,9 @@
 </fieldset>
 
 <div class="_addbtn _center _top10 _bottom10">
+    @if(!Sentry::check())
     <span class="_blade _aqua2pink _get-sign-up _right10" href="{{ URL::to('auth/signup') }}">&nbsp;+	Join&nbsp;</span>
-	
+	@endif
 	<span class="_blade _aqua2pink _step1 _left10">Create</span>
 </div>
 

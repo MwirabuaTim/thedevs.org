@@ -8,8 +8,7 @@
 		"way/generators": "dev-master",
 		"cartalyst/sentry": "2.0.*",
 		"madewithlove/laravel-oauth2": "0.2.*",
-		"jenssegers/agent": "*",
-		"codesleeve/asset-pipeline": "dev-master"
+		"jenssegers/agent": "*"
 	},
 	"autoload": {
 		"classmap": [
