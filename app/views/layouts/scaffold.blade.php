@@ -7,11 +7,11 @@
 @stop
 
 @section('css')
-	{{ is_file('assets/'.$path.'.css') ? HTML::style('assets/'.$path.'.css') : ''}}
+	{{ is_file('css/'.$path.'.css') ? HTML::style('css/'.$path.'.css') : ''}}
 @stop
 
 @section('js')
-	{{ is_file('assets/'.$path.'.js') ? HTML::script('assets/'.$path.'.js') : '' }}
+	{{ is_file('js/'.$path.'.js') ? HTML::script('js/'.$path.'.js') : '' }}
 @stop
 
 @section('content')

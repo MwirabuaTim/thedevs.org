@@ -75,7 +75,7 @@
         lng = b.getCenter().lng
       }
 
-    }).done(function() { // has to happen when the map is done loading baby!
+    }).done(function() { // has to happen when the map is done loading
       
     }).fail(function() {
       console.log('check your db bro...');

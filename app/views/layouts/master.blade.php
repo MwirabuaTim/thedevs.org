@@ -34,7 +34,7 @@
     {{ HTML::style('joyridejs/joyride-2.1.css') }}
 
     <!-- Custom CSS for all pages -->
-    {{ HTML::style('assets/general.css')}}
+    {{ HTML::style('css/general.css')}}
 
     <!-- Custom CSS for specific pages-->
     @yield('css')
