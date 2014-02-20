@@ -16,7 +16,7 @@
 
 @if($orgs->count())
 	{{ $orgs->links() }}
-	<div id="container" class="js-masonry"
+	<div id="container" class="mason-stack"
   		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
 			@foreach($orgs as $org)
 				<div class="item">

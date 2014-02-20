@@ -16,7 +16,7 @@
 
 @if($stories->count())
 	{{ $stories->links() }}
-	<div id="container" class="js-masonry"
+	<div id="container" class="mason-stack"
   		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
 			@foreach($stories as $story)
 				<div class="item">

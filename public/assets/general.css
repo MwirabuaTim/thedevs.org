@@ -379,7 +379,7 @@ a._blade{
 table ._list-img{
 	width: 150px;
 }
-.js-masonry .item{
+.mason-stack .item{
 	border: 5px solid gray;
 	border-radius: 5px;
 	margin: 5px;

@@ -146,6 +146,7 @@
 
     <!-- Masonry JS-->
     {{ HTML::script('js/masonry.pkgd.min.js') }}
+    {{ HTML::script('js/imagesloaded.pkgd.js') }}
 
     <!-- Leaflet JS -->
     {{ HTML::script('leaflet/leaflet.js') }}

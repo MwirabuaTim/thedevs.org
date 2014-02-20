@@ -598,11 +598,24 @@ $('._alert').remove()
 
 var marker_new = L.marker() 
 
+
+
 $(document).ready(function(){
   lat = localStorage.lat
   lng = localStorage.lng
   richEditor()//for form textareas
-  $(".slide-out-div").show(); //show 'Contact' sidebar
+
+  //Masonry Stacks
+  var $container = $('.mason-stack');
+
+  // initialize Masonry after all images have loaded  
+  $container.imagesLoaded( function() {
+       $container.masonry();
+  });
+  
+  //show 'Contact' sidebar
+  $(".slide-out-div").show(); 
+
   // $(document).joyride()
   $("a._demo").click(function(e){
     e.preventDefault()
