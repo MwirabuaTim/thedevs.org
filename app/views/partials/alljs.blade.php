@@ -606,13 +606,13 @@ $(document).ready(function(){
   richEditor()//for form textareas
 
   //Masonry Stacks
-  var $container = $('.mason-stack');
+  var $container = $('.mason-stacks');
 
   // initialize Masonry after all images have loaded  
   $container.imagesLoaded( function() {
        $container.masonry();
   });
-  
+
   //show 'Contact' sidebar
   $(".slide-out-div").show(); 
 
