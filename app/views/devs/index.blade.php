@@ -16,8 +16,7 @@
 
 @if($devs->count())
 	{{ $devs->links() }}
-	<div id="container" class="mason-stacks"
-  		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item"}'>
+	<div id="container" class="mason-stacks">
 			@foreach($devs as $dev)
 				<div class="item">
 					<div class="img">{{ All::getImageLink($dev, '_list-img') }}</div>

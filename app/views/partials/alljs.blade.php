@@ -610,7 +610,11 @@ $(document).ready(function(){
 
   // initialize Masonry after all images have loaded  
   $container.imagesLoaded( function() {
-       $container.masonry();
+       $container.masonry({
+        "columnWidth": 10, 
+        "itemSelector": ".item",
+        isFitWidth: true
+      });
   });
 
   //show 'Contact' sidebar

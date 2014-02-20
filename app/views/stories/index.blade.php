@@ -16,8 +16,7 @@
 
 @if($stories->count())
 	{{ $stories->links() }}
-	<div id="container" class="mason-stacks"
-  		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
+	<div id="container" class="mason-stacks">
 			@foreach($stories as $story)
 				<div class="item">
 					<div class="img"><a href="stories/{{ $story->id }}">

@@ -379,6 +379,9 @@ a._blade{
 table ._list-img{
 	width: 150px;
 }
+.mason-stacks{
+	margin: 0 auto; 
+}
 .mason-stacks .item{
 	border: 5px solid gray;
 	border-radius: 5px;

@@ -16,8 +16,7 @@
 
 @if($eventts->count())
 	{{ $eventts->links() }}
-	<div id="container" class="mason-stacks"
-  		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
+	<div id="container" class="mason-stacks">
 			@foreach($eventts as $eventt)
 				<div class="item">
 					<div class="name">{{ All::getNameLink($eventt) }}</div>

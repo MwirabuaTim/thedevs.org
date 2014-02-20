@@ -16,8 +16,7 @@
 
 @if($projects->count())
 	{{ $projects->links() }}
-	<div id="container" class="mason-stacks"
-  		data-masonry-options='{ "columnWidth": 10, "itemSelector": ".item" }'>
+	<div id="container" class="mason-stacks">
 			@foreach($projects as $project)
 				<div class="item">
 					<div class="image">{{ All::getImageLink($project, '_list-img') }}</div>
