@@ -12,7 +12,7 @@ return array(
 	'activate.success' => 'Successfully Authenticated!',
 	'activate.error' => 'Activation Error...',
 	// 'activate.error' => 'Activation Error',
-	'forgot-password.success' => 'Successfull',
+	'forgot-password.success' => 'Successfull. Check '. Input::get('email'). ' for a link to reset your password.',
 	// 'account_not_found' => 'There is no account by that email.',
 	'forgot-password-confirm.success' => 'Confirmation Success',
 	'forgot-password-confirm.error' => 'Ooops, we have an error',
