@@ -771,12 +771,12 @@ table.admin{
 }
 .cell.social-signin {
 	display: inline-block;
-	width: 49%;
+	width: 45%;
 	vertical-align: top;
 }
 .cell.neutral.email-signin, .cell.neutral.email-signup {
 	display: inline-block;
-	width: 50%;
+	width: 54%;
 }
 form.new_user input._text{
 	width: 100%;
