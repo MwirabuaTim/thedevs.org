@@ -104,7 +104,7 @@
             <div class="remember-me _inline">
               <input name="remember-me" type="hidden" value="0"><input checked="checked" id="remember-me" name="remember-me" type="checkbox" value="1">
               <label for="remember-me">Remember me</label>
-              <a href="/secret/new" class="secondary">Forgot your password?</a>
+              <a href="/auth/forgot-password" class="secondary">Forgot your password?</a>
             </div>
 
             <input class="btn btn-info pull-right _m0" name="commit" type="submit" value="Login">
