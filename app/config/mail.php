@@ -85,7 +85,7 @@ return array(
 	|
 	*/
 
-	'username' => 'thedevsorg@gmail.com',
+	'username' => 'thedevsorg',
 	// 'username' => 'cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30',
 
 	/*
