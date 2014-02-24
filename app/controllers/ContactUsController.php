@@ -44,13 +44,13 @@ class ContactUsController extends BaseController {
     		{
 
     			$email = $_POST['email'];
-          $name = $_POST['name'];
-          $subject = $_POST['subject'];
-          $msg = $_POST['msg'];
+                $name = $_POST['name'];
+                $subject = $_POST['subject'];
+                $msg = $_POST['msg'];
 
-          $message->from(array($email => $name));
-          $message->to(array('info@thedevs.org' => 'TheDevs Organisation'));   
-          $message->subject($subject); 
+                $message->from(array($email => $name));
+                $message->to(array('info@thedevs.org' => 'TheDevs Organisation'));   
+                $message->subject($subject); 
 
     		});
         return Redirect::back()->with('success', 'Thank you for contacting us. We will get back to you shortly');
