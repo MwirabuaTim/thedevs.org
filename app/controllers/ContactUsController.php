@@ -40,19 +40,21 @@ class ContactUsController extends BaseController {
     public function gmail() //@tim, bookcheetah
     {
 
-    		Mail::send('emails.contactus', Input::all(), function($message)
-    		{
+		Mail::send('emails.contactus', Input::all(), function($message)
+		{
 
-    			$email = $_POST['email'];
-                $name = $_POST['name'];
-                $subject = $_POST['subject'];
-                $msg = $_POST['msg'];
+			$email = $_POST['email'];
+            $name = $_POST['name'];
+            $subject = $_POST['subject'];
+            $body = $_POST['msg'];
 
-                $message->from(array($email => $name));
-                $message->to(array('info@thedevs.org' => 'TheDevs Organisation'));   
-                $message->subject($subject); 
+            $message->from(array($email => $name));
+            $message->to(array('info@thedevs.org' => 'TheDevs Organisation'));   
+            $message->subject($subject); 
+            $message->setBody($body); 
 
-    		});
+		});
+
         return Redirect::back()->with('success', 'Thank you for contacting us. We will get back to you shortly');
 
         Mail::send('emails.contactus', array('token'=>'SAMPLE'), function($message){
