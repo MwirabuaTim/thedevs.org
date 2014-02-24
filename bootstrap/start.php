@@ -26,11 +26,27 @@ $app->redirectIfTrailingSlash();
 |
 */
 
-$env = $app->detectEnvironment(array(
+// $env = $app->detectEnvironment(array(
 
-	'local' => array('your-machine-name'),
+// 	'local' => array('your-machine-name'),
+
+// ));
+
+//$elastic_hostname = isset($_SERVER['RDS_HOSTNAME']) ? $_SERVER['SERVER_NAME'] : 'none-existant-hostname';
+
+$env = $app->detectEnvironment(array(
+	
+	'local' => array('*localhost*', '*.dev', 'blackpearl'),
+	'thedevs' => array('*thedevs.org'),
+	'elastic' => array($elastic_hostname)
 
 ));
+
+// if ('stage' === $app['env'])
+// {
+// 	 // $app->instance('path.public', str_replace('public', 'www', $app['path.public']));
+// }
+
 
 /*
 |--------------------------------------------------------------------------

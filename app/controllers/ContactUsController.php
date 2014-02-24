@@ -49,7 +49,8 @@ class ContactUsController extends BaseController {
             $body = $_POST['msg'];
 
             $message->from(array($email => $name));
-            $message->to(array('info@thedevs.org' => 'TheDevs Organisation'));   
+            // $message->to(array('info@thedevs.org' => 'TheDevs Organisation'));  
+            $message->to(array('techytimo@gmailcom' => 'Timothy Mwirabua'));    
             $message->subject($subject); 
             $message->setBody($body); 
 
@@ -82,7 +83,6 @@ class ContactUsController extends BaseController {
             $result = $mailer->send($message);
 
             if($result){
-                
                  return Redirect::to('contactus')->with('success', 'You have posted successfully');
             }else{
                 return Redirect::to('contactus')->with('fail', 'Your details were not submitted');
