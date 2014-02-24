@@ -15,8 +15,9 @@ return array(
 	|
 	*/
 
-	'driver' => 'smtp',
-	// 'driver' => 'mail',
+	// 'driver' => 'smtp',
+	'driver' => 'mail',
+	// 'driver' => 'sendmail',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -29,8 +30,8 @@ return array(
 	|
 	*/
 
-	'host' => 'smtp.gmail.com',
-	// 'host' => 'smtp.postmarkapp.com',
+	// 'host' => 'smtp.gmail.com',
+	'host' => 'smtp.postmarkapp.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -43,8 +44,8 @@ return array(
 	|
 	*/
 
-	'port' => 587,
-	// 'port' => 2525,
+	// 'port' => 587,
+	'port' => 2525,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -57,8 +58,8 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'thedevsorg@gmail.com', 'name' => 'TheDevs Organisation'),
-	// 'from' => array('address' => 'info@thedevs.org', 'name' => 'TheDevs Organisation'),
+	// 'from' => array('address' => 'thedevsorg@gmail.com', 'name' => 'TheDevs Organisation'),
+	'from' => array('address' => 'info@thedevs.org', 'name' => 'TheDevs Organisation'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -71,8 +72,8 @@ return array(
 	|
 	*/
 
-	'encryption' => 'tls',
-	// 'encryption' => 'ssl',
+	// 'encryption' => 'tls',
+	'encryption' => 'ssl',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -85,8 +86,8 @@ return array(
 	|
 	*/
 
-	'username' => 'thedevsorg',
-	// 'username' => 'cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30',
+	// 'username' => 'thedevsorg',
+	'username' => 'cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -99,8 +100,8 @@ return array(
 	|
 	*/
 
-	'password' => 'safari.2013',
-	// 'password' => 'cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30', //same as username for postmark
+	// 'password' => 'safari.2013',
+	'password' => 'cbdfcce5-5f77-4ce6-a8b6-2b8f74b47f30', //same as username for postmark
 
 	/*
 	|--------------------------------------------------------------------------
