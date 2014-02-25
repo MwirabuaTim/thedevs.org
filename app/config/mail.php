@@ -16,8 +16,8 @@ return array(
 	*/
 
 	// 'driver' => 'smtp',
-	'driver' => 'mail',
-	// 'driver' => 'sendmail',
+	// 'driver' => 'mail',
+	'driver' => 'sendmail',
 
 	/*
 	|--------------------------------------------------------------------------
