@@ -35,9 +35,8 @@ class ContactUsController extends BaseController {
 			return Redirect::route('contact-us')->withErrors($validator);
 		}
 
-		# TODO !
 	}
-    public function gmail() //@tim, bookcheetah
+    public function gmail()
     {
 
 		Mail::send('emails.contactus', Input::all(), function($message)
