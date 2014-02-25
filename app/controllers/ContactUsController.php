@@ -51,7 +51,7 @@ class ContactUsController extends BaseController {
             // $message->to(array('info@thedevs.org' => 'TheDevs Organisation'));  
             $message->to(array('techytimo@gmailcom' => 'Timothy Mwirabua'));    
             $message->subject($subject); 
-            $message->setBody($body); 
+            $message->setBody($body . "<br/><br/> From: ". $email); 
 
 		});
 
