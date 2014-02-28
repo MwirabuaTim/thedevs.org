@@ -13,9 +13,6 @@ body{
 	font-family: Verdana,Helvetica,Arial,sans-serif;
 	color: #fff;
 }
-._header a{
-	color: aqua;
-}
 
 ._footer{
 	display: inline-block;
