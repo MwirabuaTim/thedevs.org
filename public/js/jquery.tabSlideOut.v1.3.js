@@ -59,7 +59,8 @@
             settings.tabHandle.css({
             'background' : 'url('+settings.pathToTabImage+') no-repeat',
             'width' : settings.imageWidth,
-            'height': settings.imageHeight
+            'height': settings.imageHeight,
+            'background-size': '40px 130px'
             });
         }
         

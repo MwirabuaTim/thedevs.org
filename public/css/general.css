@@ -5,13 +5,15 @@ body{
 ._wrapper{
 	width:100%;
 	height: auto;
-	background-image: url('../images/neue_bg.jpg');
+	/*background-image: url('../images/neue_bg.jpg');*/
 	background-repeat: repeat-y;
 	background-size: 100%;
 	margin: 0px;
 	padding: 0px;
 	font-family: Verdana,Helvetica,Arial,sans-serif;
 	color: #fff;
+	background-color: #49241E;
+	background-color: #00142C;
 }
 
 ._footer{
