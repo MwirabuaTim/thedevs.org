@@ -213,7 +213,8 @@ ul._top-right li:first-child{
 	color: #333;
 }
 ._aqua2pink:hover{
-	background-color: #FF6EE8;
+	/*background-color: #FF6EE8;*/
+	background-color: #fff;
 	color: black;
 }
 ._pink2aqua{
