@@ -160,7 +160,9 @@ ul._top-right li:first-child{
 	position: relative;
 	top: -10px;
 }
-
+ul._top-right a.btn {
+color: aqua;
+}
 ._bg-white{
 	background-color: #fff;
 	color: #333;
