@@ -11,8 +11,8 @@ Edit Profile
 	<h4 class="pull-left">Edit Your Profile</h4>
 </div>
 
-{{ Form::open(array('route' => array('devs.update', $dev->id), 'method' => 'PUT')) }}
-
+{{ Form::open(array('route' => array('devs.update', $dev->id), 'method' => 'PUT',
+ 'files' => true, 'enctype' => 'multipart/form-data')) }}
 <span class="pull-right">
 	{{--! Request::path() --}}
 	@if(All::hasEditRight($dev))
@@ -32,7 +32,7 @@ Edit Profile
 
 {{--! Form::model($dev, array('method' => 'PATCH', 'route' => array('devs.update', $dev->id))) --}}
 	<!-- CSRF Token -->
-	<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+	<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 	
 	<!-- First Name -->
 	<div class="control-group{{ $errors->first('first_name', ' error') }}">
@@ -61,14 +61,26 @@ Edit Profile
 			{{ $errors->first('phone', '<span class="help-block">:message</span>') }}
 		</div>
 	</div>
+
 	<!-- pic -->
 	<div class="control-group{{ $errors->first('pic', ' error') }}">
-		<label class="control-label" for="pic">Picture Link:</label>
-		<div class="controls">
-			<input class="form-control" type="text" placeholder="http://..." name="pic" id="pic" value="{{ Input::old('pic', $dev->pic) }}" />
-			{{ $errors->first('pic', '<span class="help-block">:message</span>') }}
-		</div>
-	</div>
+        <label class="control-label"> Profile Picture (400x400): </label>
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="fileupload-new thumbnail">
+                <img src="{{ Input::old('pic', $dev->pic) }}" alt=""/>
+            </div>
+            <div class="fileupload-preview fileupload-exists thumbnail"></div>
+            <div>
+             <span class="btn btn-white btn-file">
+             <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select Picture</span>
+             <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+             {{ Form::file('pic', null, array('id' => 'pic', 'rows' => '10', 'class' => 'form-control', 'placeholder' => 'Image')) }}
+             </span>
+            </div>
+        </div>
+		{{ $errors->first('pic', '<span class="help-block">:message</span>') }}
+    </div>
+
 	<!-- video -->
 	<div class="control-group{{ $errors->first('video', ' error') }}">
 		<label class="control-label" for="video">Youtube Video Link</label>

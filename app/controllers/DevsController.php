@@ -120,6 +120,16 @@ class DevsController extends BaseController {
 			'email'   => 'email',
 		);
 		$input = Input::all();
+		// return var_dump($input);
+		if (Input::hasFile('pic')) {
+			$file            = Input::file('pic');
+			$destinationPath = public_path().'/uploads/profile-pics/';
+			$imagename        = str_random(6) . '_' . $file->getClientOriginalName();
+			$uploadSuccess   = $file->move($destinationPath, $imagename);
+			$input['pic'] = '/uploads/profile-pics/'.$imagename;
+		}
+		$input['pic'] = $input['pic'] ? $input['pic'] : '/images/symbols/anon-2.jpg'; //removing erroneous nullity
+		
 		// Create a new validator instance from our validation rules
 		$validator = Validator::make($input, $rules);
 

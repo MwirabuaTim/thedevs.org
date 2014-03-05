@@ -98,7 +98,17 @@ class ProjectsController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$input = array_except(Input::all(), '_method');
+		$input = array_except(Input::all(), '_method');	
+		// return var_dump($input);
+		if (Input::hasFile('logo')) {
+			$file            = Input::file('logo');
+			$destinationPath = public_path().'/uploads/project-logos/';
+			$imagename        = str_random(6) . '_' . $file->getClientOriginalName();
+			$uploadSuccess   = $file->move($destinationPath, $imagename);
+			$input['logo'] = '/uploads/project-logos/'.$imagename;
+		}
+		$input['logo'] = $input['logo'] ? $input['logo'] : '/images/symbols/no_logo.png'; //removing erroneous nullity
+		
 		$validation = Validator::make($input, Project::$rules);
 
 		if ($validation->passes())

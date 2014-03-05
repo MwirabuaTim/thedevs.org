@@ -18,6 +18,7 @@
 
     <!-- CSS -->
     {{ HTML::style('css/bootstrap.min.css')}}
+    {{ HTML::style('css/bootstrap-fileupload.css')}}
     {{ HTML::style('jqueryui/css/jquery-ui-1.10.3.custom.min.css') }}
     {{ HTML::style('css/jquery-ui-timepicker-addon.css') }}
 
@@ -138,6 +139,7 @@
     {{ HTML::script('js/plugins.js') }}
     {{ HTML::script('js/bootstrap.min.js') }}
     {{ HTML::script('js/bootstrap-confirmation.js') }}
+    {{ HTML::script('js/bootstrap-fileupload.js') }}
     {{--! HTML::script('js/underscore.js') --}}
     {{--! HTML::script('js/backbone.js') --}}
 

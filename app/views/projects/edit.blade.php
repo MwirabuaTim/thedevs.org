@@ -3,7 +3,8 @@
 @section('main')
 
 <h1>Edit Project</h1>
-{{ Form::model($project, array('method' => 'PATCH', 'route' => array('projects.update', $project->id))) }}
+{{ Form::model($project, array('method' => 'PATCH', 'route' => array('projects.update', $project->id),
+ 'files' => true, 'enctype' => 'multipart/form-data')) }}
 	<ul>
     
         <li class="pull-right">
@@ -18,9 +19,23 @@
             {{ Form::text('name', null, array('class'=> 'form-control')) }}
         </li>
 
-        <li>
-            {{ Form::label('logo', 'Logo Link:') }}
-            {{ Form::text('logo', null, array('class'=> 'form-control', 'placeholder' => 'http://...')) }}
+        <!-- logo -->
+        <li class="control-group{{ $errors->first('logo', ' error') }}">
+            <label class="control-label"> Logo (400x400): </label>
+            <div class="fileupload fileupload-new" data-provides="fileupload">
+                <div class="fileupload-new thumbnail">
+                    <img src="{{ Input::old('logo', $project->logo) }}" alt=""/>
+                </div>
+                <div class="fileupload-preview fileupload-exists thumbnail"></div>
+                <div>
+                 <span class="btn btn-white btn-file">
+                 <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select Image</span>
+                 <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                 {{ Form::file('logo', null, array('id' => 'logo', 'rows' => '10', 'class' => 'form-control', 'placeholder' => 'Image')) }}
+                 </span>
+                </div>
+            </div>
+            {{ $errors->first('logo', '<span class="help-block">:message</span>') }}
         </li>
 
         <li>

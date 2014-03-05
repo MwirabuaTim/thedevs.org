@@ -32,7 +32,7 @@ $app->redirectIfTrailingSlash();
 
 // ));
 
-//$elastic_hostname = isset($_SERVER['RDS_HOSTNAME']) ? $_SERVER['SERVER_NAME'] : 'none-existant-hostname';
+$elastic_hostname = isset($_SERVER['RDS_HOSTNAME']) ? $_SERVER['SERVER_NAME'] : 'none-existent-hostname';
 
 $env = $app->detectEnvironment(array(
 	
