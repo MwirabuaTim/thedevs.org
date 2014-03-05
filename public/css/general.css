@@ -21,7 +21,7 @@ body{
 	display: inline-block;
 	padding-bottom: 15px;
 	background-color: black;
-	border-top: 5px solid #55FF66;
+	border-top: 5px solid #55FFAA;
 	width: 100%;
 	margin-top: 10px;
 	margin-bottom: -5px;
@@ -76,7 +76,7 @@ img{
 	height: auto;
 }
 ._bg-transparent a{
-	color: #55FF66;
+	color: #55FFAA;
 }
 ._bg-transparent a.btn{
 	color: white;
@@ -87,7 +87,7 @@ img{
 
 
 ._bg-transparent a.btn-link{
-	color: #55FF66;
+	color: #55FFAA;
 }
 
 ._bg-transparent a.btn-default {
@@ -95,7 +95,7 @@ img{
 }
 
 /*._transparent btn-link{
-	color: #55FF66;
+	color: #55FFAA;
 }
 */
 .preload{
@@ -147,7 +147,7 @@ img{
 }
 a:focus {
 	outline: thin;
-	outline: 5px auto #55FF66;
+	outline: 5px auto #55FFAA;
 }
 ul._nav{
 	list-style-type: none;
@@ -172,7 +172,7 @@ ul._top-right li:first-child{
 	top: -10px;
 }
 ul._top-right a.btn {
-color: #55FF66;
+color: #55FFAA;
 }
 ._bg-white{
 	background-color: #fff;
@@ -213,7 +213,7 @@ color: #55FF66;
 	text-decoration: none;
 }
 ._aqua-hover:hover, a._aqua-hover:hover, ._aqua-hover:focus, a._aqua-hover:focus {
-	background-color: #55FF66;
+	background-color: #55FFAA;
 	color: black;/*#FF8;*/
 	text-decoration: none;
 }
@@ -221,10 +221,10 @@ color: #55FF66;
 	color: white;
 }
 ._aqua-hover-text:hover{
-	color:#55FF66;
+	color:#55FFAA;
 }
 ._aqua2pink{
-	background-color: #55FF66;
+	background-color: #55FFAA;
 	color: #333;
 }
 ._aqua2pink:hover{
@@ -237,7 +237,7 @@ color: #55FF66;
 	color: black;
 }
 ._pink2aqua:hover{
-	background-color: #55FF66 !important;
+	background-color: #55FFAA !important;
 	color: black;
 }
 ._fade-3{
@@ -385,7 +385,7 @@ a._blade{
 	margin-top: -40px;
 }
 ._strip:hover {
-	border-color: green pink #55FF66 transparent;
+	border-color: green pink #55FFAA transparent;
 	color: black;/*#FF8;*/
 	font-family: sans-serif; 
 }
