@@ -28,8 +28,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info _aqua-hover pull-left" data-dismiss="modal">Back</button>
-        <button type="button" class="btn btn-info _step2 _pink2aqua" data-dismiss="modal" disabled>Next</button>
+        <button type="button" class="btn btn-success _aqua-hover pull-left" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-success _step2 _aqua-hover" data-dismiss="modal" disabled>Next</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -50,8 +50,8 @@
       </div>
       <div class="modal-footer">
         <p class="_left">You can Zoom and Drag the Map to be accurate.</p>
-        <button type="button" class="btn btn-info _aqua-hover pull-left" data-dismiss="modal">Back</button>
-        <button type="button" class="btn btn-info _step3 _pink2aqua" data-dismiss="modal" disabled>Next</button>
+        <button type="button" class="btn btn-success _aqua-hover pull-left" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-success _step3 _aqua-hover" data-dismiss="modal" disabled>Next</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
@@ -107,7 +107,7 @@
               <a href="/auth/forgot-password" class="secondary">Forgot your password?</a>
             </div>
 
-            <input class="btn btn-info pull-right _m0" name="commit" type="submit" value="Login">
+            <input class="btn btn-success pull-right _m0" name="commit" type="submit" value="Login">
           </div>
           </form>
 
@@ -161,7 +161,7 @@
               <a href="{{ URL::to('tos') }}">Terms of Service</a>
             </span>
 
-            <input class="btn btn-info pull-right _m0" name="commit" type="submit" value="Sign Up">
+            <input class="btn btn-success pull-right _m0" name="commit" type="submit" value="Sign Up">
             
           </form>
 
@@ -189,7 +189,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info _aqua-hover pull-left" data-dismiss="modal">Back</button>
+        <button type="button" class="btn btn-success _aqua-hover pull-left" data-dismiss="modal">Back</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -23,11 +23,11 @@
 
 </fieldset>
 
-<div class="_addbtn _center _top10 _bottom10">
+<div class="_addbtn _center _home">
     @if(!Sentry::check())
-    <span class="_blade _aqua2pink _get-sign-up _right10" href="{{ URL::to('auth/signup') }}">&nbsp;+	Join&nbsp;</span>
+    <span class="_blade _aqua-hover _get-sign-up _right10" href="{{ URL::to('auth/signup') }}">&nbsp;+	Join&nbsp;</span>
 	@endif
-	<span class="_blade _aqua2pink _step1 _left10">Create</span>
+	<span class="_blade _aqua-hover _step1 _left10">Create</span>
 </div>
 
 <a href="/" class="_inst _clearLS _hide">Delete Pending Post</a>

@@ -210,7 +210,7 @@
     $(function(){
         $('.slide-out-div').tabSlideOut({
             tabHandle: '.handle',                     //class of the element that will become your tab
-            pathToTabImage: '/images/contact_blue.png', //path to the image for the tab //Optionally can be set using css
+            pathToTabImage: '/images/contact.png', //path to the image for the tab //Optionally can be set using css
             imageHeight: '130px',                     //height of tab image           //Optionally can be set using css
             imageWidth: '40px',                       //width of tab image            //Optionally can be set using css
             tabLocation: 'right',                     //side of screen where tab lives, top, right, bottom, or left

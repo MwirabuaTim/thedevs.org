@@ -12,15 +12,16 @@ body{
 	padding: 0px;
 	font-family: Verdana,Helvetica,Arial,sans-serif;
 	color: #fff;
-	background-color: #49241E;
-	background-color: #00142C;
+	/*background-color: #49241E;*/
+	/*background-color: #00142C;*/
+	background-color: #000;
 }
 
 ._footer{
 	display: inline-block;
 	padding-bottom: 15px;
 	background-color: black;
-	border-top: 5px solid aqua;
+	border-top: 5px solid #66FF72;
 	width: 100%;
 	margin-top: 10px;
 	margin-bottom: -5px;
@@ -75,7 +76,7 @@ img{
 	height: auto;
 }
 ._bg-transparent a{
-	color: aqua;
+	color: #66FF72;
 }
 ._bg-transparent a.btn{
 	color: white;
@@ -86,7 +87,7 @@ img{
 
 
 ._bg-transparent a.btn-link{
-	color: aqua;
+	color: #66FF72;
 }
 
 ._bg-transparent a.btn-default {
@@ -94,7 +95,7 @@ img{
 }
 
 /*._transparent btn-link{
-	color: aqua;
+	color: #66FF72;
 }
 */
 .preload{
@@ -137,7 +138,14 @@ img{
 ._tagline{
 	font-size: 20px;
 }
-
+._home{
+	margin-top: 30px;
+	margin-bottom: 25px;
+}
+a:focus {
+	outline: thin;
+	outline: 5px auto #66FF72;
+}
 ul._nav{
 	list-style-type: none;
 	list-style: none;
@@ -161,7 +169,7 @@ ul._top-right li:first-child{
 	top: -10px;
 }
 ul._top-right a.btn {
-color: aqua;
+color: #66FF72;
 }
 ._bg-white{
 	background-color: #fff;
@@ -185,7 +193,7 @@ color: aqua;
 }
 
 ._bg-pink, label.active{
-	background-color: #FF6EE8 !important;
+	background-color: #AAAAAA !important;
 }
 ._pink{
 	color: #FF6EE8 !important;
@@ -202,7 +210,7 @@ color: aqua;
 	text-decoration: none;
 }
 ._aqua-hover:hover, a._aqua-hover:hover, ._aqua-hover:focus, a._aqua-hover:focus {
-	background-color: aqua;
+	background-color: #66FF72;
 	color: black;/*#FF8;*/
 	text-decoration: none;
 }
@@ -210,10 +218,10 @@ color: aqua;
 	color: white;
 }
 ._aqua-hover-text:hover{
-	color:aqua;
+	color:#66FF72;
 }
 ._aqua2pink{
-	background-color: aqua;
+	background-color: #66FF72;
 	color: #333;
 }
 ._aqua2pink:hover{
@@ -226,7 +234,7 @@ color: aqua;
 	color: black;
 }
 ._pink2aqua:hover{
-	background-color: aqua !important;
+	background-color: #66FF72 !important;
 	color: black;
 }
 ._fade-3{
@@ -374,7 +382,7 @@ a._blade{
 	margin-top: -40px;
 }
 ._strip:hover {
-	border-color: green pink aqua transparent;
+	border-color: green pink #66FF72 transparent;
 	color: black;/*#FF8;*/
 	font-family: sans-serif; 
 }
@@ -905,8 +913,40 @@ img._profile-pic{
 .at4-arrow{
 	background-color: white;
 }
-
-
+.atss a{
+	background: transparent !important;
+	border-bottom: 0px;
+}
+.addthis_32x32_style .at15nc.at15t_facebook{
+	background-image: url('/images/social/facebook.png') !important;
+	background-position: -5px -5px !important;
+	background-size: 40px !important;
+}
+.addthis_32x32_style .at15nc.at15t_twitter{
+	background-image: url('/images/social/twitter.png') !important;
+	background-position: -5px -5px !important;
+	background-size: 40px !important;
+}
+.addthis_32x32_style .at15nc.at15t_google_plusone_share{
+	background-image: url('/images/social/google.png') !important;
+	background-position: -5px -5px !important;
+	background-size: 40px !important;
+}
+.addthis_32x32_style .at15nc.at15t_linkedin{
+	background-image: url('/images/social/linkedin.png') !important;	
+	background-position: -5px -5px !important;
+	background-size: 40px !important;
+}
+.addthis_32x32_style .at15nc.at15t_email{
+	background-image: url('/images/social/mail.png') !important;	
+	background-position: -5px -5px !important;
+	background-size: 40px !important;
+}
+.addthis_32x32_style .at15nc.at15t_compact{
+	background-image: url('/images/social/plus.png') !important;	
+	background-position: -5px -5px !important;
+	background-size: 40px !important;
+}
 
 /*table styling*/
 .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {

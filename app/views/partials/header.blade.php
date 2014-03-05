@@ -17,7 +17,7 @@
             </li>
         @else
             <li class="" {{ (Request::is('auth/signin') ? 'class="active"' : '') }}>
-                <a class="_blade _aqua2pink _demo" href="{{ URL::to('howitworks') }}" type="button">
+                <a class="_blade _aqua-hover _demo" href="{{ URL::to('howitworks') }}" type="button">
                 Demo</a>
             </li>
             <li {{ (Request::is('auth/signup') ? 'class="active"' : '') }}>
