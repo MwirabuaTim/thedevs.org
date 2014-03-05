@@ -132,6 +132,9 @@ img{
 	font-size: 50px;
 	line-height: 45px;
 }
+._logo a{
+	text-decoration: none;
+}
 ._logo ._small{
     font-size: 45px;
 }
