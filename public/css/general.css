@@ -145,6 +145,7 @@ img{
 	margin-top: 30px;
 	margin-bottom: 25px;
 }
+
 a:focus {
 	outline: thin;
 	outline: 5px auto #55FFAA;
@@ -172,7 +173,7 @@ ul._top-right li:first-child{
 	top: -10px;
 }
 ul._top-right a.btn {
-color: #55FFAA;
+	color: #55FFAA;
 }
 ._bg-white{
 	background-color: #fff;
@@ -557,6 +558,12 @@ legend._welcome{
 .modal{
 	display: none;
 	color: #333;
+}
+.modal a{
+	color: #009955;
+}
+.modal a:hover{
+	color: #009955;
 }
 .modal form{
 	display: inline-block;
