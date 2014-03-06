@@ -197,7 +197,7 @@ ul._top-right a.btn {
 }
 
 ._bg-pink, label.active{
-	background-color: #AAAAAA !important;
+	background-color: #77CC88 !important;
 }
 ._pink{
 	color: #FF6EE8 !important;
@@ -214,7 +214,7 @@ ul._top-right a.btn {
 	text-decoration: none;
 }
 ._aqua-hover:hover, a._aqua-hover:hover, ._aqua-hover:focus, a._aqua-hover:focus {
-	background-color: #55FFAA;
+	background-color: #77CC88;
 	color: black;/*#FF8;*/
 	text-decoration: none;
 }
@@ -606,6 +606,15 @@ legend._welcome{
 ._cats .modal-footer{
 	padding: 20px 20px 10px;
 	border-top: none;
+}
+._cats .btn-group{
+	border: none;
+	padding: 5px 0px;
+	box-shadow: none;
+}
+._cats .btn-group label{
+	line-height: 30px;
+	margin: 5px 0px
 }
 
 ._sign-in-modal .modal-dialog, ._sign-up-modal .modal-dialog{
