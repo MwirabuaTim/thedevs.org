@@ -26,13 +26,13 @@ User Management ::
 <table class="table table-bordered table-striped admin">
 	<thead>
 		<tr>
-			<th class="span1">@lang('admin/users/table.id')</th>
-			<th class="span2">@lang('admin/users/table.first_name')</th>
-			<th class="span2">@lang('admin/users/table.last_name')</th>
-			<th class="span3">@lang('admin/users/table.email')</th>
-			<th class="span2">@lang('admin/users/table.activated')</th>
-			<th class="span2">@lang('admin/users/table.created_at')</th>
-			<th class="span2">@lang('table.actions')</th>
+			<th class="span1">id</th>
+			<th class="span2">first_name</th>
+			<th class="span2">last_name</th>
+			<th class="span3">email</th>
+			<th class="span2">activated</th>
+			<th class="span2">created_at</th>
+			<th class="span2">actions</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -42,18 +42,18 @@ User Management ::
 			<td>{{ $user->first_name }}</td>
 			<td>{{ $user->last_name }}</td>
 			<td>{{ $user->email }}</td>
-			<td>@lang('general.' . ($user->isActivated() ? 'yes' : 'no'))</td>
+			<td>{{ $user->isActivated() ? 'yes' : 'no' }}</td>
 			<td>{{ $user->created_at->diffForHumans() }}</td>
 			<td>
-				<a href="{{ route('update/user', $user->id) }}" class="btn btn-sm">@lang('button.edit')</a>
+				<a href="{{ route('update/user', $user->id) }}" class="btn btn-sm btn-info">edit</a>
 
 				@if ( ! is_null($user->deleted_at))
-				<a href="{{ route('restore/user', $user->id) }}" class="btn btn-sm btn-warning">@lang('button.restore')</a>
+				<a href="{{ route('restore/user', $user->id) }}" class="btn btn-sm btn-warning">restore</a>
 				@else
 				@if (Sentry::getId() !== $user->id)
-				<a href="{{ route('delete/user', $user->id) }}" class="btn btn-sm btn-danger">@lang('button.delete')</a>
+				<a href="{{ route('delete/user', $user->id) }}" class="btn btn-sm btn-danger">delete</a>
 				@else
-				<span class="btn btn-sm btn-danger disabled">@lang('button.delete')</span>
+				<span class="btn btn-sm btn-danger disabled">delete</span>
 				@endif
 				@endif
 			</td>
