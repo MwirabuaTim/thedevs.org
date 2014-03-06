@@ -559,13 +559,10 @@ legend._welcome{
 	display: none;
 	color: #333;
 }
-.modal a{
+.modal a, .modal a:hover{
 	color: #009955;
 }
-.modal a:hover{
-	color: #009955;
-}
-.social-signin a {
+.social-signin a, .social-signin a:hover {
 	color: white;
 }
 .modal form{
