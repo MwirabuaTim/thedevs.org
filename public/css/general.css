@@ -565,6 +565,9 @@ legend._welcome{
 .modal a:hover{
 	color: #009955;
 }
+.social-signin a {
+	color: white;
+}
 .modal form{
 	display: inline-block;
 	width: 100%;
