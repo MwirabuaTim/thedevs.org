@@ -559,7 +559,7 @@ legend._welcome{
 	display: none;
 	color: #333;
 }
-.modal a, .modal a:hover{
+.modal a, .modal a:hover, .slide-out-div a, .slide-out-div a:hover{
 	color: #009955;
 }
 .social-signin a, .social-signin a:hover {
