@@ -634,7 +634,7 @@ legend._welcome{
 ._alert{
 	width: 100%;
 	min-height: 40px;
-	border-radius: 4px;
+	/*border-radius: 4px;*/
 	background-color: white;
 	color: black !important;
 	padding: 10px 15px;

@@ -134,6 +134,7 @@
     {{ HTML::script('jqueryui/js/jquery-ui-1.10.3.custom.min.js') }}
     {{ HTML::script('js/jquery-ui-timepicker-addon.js') }}
     {{ HTML::script('js/jquery-ui-sliderAccess.js') }}
+    {{ HTML::script('js/jquery.pulse.min.js') }}
 
     <!-- Libs -->
     {{ HTML::script('js/plugins.js') }}
@@ -160,8 +161,17 @@
     <!-- tinymce rich editor -->
     {{ HTML::script('tinymce/tinymce.min.js') }}
 
+    <!-- Sidebar JS-->
+    {{ HTML::script('js/jquery.tabSlideOut.v1.3.js') }}
+
     <!-- Inlining JS for all pages -->
-    @include('partials.alljs') 
+    <script type="text/javascript">
+        <?php if(Sentry::check()): ?>
+        var user_id = "{{ Sentry::getUser()->id }}"
+        <?php endif; ?>
+        
+        @include('partials.alljs') 
+    </script>
     <!-- Inlining page-specific JS -->
     @yield('js') 
 
@@ -204,27 +214,5 @@
         });
     </script>
     <!-- AddThis Smart Layers END -->
-
-    <!-- Sidebar JS-->
-    {{ HTML::script('js/jquery.tabSlideOut.v1.3.js') }}
-
-    <script type="text/javascript">
-    $(function(){
-        $('.slide-out-div').tabSlideOut({
-            tabHandle: '.handle',                     //class of the element that will become your tab
-            pathToTabImage: '/images/devs/contact.png', //path to the image for the tab //Optionally can be set using css
-            imageHeight: '130px',                     //height of tab image           //Optionally can be set using css
-            imageWidth: '40px',                       //width of tab image            //Optionally can be set using css
-            tabLocation: 'right',                     //side of screen where tab lives, top, right, bottom, or left
-            speed: 600,                               //speed of animation
-            action: 'click',                          //options: 'click' or 'hover', action to trigger animation
-            topPos: '200px',                          //position from the top/ use if tabLocation is left or right
-            leftPos: '20px',                          //position from left/ use if tabLocation is bottom or top
-            fixedPosition: true                      //options: true makes it stick(fixed position) on scroll
-        });
-
-    });
-
-    </script>
 
 </html>
