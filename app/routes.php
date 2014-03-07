@@ -287,8 +287,10 @@ Route::group(array('prefix' => 'admin'), function()
 */
 
 
-Route::get('sandbox/10', function(){ 
+Route::get('sandbox', function(){ 
 	$path = Request::path();
+	$r=  All::getModelRecords('devs');
+	return count($r);
 	// $update = array('video' => 'new video ');
 	// $update['first_name'] = 'new name';
 	// $update['last_name'] = '';

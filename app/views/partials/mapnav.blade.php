@@ -1,24 +1,29 @@
 <div class="_mapnav">
 
   <div class="_brick pull-right">
-    <div class="devs">
-      <a href="/devs"><div class="_strip">DEVELOPERS<span></span></div>
+    <div class="devs{{ Request::is('devs') ? ' active': ''}}">
+      <a href="/devs"><div class="_strip">DEVELOPERS<span>({{ Dev::all()->count() }})</span></div>
+      <!-- <a href="/devs"><div class="_strip">DEVELOPERS<span>({{--! count(All::getModelRecords('devs')) --}})</span></div> -->
       <!-- <div class="_tail"></div> --></a>
     </div>
-    <div class="orgs">
-      <a href="/orgs"><div class="_strip">ORGANISATIONS<span></span></div>
+    <div class="orgs{{ Request::is('orgs') ? ' active': ''}}">
+      <a href="/orgs"><div class="_strip">ORGANISATIONS<span>({{ Org::all()->count() }})</span></div>
+      <!-- <a href="/orgs"><div class="_strip">ORGANISATIONS<span>({{--! count(All::getModelRecords('orgs')) --}})</span></div> -->
       <!-- <div class="_tail"></div> --></a>
     </div>
-     <div class="eventts">
-      <a href="/eventts"><div class="_strip">EVENTS<span></span></div>
+     <div class="eventts{{ Request::is('eventts') ? ' active': ''}}">
+      <a href="/eventts"><div class="_strip">EVENTS<span>({{ Eventt::all()->count() }})</span></div>
+      <!-- <a href="/eventts"><div class="_strip">EVENTS<span>({{--! count(All::getModelRecords('eventts')) --}})</span></div> -->
       <!-- <div class="_tail"></div> --></a>
     </div>
-    <div class="projects">
-      <a href="/projects"><div class="_strip">PROJECTS<span></span></div>
+    <div class="projects{{ Request::is('projects') ? ' active': ''}}">
+      <a href="/projects"><div class="_strip">PROJECTS<span>({{ Project::all()->count() }})</span></div>
+      <!-- <a href="/projects"><div class="_strip">PROJECTS<span>({{--! count(All::getModelRecords('projects')) --}})</span></div> -->
       <!-- <div class="_tail"></div> --></a>
     </div>
-     <div class="stories">
-      <a href="/stories"><div class="_strip">STORIES<span></span></div>
+     <div class="stories{{ Request::is('stories') ? ' active': ''}}">
+      <a href="/stories"><div class="_strip">STORIES<span>({{ Story::all()->count() }})</span></div>
+      <!-- <a href="/stories"><div class="_strip">STORIES<span>({{--! count(All::getModelRecords('stories')) --}})</span></div> -->
       <!-- <div class="_tail"></div> --></a>
     </div>
   </div>
