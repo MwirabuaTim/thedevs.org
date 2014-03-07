@@ -14,7 +14,7 @@
     <meta name="description" content="TheDevs.Org maps and connects Developers, Organizations, Events, Projects & Stories in Tech Worldwide.">
     <meta name="viewport" content="width=device-width">
     <meta property="og:image" 
-    content="{{ isset($og_image) ? $og_image : asset('images/devs.png') }}" />
+    content="{{ isset($og_image) ? $og_image : asset('images/devs/devs.png') }}" />
 
     <!-- CSS -->
     {{ HTML::style('css/bootstrap.min.css')}}
@@ -50,7 +50,7 @@
     <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}">
 
     <!-- ICO -->
-    <link rel="shortcut icon" href="{{ asset('images/favicon5.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/devs/favicon-7.png') }}">
 
 </head>
 <body>
@@ -60,7 +60,7 @@
     <![endif]-->
 
     <img class="social-logo hidden" 
-    src="{{ isset($og_image) ? $og_image : asset('images/devs.png') }}">
+    src="{{ isset($og_image) ? $og_image : asset('images/devs/devs.png') }}">
     
     <!-- Wrapper -->
     <div class="_wrapper">
@@ -212,7 +212,7 @@
     $(function(){
         $('.slide-out-div').tabSlideOut({
             tabHandle: '.handle',                     //class of the element that will become your tab
-            pathToTabImage: '/images/contact.png', //path to the image for the tab //Optionally can be set using css
+            pathToTabImage: '/images/devs/contact.png', //path to the image for the tab //Optionally can be set using css
             imageHeight: '130px',                     //height of tab image           //Optionally can be set using css
             imageWidth: '40px',                       //width of tab image            //Optionally can be set using css
             tabLocation: 'right',                     //side of screen where tab lives, top, right, bottom, or left
