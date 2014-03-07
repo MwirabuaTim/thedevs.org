@@ -354,9 +354,34 @@ ul._top-right a.btn {
 	padding: 10px 15px;
 	/*box-shadow: 0px 0px 3px #fff;*/
 }
+._blade:hover {
+	/*zoom: 120%;*/
+	/*padding: 15px 20px;*/
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	-ms-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
 a._blade{
 	color: #333;
 }
+/*CSS3 DEFAULT TEXT SELECTION COLOUR*/
+::selection {
+background:#55FFAA;
+color:#000;
+}
+
+::-moz-selection {
+background:#55FFAA;
+color:#000;
+}
+
+::-webkit-selection {
+background:#55FFAA;
+color:#000;
+}
+
 ._layer{
 	width: 100% !important;
 	display: inline-block;
