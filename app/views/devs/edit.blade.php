@@ -107,7 +107,7 @@ Edit Profile
 	</div>
 	<!-- Mapping -->
 	<div class="control-group{{ $errors->first('map', ' error') }}">
-		<label class="control-label" for="map">Click on the map to pin anywhere...</label>
+		<label class="control-label _top10" for="map">Click on the map to pin the exact location...</label>
 		<div class="controls">
 			<div id="single-map">
 				<input class="hidden" type="text" name="map" value="{{ Input::old('map', $dev->map) }}" />

@@ -64,7 +64,7 @@
         </li>
 
         <li>
-            {{ Form::label('map', 'Click on the map to pin a new location...') }}
+            {{ Form::label('map', 'Click on the map to pin the exact location...') }}
             <div id="single-map">
                 {{ Form::text('map', null, array('id' => 'coords', 'class'=> 'form-control')) }}
             </div>
