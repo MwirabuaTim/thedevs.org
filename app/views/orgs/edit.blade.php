@@ -24,7 +24,7 @@
             <label class="control-label"> Logo (400x400): </label>
             <div class="fileupload fileupload-new" data-provides="fileupload">
                 <div class="fileupload-new thumbnail">
-                    <img src="{{ Input::old('logo', $org->logo) }}" alt=""/>
+                    <img src="{{ Input::old('logo', All::getImage($org)) }}" alt=""/>
                 </div>
                 <div class="fileupload-preview fileupload-exists thumbnail"></div>
                 <div>

@@ -745,8 +745,8 @@ legend._welcome{
 	max-width: 570px;
 	margin: 0px auto;
 }
-form label{
-	margin-top: 10px;
+form li{
+	margin-bottom: 10px;
 }
 .btn-group {
 	position: static;

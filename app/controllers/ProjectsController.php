@@ -107,7 +107,7 @@ class ProjectsController extends BaseController {
 			$uploadSuccess   = $file->move($destinationPath, $imagename);
 			$input['logo'] = '/uploads/project-logos/'.$imagename;
 		}
-		$input['logo'] = $input['logo'] ? $input['logo'] : '/images/symbols/no_logo.png'; //removing erroneous nullity
+		$input['logo'] = $input['logo'] ? $input['logo'] : All::getImage($this->project->find($id)); //removing erroneous nullity
 		
 		$validation = Validator::make($input, Project::$rules);
 

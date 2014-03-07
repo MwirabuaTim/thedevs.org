@@ -67,7 +67,7 @@ Edit Profile
         <label class="control-label"> Profile Picture (400x400): </label>
         <div class="fileupload fileupload-new" data-provides="fileupload">
             <div class="fileupload-new thumbnail">
-                <img src="{{ Input::old('pic', $dev->pic) }}" alt=""/>
+                <img src="{{ Input::old('pic', All::getImage($dev)) }}" alt=""/>
             </div>
             <div class="fileupload-preview fileupload-exists thumbnail"></div>
             <div>

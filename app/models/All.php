@@ -118,7 +118,7 @@ class All extends Eloquent {
 		$img = $path == 'eventts' || $path == 'stories' ? User::find(All::getCreator($record))->pic : $img; //using creator pic for eventts and stories
 
 		if(empty($img)):
-			$img = $path == 'devs' ? '/images/symbols/anon-2.jpg' : '/images/symbols/star.gif';
+			$img = $path == 'devs' ? '/images/symbols/anon-2.jpg' : '/images/symbols/no_logo.png';
 		endif;
 
 		return $img;

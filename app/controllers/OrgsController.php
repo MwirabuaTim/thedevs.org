@@ -108,7 +108,7 @@ class OrgsController extends BaseController {
 			$uploadSuccess   = $file->move($destinationPath, $imagename);
 			$input['logo'] = '/uploads/org-logos/'.$imagename;
 		}
-		$input['logo'] = $input['logo'] ? $input['logo'] : '/images/symbols/no_logo.png'; //removing erroneous nullity
+		$input['logo'] = $input['logo'] ? $input['logo'] : All::getImage($this->org->find($id)); //removing erroneous nullity
 		
 		$validation = Validator::make($input, Org::$rules);
 

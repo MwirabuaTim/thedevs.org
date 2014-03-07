@@ -370,7 +370,7 @@
       // $('.createTemplate input[type="submit"]').remove()
       $('._creates .modal-footer').remove() 
   
-    // localStorage.thedevsorgstatus == 'posting' ? prefillForm() : true;
+    localStorage.thedevsorgstatus == 'posting' ? prefillForm() : true;
       all_data = {} //clean all_data so as not to post old data but the edited data
 
       localStorage.thedevsorgstatus = 'posting'

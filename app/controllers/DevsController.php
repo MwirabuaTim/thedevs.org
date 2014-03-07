@@ -128,7 +128,7 @@ class DevsController extends BaseController {
 			$uploadSuccess   = $file->move($destinationPath, $imagename);
 			$input['pic'] = '/uploads/profile-pics/'.$imagename;
 		}
-		$input['pic'] = $input['pic'] ? $input['pic'] : '/images/symbols/anon-2.jpg'; //removing erroneous nullity
+		$input['pic'] = $input['pic'] ? $input['pic'] : All::getImage($this->dev->find($id)); //removing erroneous nullity
 		
 		// Create a new validator instance from our validation rules
 		$validator = Validator::make($input, $rules);
