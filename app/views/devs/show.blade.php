@@ -27,7 +27,7 @@
 	<div class="_git"></div>
 	<div class="_alerts _top10">
 		<div class="_alert _data"><span class="_dismiss pull-right"></span></div>
-		<div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div>
+		<!-- <div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div> -->
 	</div>
 	
 </div>

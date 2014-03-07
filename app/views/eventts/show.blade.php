@@ -73,7 +73,7 @@
 
 <div class="_alerts">
 	<div class="_alert _data"><span class="_dismiss pull-right"></span></div>
-	<div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div>
+	<!-- <div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div> -->
 </div>
 
 <div class="_w100 _p10">{{ All::getContent($eventt) }}</div>

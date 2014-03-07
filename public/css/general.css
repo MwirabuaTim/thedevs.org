@@ -1035,6 +1035,9 @@ img._profile-pic{
 	background: transparent !important;
 	border-bottom: 0px;
 }
+#at4-share{
+	background: rgba(0, 0, 0, 0.5);
+}
 /*#at4-share:hover a{
 	-webkit-transform: scale(0.8);
 	-moz-transform: scale(0.8);
@@ -1058,7 +1061,7 @@ img._profile-pic{
 	-o-transition: all 0.5s ease-in-out;
 	-ms-transition: all 0.5s ease-in-out;
 	transition: all 0.5s ease-in-out;
-    /*opacity: 0.5;*/
+	/*background: rgba(0, 0, 0, 1) !important;*/
 }
 .addthis_32x32_style .at15nc.at15t_facebook{
 	background-image: url('/images/social/facebook.png') !important;
