@@ -453,8 +453,8 @@ color:#000;
     border-right: 7px solid #888;
 }
 ._brick .active a {
-    border-right: 7px solid #009955;
-    color: #009955;
+    border-right: 7px solid #55FFAA;
+    color: #55FFAA;
 }
 
 ._brick:hover div a {
