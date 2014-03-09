@@ -43,13 +43,16 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Click on the map to add location to your post...</h4>
+        <h4 class="modal-title" id="myModalLabel">Click on the map to pin your post to a location...</h4>
       </div>
       <div class="modal-body">
        <div id="pinmap"></div>
       </div>
       <div class="modal-footer">
-        <p class="_left">You can Zoom and Drag the Map to be accurate.</p>
+        <p class="_left">
+          You can Zoom and Drag the Map to be accurate. 
+          <a href="#" class="_hide-markers btn btn-link">Hide Markers</a>
+        </p>
         <button type="button" class="btn btn-success _aqua-hover pull-left" data-dismiss="modal">Back</button>
         <button type="button" class="btn btn-success _step3 _aqua-hover" data-dismiss="modal" disabled>Next</button>
       </div>

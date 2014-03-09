@@ -751,6 +751,19 @@ $(document).ready(function(){
     $('._pin-map .modal-body').css('height', $(window).height()*0.7+'px')
     $('._pin-map .modal-dialog').css('margin', '0px')
     // $('#map-container').html($('#thedevsmap').clone())
+
+    function showlayer() {
+        map.addLayer(marker_cluster)
+        $(this).one("click", hidelayer);
+        $(this).text("Hide Markers");
+    }
+    function hidelayer() {
+        map.removeLayer(marker_cluster)
+        $(this).one("click", showlayer);
+        $(this).text("Show Markers");
+    }
+    $("._hide-markers").one("click", hidelayer);
+
     
     $('._pin-map').modal('show')
     setTimeout(function(){
