@@ -14,7 +14,7 @@
     <meta name="description" content="TheDevs.Org maps and connects Developers, Organizations, Events, Projects & Stories in Tech Worldwide.">
     <meta name="viewport" content="width=device-width">
     <meta property="og:image" 
-    content="{{ isset($og_image) ? $og_image : asset('images/devs/devs.png') }}" />
+    content="{{ isset($og_image) ? $og_image : asset('images/devs/favicon-7.png') }}" />
 
     <!-- CSS -->
     {{ HTML::style('css/bootstrap.min.css')}}
