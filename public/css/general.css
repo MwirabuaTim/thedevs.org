@@ -150,6 +150,7 @@ img{
 }
 
 a:focus {
+	color: #55FFAA;
 	outline: thin;
 	outline: 5px auto #55FFAA;
 }
@@ -432,13 +433,13 @@ color:#000;
 }
 ._brick div a {
 	display: block;
-	color: #333;
+	color: #FFF;
+	background: rgba(255,255,255,0.3);
+	letter-spacing: 1px;
 	text-transform: uppercase;
 	/*text-shadow: 1px 1px 2px rgba(89,22,20,0.3);*/
 	padding: 5px 10px;
 	margin-bottom: 10px;
-	background: rgba(255,255,255,1.0);
-	letter-spacing: 1px;
 	-webkit-transform: skew(-12deg);
 	-moz-transform: skew(-12deg);
 	-o-transform: skew(-12deg);
