@@ -976,7 +976,8 @@ img._profile-pic{
 }
 .vid-wrapper{
 	width: 100%;
-	max-width: 560px;
+	max-width: 580px;
+	padding-right: 20px;
 }
 .vid-wrapper .media-box{
 	width: 100%;
