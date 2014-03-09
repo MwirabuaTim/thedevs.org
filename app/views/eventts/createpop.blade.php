@@ -1,6 +1,5 @@
 
 <h2>Creating an Event</h2>
-<a href="/" class="_clearLS pull-right btn btn-link">Delete</a>
 
 {{ Form::open(array('route' => 'eventts.store')) }}
 	<ul>
@@ -69,7 +68,7 @@
         <li>
             {{ Form::select('public', array('on' => 'Public', 'off' => 'Not Public'), 'on', 
                 array('class'=>'btn btn-sm btn-primary', 'id'=>'public')) }}
-            {{ Form::label('public', 'Visibility to the world') }}
+            <a href="/" class="_clearLS btn btn-link">Delete</a>
             {{ Form::submit('Submit', array('class' => 'btn btn-info pull-right')) }}
 		</li>
 		
