@@ -1,5 +1,6 @@
 
 <h2>Creating an Organisation</h2>
+<a href="/" class="_clearLS pull-right btn btn-link">Delete</a>
 
 {{ Form::open(array('route' => 'orgs.store')) }}
 	<ul>

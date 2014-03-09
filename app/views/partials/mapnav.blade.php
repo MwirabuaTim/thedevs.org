@@ -34,7 +34,7 @@
   <div class="_alerts _bottom10">
     <div class="_alert _data">
     <span class="_dismiss pull-right"></span>
-    <a href="/" class="_inst _clearLS _hide pull-right _right10">Delete Pending Post</a>
+    <a href="/" class="_clearLS _hide pull-right _right10">Delete Pending Post</a>
     </div>
     <!-- <div class="_alert _bg-pink"><span class="_dismiss pull-right"></span></div> -->
   </div>

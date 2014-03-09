@@ -371,7 +371,7 @@
       // $('.createTemplate input[type="submit"]').remove()
       $('._creates .modal-footer').remove() 
   
-    localStorage.thedevsorgstatus == 'posting' ? prefillForm() : true;
+      localStorage.thedevsorgstatus == 'posting' ? prefillForm() : true;
       all_data = {} //clean all_data so as not to post old data but the edited data
 
       localStorage.thedevsorgstatus = 'posting'
@@ -380,6 +380,12 @@
       localStorage.selected_model = selected_model
       setInterval(function(){ saveToLS() }, 5000); // Autosave to LS every 5 secs
       createPostEvent()
+
+      $('._clearLS').on('click', function(){
+        localStorage.removeItem('thedevsorgpost');
+        localStorage.thedevsorgstatus = 'cleared';
+        $('._alert').remove()
+      })
 
     }).done(function(p) {
         console.log("done");
@@ -532,7 +538,7 @@
       map_data['map'] = lat + ', ' + lng;  //setting map var for both onmapclick and lazy LS posting
    }
     setTimeout(function(){ _step3() }, 500)
-    $('._inst').show()
+    $('._clearLS').show()
 
   }
 
@@ -709,7 +715,7 @@ $(document).ready(function(){
     $('._addbtn').html('<span class="_blade _aqua2pink _step3">Complete>></span>')
     $('a._step2').attr('class', '_step3')
     _alert('<u class="_step3">Complete creating "'+LS.name+'"</u>')
-    $('._inst').show()
+    $('._clearLS').show()
   }
   if(!isMain()){
     $('span.links').show();
@@ -778,7 +784,6 @@ $(document).ready(function(){
   _step3 =  function(){
       $('._step3').on('click', function(e){ 
         e.preventDefault()
-        fetchPostForm()
         $('._pin-map').modal('hide')
         $('.createTemplate').append($('img.preload').show());
         fetchPostForm()

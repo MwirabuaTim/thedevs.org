@@ -1,5 +1,6 @@
 
-<h2>Creating a Event</h2>
+<h2>Creating an Event</h2>
+<a href="/" class="_clearLS pull-right btn btn-link">Delete</a>
 
 {{ Form::open(array('route' => 'eventts.store')) }}
 	<ul>
