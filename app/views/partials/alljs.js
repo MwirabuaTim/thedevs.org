@@ -307,6 +307,7 @@
       selector: "textarea.rich",
       height : '200px',
       width : '100%',
+      content_css : "/css/content.css",
       // theme: 'advanced',
 
       theme_advanced_font_sizes: "10px,12px,13px,14px,16px,18px,20px",
