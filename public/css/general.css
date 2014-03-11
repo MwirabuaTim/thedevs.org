@@ -669,8 +669,9 @@ fieldset legend{
 }
 
 fieldset legend:hover{
-	opacity: 1;
+/*	opacity: 1;
 	background: #55FFAA;
+	color: #000;*/
 /*	-webkit-transform: skew(5deg);
 	-moz-transform: skew(5deg);
 	-o-transform: skew(5deg);

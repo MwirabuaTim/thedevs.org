@@ -11,7 +11,7 @@ Concept ::
 <fieldset class="_sweet-tooth">
 
 	<legend class="_welcome">
-		<span><a href="/about">Welcome to The Developers' Organization</a></span>
+		<span>Welcome to The Developers' Organization</span>
 	</legend>
 
 	@include('concept-doc')
