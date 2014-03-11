@@ -667,25 +667,24 @@ fieldset legend{
 	padding: 5px 10px;
 	margin-bottom: 10px;
 }
+
 fieldset legend:hover{
 	opacity: 1;
-	text-shadow: none;
 	background: #55FFAA;
-	text-decoration: none;
-	color: #333;
-	-webkit-transform: skew(5deg);
+/*	-webkit-transform: skew(5deg);
 	-moz-transform: skew(5deg);
 	-o-transform: skew(5deg);
 	-ms-transform: skew(5deg);
-	transform: skew(5deg);
+	transform: skew(5deg);*/
+}
+fieldset legend:hover a{
+	text-decoration: none;
+	color: #000;
 	-webkit-transition: all 0.2s ease-in-out;
 	-moz-transition: all 0.2s ease-in-out;
 	-o-transition: all 0.2s ease-in-out;
 	-ms-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
-}
-fieldset legend a:hover{
-	color: #000;
 }
 
 ._alert{
