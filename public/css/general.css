@@ -358,11 +358,11 @@ ul._top-right a.btn {
 ._blade:hover {
 	/*zoom: 120%;*/
 	/*padding: 15px 20px;*/
-	-webkit-transition: all 1s ease-in-out;
-	-moz-transition: all 1s ease-in-out;
-	-o-transition: all 1s ease-in-out;
-	-ms-transition: all 1s ease-in-out;
-	transition: all 1s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
 }
 a._blade{
 	color: #333;
@@ -657,6 +657,37 @@ legend._welcome{
 	width:auto;
 	margin: 5px;
 }
+fieldset legend{
+	display: block;
+	color: #FFF;
+	background: rgba(255,255,255,0.3);
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	/*text-shadow: 1px 1px 2px rgba(89,22,20,0.3);*/
+	padding: 5px 10px;
+	margin-bottom: 10px;
+}
+fieldset legend:hover{
+	opacity: 1;
+	text-shadow: none;
+	background: #55FFAA;
+	text-decoration: none;
+	color: #333;
+	-webkit-transform: skew(5deg);
+	-moz-transform: skew(5deg);
+	-o-transform: skew(5deg);
+	-ms-transform: skew(5deg);
+	transform: skew(5deg);
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+fieldset legend a:hover{
+	color: #000;
+}
+
 ._alert{
 	width: 100%;
 	min-height: 40px;
@@ -1146,11 +1177,7 @@ img._profile-pic{
 .table-bordered>thead>tr>th:last-child, .table-striped>tbody>tr>td:last-child{
 	text-align:right;
 }
-._bg-transparent legend{
-	color: white;
-	border: 1px solid white;
-	border-radius: 4px;
-}
+
 ._bg-transparent span.links{
 	float:right;
 }
@@ -1165,6 +1192,7 @@ span.links{
   border-right: 9px solid #888;
   display: none;
 }
+
 
 @media (max-width: 1000px) {
 	._creates .modal-dialog{

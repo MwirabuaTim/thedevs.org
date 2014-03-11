@@ -7,7 +7,7 @@
 <fieldset class="_sweet-tooth">
 
 	<legend class="_welcome">
-		<span>Welcome to The Developers' Organization</span>
+		<span><a href="/about">Welcome to The Developers' Organization</a></span>
 	</legend>
 
 	<h2 class="_center">
