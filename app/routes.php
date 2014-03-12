@@ -79,20 +79,36 @@ Route::get('{resource}/{id}/delete', function($resource, $id){
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@showWelcome'));
 Route::get('home', 'HomeController@getHome');
-Route::get('howitworks', function(){ return View::make('howitworks');});
-Route::get('privacy', function(){ return View::make('privacy');});
-Route::get('tos', function(){ return View::make('tos');});
-Route::get('customerservice', function(){ return View::make('customerservice');});
-Route::get('template', function(){return View::make('template');});
-Route::get('contactus', function(){ return View::make('contactus');});
-// Route::get('about', function(){ return View::make('about');});
-Route::post('contactus', 'ContactUsController@gmail');
-// Route::get('contactus', array('as' => 'contact-us', 'uses' => function(){ return View::make('contactus');}));
 
 Route::get('concept', function(){ 
 	$document = Document::first();
-	return View::make('concept', compact('document'));
+	$footer  = false;
+	return View::make('layouts.documents', compact('document', 'footer'));
 });
+Route::get('about', function(){ 
+	$document = Document::find(2);
+	$footer  = true;
+	return View::make('layouts.documents', compact('document', 'footer'));
+});
+Route::get('howitworks', function(){ 
+	$document = Document::find(3);
+	$footer  = true;
+	return View::make('layouts.documents', compact('document', 'footer'));
+});
+Route::get('tos', function(){ 
+	$document = Document::find(4);
+	$footer  = true;
+	return View::make('layouts.documents', compact('document', 'footer'));
+});
+Route::get('privacy', function(){ 
+	$document = Document::find(5);
+	$footer  = true;
+	return View::make('layouts.documents', compact('document', 'footer'));
+});
+
+Route::get('contactus', function(){ return View::make('contactus');});
+Route::post('contactus', 'ContactUsController@gmail');
+// Route::get('contactus', array('as' => 'contact-us', 'uses' => function(){ return View::make('contactus');}));
 
 //Popup makers
 //-------------------------------------------------------------------------

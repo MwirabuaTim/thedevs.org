@@ -106,7 +106,9 @@
         </div>
         <!-- ./ middle stuff -->
 
-        <!-- @ include('partials.footer') -->
+        @if($footer)
+            @include('partials.footer')
+        @endif
 
     </div>
 
