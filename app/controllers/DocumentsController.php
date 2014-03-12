@@ -33,7 +33,11 @@ class DocumentsController extends BaseController {
 	 */
 	public function create()
 	{
-		return View::make('documents.create');
+		if(Sentry::check()):
+			return View::make('documents.create');
+		else:
+			return View::make('error.401');
+		endif;
 	}
 
 	/**
