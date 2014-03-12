@@ -86,10 +86,13 @@ Route::get('customerservice', function(){ return View::make('customerservice');}
 Route::get('template', function(){return View::make('template');});
 Route::get('contactus', function(){ return View::make('contactus');});
 // Route::get('about', function(){ return View::make('about');});
-Route::get('concept', function(){ return View::make('concept');});
 Route::post('contactus', 'ContactUsController@gmail');
 // Route::get('contactus', array('as' => 'contact-us', 'uses' => function(){ return View::make('contactus');}));
 
+Route::get('concept', function(){ 
+	$document = Document::first();
+	return View::make('concept', compact('document'));
+});
 
 //Popup makers
 //-------------------------------------------------------------------------

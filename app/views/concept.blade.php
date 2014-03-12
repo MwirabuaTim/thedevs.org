@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>
-        Concept:: TheDevs.org
+        {{ $document->title }} :: TheDevs.org
     </title>
     <meta name="description" content="TheDevs.Org maps and connects Developers, Organizations, Events, Projects & Stories in Tech Worldwide.">
     <meta name="viewport" content="width=device-width">
@@ -32,17 +32,14 @@
 		._top-left{
 			margin:20px 0px;
 		}
+        legend{
+            text-transform: uppercase;
+        }
 
     </style>
 
     <!-- modernizr JS -->
     {{ HTML::script('js/modernizr-2.6.2.min.js') }}
-
-    <!-- Images -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/apple-touch-icon-144-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/apple-touch-icon-57-precomposed.png') }}">
 
     <!-- ICO -->
     <link rel="shortcut icon" href="{{ asset('images/devs/favicon-7.png') }}">
@@ -72,22 +69,35 @@
 			    </div>
 			</div>	
 
-
             <!-- Content -->
-            <div class="_bg-transparent">        	
-	            <fieldset class="_sweet-tooth">
+            <div class="_bg-transparent">
 
-					<legend class="_welcome _center">
-						<span>Where Developers Connect</span>
-					</legend>
+                <fieldset class="_sweet-tooth">
+                    <legend class="_welcome _center">
+                        <span>{{{ $document->title }}}</span>
+                    </legend>
+                </fieldset>
 
-				</fieldset>
+                @if(All::hasEditRight($document))
+                    <span class="pull-right">
+                    {{ All::getPublicity($document) }} 
+                    {{ link_to_route('document.edit', 'Edit', array($document->id), 
+                    array('class' => 'btn btn-info btn-sm')) }}
+                    </span>
+                @endif
 
-				<div class="concept">
-					<!-- @ include('concept-doc') -->
-					{{ Document::find(1)->body }}
-					<!-- http://4html.net/Online-text-to-HTML-converter-831.html -->
-				</div>
+                <div class="concept">
+                    <!-- @ include('concept-doc') -->
+                    {{ $document->body }}
+                    <!-- http://4html.net/Online-text-to-HTML-converter-831.html -->
+                </div>
+                    
+                <fieldset class="_sweet-tooth _bottom10">
+                    <legend class="_welcome _center">
+                        <span>Where Developers Connect</span>
+                    </legend>
+                </fieldset>
+
             </div>
             <!-- ./ content -->
 
@@ -96,7 +106,7 @@
         </div>
         <!-- ./ middle stuff -->
 
-        @include('partials.footer')
+        <!-- @ include('partials.footer') -->
 
     </div>
 

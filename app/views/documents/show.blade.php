@@ -4,10 +4,13 @@
 
 <div class="_w100 _in-block">
 	<h1 class="pull-left">{{{ $document->title }}}</h1>
-	<span class="pull-right">
-	{{ All::getPublicity($document) }} 
-	{{ link_to_route('document.edit', 'Edit', array($document->id), array('class' => 'btn btn-info')) }}
-	</span>
+
+	@if(All::hasEditRight($document))
+		<span class="pull-right">
+		{{ All::getPublicity($document) }} 
+		{{ link_to_route('document.edit', 'Edit', array($document->id), array('class' => 'btn btn-info')) }}
+		</span>
+	@endif
 	
 </div>
 
