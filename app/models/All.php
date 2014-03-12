@@ -23,6 +23,46 @@ class All extends Eloquent {
 		// return $record->name;
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Create Rights
+	|--------------------------------------------------------------------------
+	|
+	*/
+
+	public static function checkCreateRight(){
+		if(!Sentry::check()){ 
+			Session::put('loginRedirect',  Request::path()); // laravel magic
+			return Redirect::route('signin')
+			->with('info', 'You have to log in to perform that action...');
+		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| View Rights - Enforcing authorized access only
+	|--------------------------------------------------------------------------
+	|
+	*/
+
+	public static function checkViewRight($record){
+		if(!isset($record)){ //record is not available
+			return View::make('error.404');
+		}
+		
+		Session::put('loginRedirect',  Request::path()); // laravel magic
+		if($record->public == 'off' && !All::hasEditRight($record)){ //record publicity has been turned off and you have no rights
+			return View::make('error.403');
+		}
+	}
+
+	/*
+	|--------------------------------------------------------------------------
+	| Edit Rights
+	|--------------------------------------------------------------------------
+	|
+	*/
+	
 	public static function hasEditRight($record){
 		if(!Sentry::check()){
 			return false;
@@ -168,9 +208,9 @@ class All extends Eloquent {
 		$content = get_class($record) == 'Dev' ? $record->about : $content;
 
 		if(All::hasEditRight($record) && empty($content)):
-            return All::getNamedEditLink($record, 'Add some awesome content about yourself... '); //. All::getLorem()
+            return All::getNamedEditLink($record, 'Add some awesome content about yourself... '); //. All::getLorem(10)
         elseif(empty($content)):
-        	return 'Nothing to see here yet...'; //All::getLorem();
+        	return 'Nothing to see here yet...'; //All::getLorem(10);
         else:
         	return $content;
 		endif;
@@ -262,42 +302,31 @@ class All extends Eloquent {
 		return $model::all()->count();//query
 	}
 
-	public static function getLorem(){ //not called/used for stories
-		return 'Lorem ipsum pretium mollitia praesentium malesuada fames, 
+	public static function getLorem($length){ //not called/used for stories
+		$str = 'Lorem ipsum pretium mollitia praesentium malesuada fames, 
 			beatae viverra molestias ultricies donec enim? Purus ad reprehenderit conubia malesuada a corrupti 
 			commodo neque feugiat harum nibh, 
 			velit conubia! Ipsam reiciendis? Diam phasellus, 
 			ullam mus ducimus accusamus tempor a ac phasellus aliquip, 
 			sapien wisi leo augue iste dui. Consequat ante. Et! Volutpat sem ea elementum tempus dolorum labore autem, 
-			purus, 
-			iste lacinia eros dolores ut eros anim reprehenderit curabitur accusamus imperdiet repudiandae, 
-			blandit? Eos scelerisque, 
-			explicabo facilisi architecto wisi, 
-			iure, 
-			debitis in mauris natus minus quis nullam. Odio, 
-			impedit, 
-			curabitur arcu.
-
-		Pharetra minus. Aperiam! Amet sint cupidatat repudiandae aspernatur deleniti felis? Distinctio vehicula! Eaque aute a odit, 
-			cras itaque faucibus perferendis! Adipisci proident diam hendrerit adipisci posuere varius omnis nostra iure
-			 natus eos quasi natus pellentesque ducimus, 
-			nemo ridiculus repudiandae varius interdum mattis, 
-			augue sint sapien, 
+			purus, iste lacinia eros dolores ut eros anim reprehenderit curabitur accusamus imperdiet repudiandae, 
+			blandit? Eos scelerisque, explicabo facilisi architecto wisi, iure, 
+			debitis in mauris natus minus quis nullam. Odio, impedit, 
+			curabitur arcu. Pharetra minus. Aperiam! Amet sint cupidatat repudiandae aspernatur deleniti felis? 
+			Distinctio vehicula! Eaque aute a odit! Natus eos quasi natus pellentesque ducimus, 
 			labore! Doloremque inventore eligendi velit, 
 			tellus malesuada deleniti luctus nec laborum fugiat mauris earum commodo, 
-			magnis lorem proin suspendisse. Nibh. Aenean. Ac, 
-			laudantium praesent. Nostrud. Vehicula reprehenderit, 
-			sequi penatibus, 
+			magnis lorem proin suspendisse. Aenean. Laudantium praesent. Nostrud. Vehicula reprehenderit, 
 			ante ante iaculis faucibus provident class sint etiam anim etiam quae vulputate autem, 
 			totam scelerisque iste pariatur rhoncus, 
-			minus accusantium, 
-			quos fringilla? Officia? Nonummy? Perferendis officia.
-
-		Wisi potenti suspendisse, 
-			leo massa esse duis. Cum, 
-			orci architecto odit mus dicta metus nulla voluptas potenti exercitationem quis hendrerit minim ac
-			 reprehenderit. Inceptos? Molestiae, 
-			possimus at, 
+			minus accusantium quos. Molestiae aliqua occaecat pellentesque sapiente exercitationem 
+			minima dictumst? Wisi donec repellat voluptas, lacinia iaculis, commodi, dolorem, 
+			litora illum, tortor eu. Debitis exercitationem laudantium viverra, accumsan netus ut veniam, 
+			sollicitudin repellat, modi incidunt ipsa, molestias, 
+			earum habitasse, morbi voluptatibus interdum lacus. Officia? 
+			Nonummy? Perferendis officia. Wisi potenti suspendisse, 
+			leo massa esse duis. Orci architecto odit mus dicta metus nulla voluptas potenti exercitationem 
+			quis hendrerit minim ac reprehenderit. Inceptos? Molestiae, possimus at, 
 			metus explicabo pretium conubia assumenda! Platea occaecat, 
 			pulvinar facilisi? Officiis unde? Tenetur, 
 			lorem tortor ratione? Aute placeat. Molestiae eleifend, 
@@ -308,10 +337,20 @@ class All extends Eloquent {
 			fames nemo laudantium? Architecto fugit nemo! Deserunt. Dolor dignissim. Occaecat illo natus tempore. 
 			Beatae occaecati tristique vehicula? Laboris dolorem quaerat occaecat, 
 			neque quae debitis incidunt, 
-			fuga ligula! Cumque incidunt do porro tenetur tenetur, 
+			fuga ligula! Incidunt do porro tenetur tenetur, 
 			nisl nascetur animi hymenaeos.';
+		$words = explode(" ", $str);
+		// return $words;
+		// $count = count($words);
+		// $shuffled = array_push($shuffled, $words[array_rand($words)]);
+		shuffle($words); 
+		$set = array_splice($words, 0, $length);
+		$set = implode(' ', $set);
+		$sexy =  preg_replace_callback('/([.!?])\s*(\w)/', function ($matches) {
+				    return strtoupper($matches[1] . ' ' . $matches[2]);
+				}, ucfirst(strtolower($set)));
+		return $sexy;
 	}
-
     public static function completePosting(){
 		$pending_posts = array(
 			Org::where('status', session_id())->get(),
@@ -334,24 +373,26 @@ class All extends Eloquent {
     }
 
 	public static function getRecords($path){
-    	// return Request::path();
-    	if (in_array($path, array('devs', 'orgs', 'eventts', 'projects', 'stories'))) {
-    		$records = All::getModelRecords($path);
-    		return All::simplify($records);
-    	}
-    	elseif(is_numeric(Request::segment(2))){  // stripos($path, 'devs/')  == 0 !
-    		$model = Request::segment(1);
-    		$id = Request::segment(2);
-    		return All::getRecord($model, $id);
-    	}
+		// return Request::path();
+		if (in_array($path, array('devs', 'orgs', 'eventts', 'projects', 'stories'))) {
+			$records = All::getModelRecords($path);
+			return All::simplify($records);
+		}
+		elseif(in_array(Request::segment(1), array('devs', 'orgs', 'eventts', 'projects', 'stories')) 
+				&& is_numeric(Request::segment(2))){  // stripos($path, 'devs/')  == 0 !
+			$model = Request::segment(1);
+			$id = Request::segment(2);
+			return All::getRecord($model, $id);
+		}
 
-    	// elseif (substr($path, 0, 5) == 'devs/'){  // stripos($path, 'devs/')  == 0 !
-    	// 	return All::getRecord('devs', Request::segment(2));
-    	// }
-    	$records = All::getAllRecords();
+		// elseif (substr($path, 0, 5) == 'devs/'){  // stripos($path, 'devs/')  == 0 !
+		// 	return All::getRecord('devs', Request::segment(2));
+		// }
+		$records = All::getAllRecords();
 		return All::simplify($records);
-    	// return stripos($path, 'devs/');
-    }
+		// return stripos($path, 'devs/');
+	}
+
     public static function simplify($records){
     	$list = array();
     	foreach ($records as $record) {

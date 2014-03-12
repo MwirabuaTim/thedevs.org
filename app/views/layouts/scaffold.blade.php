@@ -15,6 +15,7 @@
 @stop
 
 @section('content')
+	
 	@if('' !== $__env->yieldContent('transparent'))
 	<div class="_bg-transparent">@yield('transparent')</div>
 	@endif
@@ -22,7 +23,6 @@
 	@if('' !== $__env->yieldContent('main'))
 	<div class="_bg-transparent">@yield('main')</div>
 	@endif
-	
 
 	<div class="page_data hidden"> {{{ All::getRecords(Request::path()) }}} </div>
 @stop

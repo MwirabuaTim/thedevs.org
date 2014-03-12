@@ -68,6 +68,10 @@ class EventtsController extends BaseController {
 	public function show($id)
 	{
 		$eventt = $this->eventt->findOrFail($id);
+		
+		if(All::checkViewRight($eventt)):
+			return All::checkViewRight($eventt);
+		endif;
 
 		return View::make('eventts.show', compact('eventt'));
 	}
@@ -85,6 +89,9 @@ class EventtsController extends BaseController {
 		if (is_null($eventt))
 		{
 			return Redirect::route('eventts.index');
+		}
+		if(!All::hasEditRight($eventt)){
+ 			return View::make('error.403');
 		}
 
 		return View::make('eventts.edit', compact('eventt'));

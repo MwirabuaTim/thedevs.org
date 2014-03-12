@@ -69,6 +69,10 @@ class ProjectsController extends BaseController {
 	{
 		$project = $this->project->findOrFail($id);
 
+		if(All::checkViewRight($project)):
+  			return All::checkViewRight($project);
+  		endif;
+		
 		return View::make('projects.show', compact('project'));
 	}
 
@@ -85,6 +89,9 @@ class ProjectsController extends BaseController {
 		if (is_null($project))
 		{
 			return Redirect::route('projects.index');
+		}
+		if(!All::hasEditRight($project)){
+ 			return View::make('error.403');
 		}
 
 		return View::make('projects.edit', compact('project'));

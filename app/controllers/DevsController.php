@@ -76,19 +76,16 @@ class DevsController extends BaseController {
 	{
 		$dev = $this->dev->findOrFail($id);
 
-		if(Sentry::check()):
+		if(All::checkViewRight($dev)):
+  			return All::checkViewRight($dev);
+  		endif;
+		
 			return View::make('devs.show', compact('dev'));
-		else:
-			return View::make('error.401');
-		endif;
+		// if(Sentry::check()):
+		// else:
+		// 	return View::make('error.401');
+		// endif;
 	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 
 	/**
 	 * User edit profile page.
@@ -102,6 +99,9 @@ class DevsController extends BaseController {
 		if (is_null($dev))
 		{
 			return Redirect::route('devs.index');
+		}
+		if(!All::hasEditRight($dev)){
+ 			return View::make('error.403');
 		}
 
 		return View::make('devs.edit', compact('dev'));

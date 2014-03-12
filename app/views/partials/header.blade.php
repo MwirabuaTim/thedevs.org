@@ -1,7 +1,7 @@
 <div class="_header">
     <div class="_top-left _in-block">
         <span class="_logo">
-            <a href="{{ URL::to('/') }}" class="_aqua-hover-text">T<span class="_small">HE</span>D<span class="small">EVS</span></a>
+            <a href="{{ URL::to('/') }}" class="_aqua-hover-text">T<span class="small">HE</span>D<span class="small">EVS</span></a>
         </span>
         <span class="_tagline">Where Developers Connect</span>
         

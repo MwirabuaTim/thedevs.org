@@ -54,59 +54,9 @@ Route::get('devs/{id}/api/github', function($id){
 })->where('id', '[0-9]+');
 
 
-
 /*
 |--------------------------------------------------------------------------
-| View Rights - Enforcing authorized access only
-|--------------------------------------------------------------------------
-|
-*/
-
-Route::get('{resource}/{id}', function($resource, $id){  //edit rights bro
-	
-	$record =  All::getRecord($resource, $id);
-	if(!isset($record)){ //!test for empty records
-		return View::make('error.404');
-	}
-	if($record->public == 'off' && !All::hasEditRight($record)){
-		return View::make('error.403');
-	}
-	$record_name = strtolower(All::getModel($resource));
-	return View::make($resource.'.show')->with($record_name, $record);
-
-})->where('id', '[0-9]+');
-
-/*
-|--------------------------------------------------------------------------
-| Edit Rights
-|--------------------------------------------------------------------------
-|
-*/
-
-
-
-Route::get('{resource}/{id}/edit', function($resource, $id){  //edit rights bro
-	$record =  All::getRecord($resource, $id);
-	// return var_dump($record);
-	if(!isset($record)){ //!test for empty records
-		return View::make('error.404');
-	}
-	// else if($resource != 'devs'){
-		if(!All::hasEditRight($record)){
-			return View::make('error.403');
-		}
-	// }
-	$record_name = strtolower(All::getModel($resource));
-	$$record_name = $record;
-
-	return View::make($resource.'.edit', compact($record_name));
-	// return View::make($resource.'.edit')->with($record_name, $record); //fails online
-
-})->where('id', '[0-9]+');
-
-/*
-|--------------------------------------------------------------------------
-| Delete Rights
+| Delete Via Get Request
 |--------------------------------------------------------------------------
 |
 
@@ -170,7 +120,7 @@ Route::resource('tags', 'TagsController');
 
 Route::resource('mydatatypes', 'MydatatypesController');
 
-
+Route::resource('document', 'DocumentsController');
 /*
 |--------------------------------------------------------------------------
 | Account Routes
@@ -292,7 +242,9 @@ Route::group(array('prefix' => 'admin'), function()
 Route::get('sandbox', function(){ 
 	$path = Request::path();
 	$r=  All::getModelRecords('devs');
-	return count($r);
+	// return count($r);
+	// return var_dump(Sentry::getUser()->hasAccess('admin'));
+	return var_dump(All::getCreator(Document::first()));
 	// $update = array('video' => 'new video ');
 	// $update['first_name'] = 'new name';
 	// $update['last_name'] = '';

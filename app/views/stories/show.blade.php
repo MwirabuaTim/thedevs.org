@@ -30,20 +30,6 @@
 		</tr>
 	</table>
 
-<!-- 	<table class="_stats _right10 _in-block">
-		<tr>
-			<th>Views: </th>
-			<td rowspan="2">{{{ $story->views }}}</td>
-		</tr>
-	</table>
-
-	<table class="_stats _right10 _in-block">
-		<tr>
-			<th>Votes: </th>
-			<td>{{{ $story->votes }}}</td>
-			<td>Up-Dw</td>
-		</tr>
-	</table> -->
 </div>
 
 <div class="_alerts">

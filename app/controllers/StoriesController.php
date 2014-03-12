@@ -69,6 +69,10 @@ class StoriesController extends BaseController {
 	{
 		$story = $this->story->findOrFail($id);
 
+		if(All::checkViewRight($story)):
+			return All::checkViewRight($story);
+		endif;
+
 		return View::make('stories.show', compact('story'));
 	}
 
@@ -85,6 +89,9 @@ class StoriesController extends BaseController {
 		if (is_null($story))
 		{
 			return Redirect::route('stories.index');
+		}
+		if(!All::hasEditRight($story)){
+ 			return View::make('error.403');
 		}
 
 		return View::make('stories.edit', compact('story'));

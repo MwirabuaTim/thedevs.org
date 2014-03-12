@@ -69,6 +69,10 @@ class OrgsController extends BaseController {
 	public function show($id)
 	{
 		$org = $this->org->findOrFail($id);
+		
+		if(All::checkViewRight($org)):
+			return All::checkViewRight($org);
+		endif;
 
 		return View::make('orgs.show', compact('org'));
 	}
@@ -86,6 +90,9 @@ class OrgsController extends BaseController {
 		if (is_null($org))
 		{
 			return Redirect::route('orgs.index');
+		}
+		if(!All::hasEditRight($org)){
+ 			return View::make('error.403');
 		}
 
 		return View::make('orgs.edit', compact('org'));
