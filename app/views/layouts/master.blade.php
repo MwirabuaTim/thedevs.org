@@ -22,7 +22,7 @@
     {{ HTML::style('jqueryui/css/jquery-ui-1.10.3.custom.min.css') }}
     {{ HTML::style('css/jquery-ui-timepicker-addon.css') }}
 
-    <!-- Leaflet JS CSS -->
+    <!-- Leaflet CSS -->
     {{ HTML::style('leaflet/leaflet.css') }}
     {{ HTML::style('leaflet_label/leaflet.label.css') }}
     {{ HTML::style('leaflet_mc/default.css') }}

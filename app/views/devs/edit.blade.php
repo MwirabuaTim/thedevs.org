@@ -74,7 +74,7 @@ Edit Profile
              <span class="btn btn-white btn-file">
              <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select Picture</span>
              <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-             {{ Form::file('pic', null, array('id' => 'pic', 'rows' => '10', 'class' => 'form-control', 'placeholder' => 'Image')) }}
+             {{ Form::file('pic', null, array('id' => 'pic', 'class' => 'form-control', 'placeholder' => 'Image')) }}
              </span>
             </div>
         </div>
