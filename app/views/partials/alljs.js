@@ -264,7 +264,6 @@
         // On Chrome > Settings > Content settings > Location > Manage exceptions
   };
 
-
   afterMapping = function(){
     b = L.latLngBounds(markersgroup)
     lat = b.getCenter().lat
