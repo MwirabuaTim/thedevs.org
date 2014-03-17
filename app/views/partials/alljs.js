@@ -232,26 +232,26 @@
 
   _locate = function(){
      // window.location.pathname == '/' ? lc.locate() : true 
-    try{
+    // try{
       window.location.pathname == '/' ? lc.locate() : true //locate only at home
-    }
-    catch(err){
-      if (err.code==1){
-        console.log("User denied geolocation.");
-      }
-      else if(err.code==2)
-      {
-        console.log("Position unavailable.");
-      }
-      else if(err.code==3)
-      {
-        console.log("Timeout expired.");
-      }
-      else
-      {
-        console.log("ERROR:"+ err.message);
-      }
-    }
+    // }
+    // catch(err){
+    //   if (err.code==1){
+    //     console.log("User denied geolocation.");
+    //   }
+    //   else if(err.code==2)
+    //   {
+    //     console.log("Position unavailable.");
+    //   }
+    //   else if(err.code==3)
+    //   {
+    //     console.log("Timeout expired.");
+    //   }
+    //   else
+    //   {
+    //     console.log("ERROR:"+ err.message);
+    //   }
+    // }
   } 
   
   window.alert = function() { //preventing (geolocation) alerts
@@ -260,7 +260,7 @@
       // window.alert.apply(window,arguments);
                    // run some code after the alert
       // console.log('done alerting');
-      // _alert('TheDevs.Org needs location. Check your location settings.');
+      _alert('TheDevs.Org needs location. Check your location settings.');
         // On Chrome > Settings > Content settings > Location > Manage exceptions
   };
 
@@ -603,6 +603,7 @@ var lng = ''
 var model = LS.model // is set else undefined
 var _record = {}
 var marker = {}
+var marker_new = L.marker() 
 var lc = {} //leaflet locate control
 
 window.setInterval(function(){$('._alert._bg-pink').show().fadeOut(1000)}, 1500);
@@ -610,7 +611,6 @@ var _blinker = $('._alert').clone()
 $('._alert').remove()
 'undefined' != typeof myalert ? _alert(myalert) : true //api to interact with from backend
 
-var marker_new = L.marker() 
 var ressp = {}
 
 var sentry_check = '{{ Sentry::check() }}'
