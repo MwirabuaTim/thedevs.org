@@ -48,9 +48,9 @@ class StoriesController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->story->create($input);
+			return $this->story->create($input)->id;
 
-			return Redirect::route('stories.index');
+			// return Redirect::route('stories.show', $id);
 		}
 
 		return Redirect::route('stories.create')

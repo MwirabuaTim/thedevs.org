@@ -204,7 +204,7 @@
     mlat = parseFloat(coords.substr(0, coords.indexOf(', ')))
     mlng = parseFloat(coords.substr(coords.indexOf(', ')+2, coords.length))
     if(_record.map == ''){
-      console.log('Invalid map on '+ _record.model + _record.id)
+      // console.log('Map not set for '+ _record.model + _record.id)
       mlat = lat
       mlng = lng
     }
@@ -256,11 +256,11 @@
   
   window.alert = function() { //preventing (geolocation) alerts
                    // run some code when the alert pops up
-      console.log('alerting about geolocation?');
+      // console.log('alerting about geolocation?');
       // window.alert.apply(window,arguments);
                    // run some code after the alert
-      console.log('done alerting');
-      _alert('TheDevs.Org needs location. Check your location settings.');
+      // console.log('done alerting');
+      // _alert('TheDevs.Org needs location. Check your location settings.');
         // On Chrome > Settings > Content settings > Location > Manage exceptions
   };
 
@@ -298,7 +298,7 @@
 
   prefillForm = function(){
     $(".createTemplate form :input").not( "input[name=_token], input[type=submit]" ).each(function(){
-      this.value = LS[this.name]
+      this.value = LS.post[this.name]
     })
   }
 
@@ -355,7 +355,7 @@
 
   fetchPostForm = function(){
     //fetches and writes create form
-    $.get( '/'+selected_model+'/createpop', function(createForm) {
+    $.get( '/'+model+'/createpop', function(createForm) {
       // console.log(createForm);
       $('.createTemplate').html(createForm)
 
@@ -371,88 +371,95 @@
       // $('.createTemplate input[type="submit"]').remove()
       $('._creates .modal-footer').remove() 
   
-      localStorage.thedevsorgstatus == 'posting' ? prefillForm() : true;
-      all_data = {} //clean all_data so as not to post old data but the edited data
+      if(LS.status == 'posting'){
+        // console.log('status == posting');
+        prefillForm()
+      }
+      else{
+        // console.log('status != posting');
+        LS.status = 'posting'
+      }
 
-      localStorage.thedevsorgstatus = 'posting'
-      localStorage.lat = lat
-      localStorage.lng = lng
-      localStorage.selected_model = selected_model
-      setInterval(function(){ saveToLS() }, 5000); // Autosave to LS every 5 secs
+      LS.lat = lat
+      LS.lng = lng
+      LS.model = model
+
+      // Autosave to LS every 5 secs
+      saving = setInterval(function(){ 
+        saveToLS() 
+      }, 5000); 
+
+      all_data = {} //clean all_data so as not to post old data but the edited data
       createPostEvent()
 
       $('._clearLS').on('click', function(){
-        localStorage.removeItem('thedevsorgpost');
-        localStorage.thedevsorgstatus = 'cleared';
+        // LS.removeItem('thedevsorgpost');
+        localStorage.removeItem('thedevsorg');
         $('._alert').remove()
       })
 
-    }).done(function(p) {
-        console.log("done");
-      })
+    })
       .fail(function(p) {
-        console.log( "error");
+        console.log(p);
       })
-      // .always(function(p) {
-      //   console.log( "finished");
-      // });
   }
 
   saveToLS = function(){
       tinyMCE.triggerSave();
       all_data = $.extend({}, map_data, $('.createTemplate form').serializeObject());
-      LS = $.extend(LS, all_data);
-      localStorage.setItem('thedevsorgpost', JSON.stringify(LS));
+      LS.post = $.extend(LS.post, all_data);
+      // localStorage.setItem('thedevsorg', JSON.stringify(LS));
+      localStorage.thedevsorg = JSON.stringify(LS);
   }
 
   createPostEvent = function(){
-      $( ".createTemplate input[type='submit']" ).on('click', function(e){
-      // $('.createTemplate form').on('submit', function(){
-        e.preventDefault()
-        $('.createTemplate input[type="submit"]').attr('disabled', 'on') //prevent double-submission!
+    $( ".createTemplate input[type='submit']" ).on('click', function(e){
+    // $('.createTemplate form').on('submit', function(){
+      e.preventDefault()
+      $('.createTemplate input[type="submit"]').attr('disabled', 'on') //prevent double-submission!
 
-        saveToLS()//keeps updating all_data and LS
+      saveToLS()//keeps updating all_data and LS.post
 
-        _creator = 'undefined' == typeof all_data['start_time'] ? 'creator' : 'organizer'
+      _creator = 'undefined' == typeof all_data['start_time'] ? 'creator' : 'organizer'
 
-        if(loggedIn()){
-          // console.log('Already logged in')
-          all_data[_creator] = user_id
-        }
-        else{
-          all_data[_creator] = 2
-          all_data['status'] = session_id
-          all_data['public'] = 'off'
-           
-          $('.modal').modal('hide')//hide the createpost form
-          $('._sign-in-modal').modal('show')
-          $('._sign-in-modal .modal-title').html('Log in to complete...')
-          $('._sign-up-modal .modal-title').html('Sign Up to complete...')
-        }
+      if(loggedIn()){
+        // console.log('Already logged in')
+        all_data[_creator] = user_id
+      }
+      else{
+        all_data[_creator] = 2
+        all_data['status'] = session_id
+        all_data['public'] = 'off'
+         
+        $('.modal').modal('hide')//hide the createpost form
+        $('._sign-in-modal').modal('show')
+        $('._sign-in-modal .modal-title').html('Log in to complete...')
+        $('._sign-up-modal .modal-title').html('Sign Up to complete...')
+      }
 
-        postData()
-      })
+      postData()
+    })
   }
   postData = function(){
     // var Posting = Backbone.Model.extend({
-    //   url: selected_model
+    //   url: model
     // });
     
     // posting = new Posting(all_data);
     // posting.save()
 
-    // console.log('posting all_data to ' + selected_model)
+    // console.log('posting all_data to ' + model)
     // console.log(JSON.stringify(all_data));
     $('img.preload').show()
 
     // $.ajax({
-    //   url:selected_model,
+    //   url:model,
     //   type:'POST',
     //   dataType:"json",
     //   data: all_data,
     //   success:function(dd){ 
-    //     localStorage.removeItem('thedevsorgpost')
-    //     console.log('Success, Posted.');
+    //      clearInterval(saving)
+    //      localStorage.removeItem('thedevsorg');
     //   }
     //   , error:function(dd){ 
     //     console.log('failed to post')
@@ -462,23 +469,25 @@
     //   }
 
     // });
-    var postxhr = $.post('/'+selected_model, all_data, function(resp) { //find an easier way to do this!
-      console.log('Success, Posted.');
+    var postxhr = $.post('/'+model, all_data, function(resp) { //find an easier way to do this!
+      console.log('Posted temporarily.');
+      // console.log(resp);
       $('img.preload').hide()
-      localStorage.thedevsorgstatus = 'posted'
-      loggedIn() ? window.location.pathname = selected_model : true;
+      clearInterval(saving)
+      localStorage.removeItem('thedevsorg');
+      LS.status = 'posted'
+      LS.id = resp
+      if(loggedIn()){
+        window.location.pathname = model+'/'+LS.id
+      }
     })
       .fail(function(resp) {
         console.log('Error: ' + JSON.stringify(resp));
       })
       // .done(function(resp) {
-      //   console.log( "Done, response is a page.");
+      //   console.log( "Done. "+ressp);
       // });
      
-    postxhr.always(function() {
-      console.log( "finished" );
-    });
-
   }
 
   onMapClick = function(e) {
@@ -535,7 +544,7 @@
       markersgroup.push([lat, lng])
       // map.fitBounds(markersgroup)$('#single-map')[0]
 
-      map_data['map'] = lat + ', ' + lng;  //setting map var for both onmapclick and lazy LS posting
+      map_data['map'] = lat + ', ' + lng;  //setting map var for both onmapclick and lazy posting
    }
     setTimeout(function(){ _step3() }, 500)
     $('._clearLS').show()
@@ -546,7 +555,7 @@
     pin2map(lat, lng)
     map.on('click', onMapClick)
 
-    var x = $('.panel-group label input#'+localStorage.selected_model).parent()[0]
+    var x = $('.panel-group label input#'+LS.model).parent()[0]
     x.className = 'cats btn panel _aqua-hover active'
     $('button._step3').removeAttr('disabled')
   }
@@ -585,11 +594,13 @@ var _url = window.location.href;
 var _host = window.location.host;
 var markersgroup = []
 var map_data = {}
-var LS = JSON.parse(localStorage.getItem('thedevsorgpost')); ///what if not set ?
-var all_data = LS ? LS : {}
+// var LS = localStorage.getItem('thedevsorg') ? JSON.parse(localStorage.getItem('thedevsorg')) : {}; 
+var LS = localStorage.thedevsorg ? JSON.parse(localStorage.thedevsorg) : {}; 
+var all_data = LS.post ? LS.post : {}
+var saving = 0 //start the saving interval
 var lat = ''
 var lng = ''
-var selected_model = localStorage.selected_model // is set else undefined
+var model = LS.model // is set else undefined
 var _record = {}
 var marker = {}
 var lc = {} //leaflet locate control
@@ -600,6 +611,7 @@ $('._alert').remove()
 'undefined' != typeof myalert ? _alert(myalert) : true //api to interact with from backend
 
 var marker_new = L.marker() 
+var ressp = {}
 
 var sentry_check = '{{ Sentry::check() }}'
 var pin_pink = '{{ asset("images/mapping/bubble-pink.png") }}'
@@ -609,8 +621,8 @@ var api_url = "{{ URL::to('api/search') }}"
 
 
 $(document).ready(function(){
-  lat = localStorage.lat
-  lng = localStorage.lng
+  lat = LS.lat
+  lng = LS.lng
   richEditor()//for form textareas
 
   //Masonry Stacks
@@ -709,12 +721,12 @@ $(document).ready(function(){
   }
 
 
-  if(localStorage.thedevsorgstatus == 'posting' && isMain()){// local storage
+  if(LS.status == 'posting' && isMain()){// local storage
     pinLS()
-    _postName = LS.name ? LS.name : LS.first_name
+    _name = LS.post.name ? LS.post.name : LS.post.first_name
     $('._addbtn').html('<span class="_blade _aqua2pink _step3">Complete>></span>')
     $('a._step2').attr('class', '_step3')
-    _alert('<u class="_step3">Complete creating "'+LS.name+'"</u>')
+    _alert('<u class="_step3">Complete creating "'+LS.post.name+'"</u>')
     $('._clearLS').show()
   }
   if(!isMain()){
@@ -722,8 +734,7 @@ $(document).ready(function(){
   }
 
   $('._clearLS').on('click', function(){
-    localStorage.removeItem('thedevsorgpost');
-    localStorage.thedevsorgstatus = 'cleared';
+    localStorage.removeItem('thedevsorg');
     $('._alert').remove()
   })
 
@@ -782,16 +793,8 @@ $(document).ready(function(){
 
    
   $('label.cats').on('click', function(){
-    selected_model = $(".btn-group").find("label.active input").prop('value');
+    model = $(".btn-group").find("label.active input").prop('value');
     $('button._step2').removeAttr('disabled') //enabled
-  })
-
-  $('._step3').on('click', function(e){ 
-    e.preventDefault()
-
-    $('.createTemplate').append($('img.preload').show());
-    fetchPostForm()
-    $('._creates').modal('show')
   })
 
   _step3 =  function(){
@@ -803,6 +806,14 @@ $(document).ready(function(){
         $('._creates').modal('show')
       })
   }
+
+  // $('._step3').on('click', function(e){ 
+  //   e.preventDefault()
+
+  //   $('.createTemplate').append($('img.preload').show());
+  //   fetchPostForm()
+  //   $('._creates').modal('show')
+  // })
     // $('button._step3').click( function(e){ 
     //   e.preventDefault()
     //   console.log('message');
@@ -847,7 +858,9 @@ $(document).ready(function(){
       $.post($(this).attr('action'), $(this).serializeArray(), function(ddd){
         if(ddd['success']){
           _alert(ddd['success']);
-          window.location.pathname = ddd['redirect']
+          // console.log(ddd);
+          // window.location.pathname = ddd['redirect'] //takes to show view if you are doing insertGetId
+          window.location.pathname = model+'/'+LS.id
         }
         else{
           // console.log(JSON.stringify(ddd.errors))
@@ -932,16 +945,45 @@ $(document).ready(function(){
       DoubleScroll(document.getElementById('doublescroll'));
 
   }
-  //delete confirmation
-  $('.btn-danger, ._del').click(function(e){
-    e.preventDefault();
-  })
-  $('.btn-danger, ._del').confirmation({
-      'href' : './delete',
-      'onCancel' : function(){
-        $('.popover').fadeOut(200);
+  
+  // confirm before deleting
+  if($.fn.confirmation != undefined && _path.indexOf('/create') == -1){ //dont confirm deletions on /create paths
+    $('.btn-danger, ._del').click(function(e){
+      e.preventDefault();
+    });
+    
+    $('.btn-danger, ._del').not('.btn-danger.fileupload-exists').confirmation({
+        'href' : './delete',
+        'onCancel' : function(){
+          $('.popover').fadeOut(200);
+        }
+    })
+  }
+
+  // AddThis Smart Layers BEGIN
+  if('undefined' != typeof addthis){
+    addthis.layers({
+      'theme' : 'transparent',
+      'share' : {
+        'position' : 'left',
+        'services' : 'facebook,twitter,google_plusone_share,linkedin,email,more',
+
+      }, 
+      // 'follow' : {
+      //   'services' : [
+      //     {'service': 'facebook', 'id': 'thedevsorg'},
+      //     {'service': 'twitter', 'id': 'thedevsorg'},
+      //     {'service': 'google_follow', 'id': '113061438023381974773'}
+      //   ]
+      // },  
+      // 'whatsnext' : {},  
+      // 'recommended' : {},
+      'responsive' : {
+        maxWidth: '550px',
+        minWidth: '0px'
       }
-  })
+      });
+  }
 
 })
 

@@ -21,7 +21,7 @@ class ProjectsController extends BaseController {
 	 */
 	public function index()
 	{
-		$projects = $this->project->orderBy('created_at', 'desc')->paginate(10);
+		$projects = $this->project->orderBy('updated_at', 'desc')->paginate(10);
 
 		return View::make('projects.index', compact('projects'));
 	}
@@ -48,9 +48,10 @@ class ProjectsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->project->create($input);
-
-			return Redirect::route('projects.index');
+			
+			return $this->project->create($input)->id;
+			
+			// return Redirect::route('projects.show', $id);
 		}
 
 		return Redirect::route('projects.create')

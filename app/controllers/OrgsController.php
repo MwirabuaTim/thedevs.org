@@ -21,7 +21,7 @@ class OrgsController extends BaseController {
 	 */
 	public function index()
 	{
-		$orgs = $this->org->orderBy('created_at', 'desc')->paginate(15);
+		$orgs = $this->org->orderBy('updated_at', 'desc')->paginate(15);
 
 		return View::make('orgs.index', compact('orgs'));
 	}
@@ -49,9 +49,9 @@ class OrgsController extends BaseController {
 
 		if ($validation->passes())
 		{
-			$this->org->create($input);
-
-			return Redirect::route('orgs.index');
+			return $this->org->create($input)->id;
+			
+			// return Redirect::route('orgs.show', $id);
 		}
 
 		return Redirect::route('orgs.create')

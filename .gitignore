@@ -4,4 +4,5 @@ composer.phar
 .DS_Store
 Thumbs.db
 /public/uploads
+/app/storage
 deployment.log

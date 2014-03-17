@@ -164,6 +164,9 @@
     <!-- Sidebar JS-->
     {{ HTML::script('js/jquery.tabSlideOut.v1.3.js') }}
 
+    <!-- AddThis Smart Layers -->
+    {{ HTML::script('//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508c2c5f4cc3850d') }}
+
     <!-- Inlining JS for all pages -->
     <script type="text/javascript">
         <?php if(Sentry::check()): ?>
@@ -187,32 +190,5 @@
       ga('send', 'pageview');
     </script>
 
-    <!-- AddThis Smart Layers BEGIN -->
-    <!-- Go to http://www.addthis.com/get/smart-layers to customize -->
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-508c2c5f4cc3850d"></script>
-    <script type="text/javascript">
-      addthis.layers({
-        'theme' : 'transparent',
-        'share' : {
-          'position' : 'left',
-          'services' : 'facebook,twitter,google_plusone_share,linkedin,email,more',
-
-        }, 
-        // 'follow' : {
-        //   'services' : [
-        //     {'service': 'facebook', 'id': 'thedevsorg'},
-        //     {'service': 'twitter', 'id': 'thedevsorg'},
-        //     {'service': 'google_follow', 'id': '113061438023381974773'}
-        //   ]
-        // },  
-        // 'whatsnext' : {},  
-        // 'recommended' : {},
-        'responsive' : {
-          maxWidth: '550px',
-          minWidth: '0px'
-        }
-        });
-    </script>
-    <!-- AddThis Smart Layers END -->
 
 </html>

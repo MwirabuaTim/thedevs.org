@@ -11,7 +11,7 @@
 	</legend>
 
 	<h2 class="_center">
-		“Location-based Digital Hub for Developers”
+		“Location-based Digital Hub For Developers”
 	</h2>
 
 	<hr>

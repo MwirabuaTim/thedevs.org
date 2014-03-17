@@ -263,7 +263,7 @@ Route::get('sandbox', function(){
 	$r=  All::getModelRecords('devs');
 	// return count($r);
 	// return var_dump(Sentry::getUser()->hasAccess('admin'));
-	return var_dump(All::getCreator(Document::first()));
+	// return var_dump(All::getCreator(Document::first()));
 	// $update = array('video' => 'new video ');
 	// $update['first_name'] = 'new name';
 	// $update['last_name'] = '';
@@ -279,6 +279,7 @@ Route::get('sandbox', function(){
 	// $y = substr($path, 0, $x);
 	// $z = substr($path, $x+1, strlen($path));
 	// return empty($x) ? ucwords($path) : $z;
+	return Story::create(array('name'=>'hi'));
 
 });
 
