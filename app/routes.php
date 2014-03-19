@@ -261,6 +261,8 @@ Route::group(array('prefix' => 'admin'), function()
 Route::get('sandbox', function(){ 
 	$path = Request::path();
 	$r=  All::getModelRecords('devs');
+
+	return View::make('hello');
 	// return count($r);
 	// return var_dump(Sentry::getUser()->hasAccess('admin'));
 	// return var_dump(All::getCreator(Document::first()));
@@ -279,7 +281,6 @@ Route::get('sandbox', function(){
 	// $y = substr($path, 0, $x);
 	// $z = substr($path, $x+1, strlen($path));
 	// return empty($x) ? ucwords($path) : $z;
-	return Story::create(array('name'=>'hi'));
 
 });
 

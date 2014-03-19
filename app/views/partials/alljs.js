@@ -859,7 +859,7 @@ $(document).ready(function(){
           _alert(ddd['success']);
           // console.log(ddd);
           // window.location.pathname = ddd['redirect'] //takes to show view if you are doing insertGetId
-          window.location.pathname = model+'/'+LS.id
+          window.location.pathname = (model && LS.id ) ? model+'/'+LS.id : ddd['redirect'];
         }
         else{
           // console.log(JSON.stringify(ddd.errors))
