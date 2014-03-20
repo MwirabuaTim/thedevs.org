@@ -64,7 +64,7 @@ class OauthController extends BaseController {
 	            // Here you should use this information to A) look for a user B) help a new user sign up with existing data.
 	            // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
 
-	            // return Response::json($data);
+	            return Response::json($data);
 	
 	            $user_id = $this->checkAndSave($data);
 	            if ($user_id == false){
@@ -172,7 +172,7 @@ class OauthController extends BaseController {
 			$user->save();
 
 		}
-		return var_dump($data);
+
 		$user_interface = Sentry::findUserById($user->id);
 		Sentry::login($user_interface, false);
 		return $user->id;
