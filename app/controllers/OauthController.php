@@ -66,7 +66,7 @@ class OauthController extends BaseController {
 
 	            // return Response::json($data);
 	            // return $data['email'];
-	            return User::all();
+	            // return User::where('email', $data['email'])->first();
 	            // return Profile::where('uid', $data['uid'])->first();
 	
 	            $user_id = $this->checkAndSave($data);
