@@ -168,10 +168,10 @@ class OauthController extends BaseController {
 			$user->location = $data['location'];
 			$user->public = 'on';
 			$user->activated = 1;
-			return 'trying to create user: </br>'.var_dump($data).'<br/><br/>'.var_dump($user);
 			$user->save();
 
 		}
+		return 'trying to create user: </br>'.var_dump($data).'<br/><br/>'.var_dump($user);
 		$user_interface = Sentry::findUserById($user->id);
 		Sentry::login($user_interface, false);
 		return $user->id;
