@@ -168,7 +168,7 @@ class OauthController extends BaseController {
 			$user->location = $data['location'];
 			$user->public = 'on';
 			$user->activated = 1;
-			// return var_dump('trying to create user: </br>'.$user);
+			return 'trying to create user: </br>'.var_dump($data).'<br/><br/>'.var_dump($user);
 			$user->save();
 
 		}
