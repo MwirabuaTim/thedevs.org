@@ -64,7 +64,7 @@ class OauthController extends BaseController {
 	            // Here you should use this information to A) look for a user B) help a new user sign up with existing data.
 	            // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
 
-	            return Response::json($data);
+	            // return Response::json($data);
 	
 	            $user_id = $this->checkAndSave($data);
 	            if ($user_id == false){
@@ -135,6 +135,7 @@ class OauthController extends BaseController {
 	    	// return var_dump($x);
 	    }
 
+	    return User::where('email', $data['email'])->first();
 		if($user = User::where('email', $data['email'])->first()){
 			// Find the user using the user id or e-mail
 			//update user if we have new values
