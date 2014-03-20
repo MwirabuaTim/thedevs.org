@@ -3,7 +3,7 @@
 @section('main')
 
 <h1>Edit Document</h1>
-{{ Form::model($document, array('method' => 'PATCH', 'route' => array('document.update', $document->id))) }}
+{{ Form::model($document, array('method' => 'PATCH', 'route' => array('documents.update', $document->id))) }}
 	<ul>
 
         <li class="pull-right">
@@ -29,7 +29,7 @@
 
 		<li>
 			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('document.show', 'Cancel', $document->id, array('class' => 'btn')) }}
+			{{ link_to_route('documents.show', 'Cancel', $document->id, array('class' => 'btn')) }}
 		</li>
 	</ul>
 {{ Form::close() }}

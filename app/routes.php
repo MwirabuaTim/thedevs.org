@@ -139,7 +139,7 @@ Route::resource('tags', 'TagsController');
 
 Route::resource('mydatatypes', 'MydatatypesController');
 
-Route::resource('document', 'DocumentsController');
+Route::resource('documents', 'DocumentsController');
 /*
 |--------------------------------------------------------------------------
 | Account Routes

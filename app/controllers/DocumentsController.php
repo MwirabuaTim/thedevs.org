@@ -60,10 +60,10 @@ class DocumentsController extends BaseController {
 		{
 			$this->document->create($input);
 
-			return Redirect::route('document.index');
+			return Redirect::route('documents.index');
 		}
 
-		return Redirect::route('document.create')
+		return Redirect::route('documents.create')
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -98,7 +98,7 @@ class DocumentsController extends BaseController {
 
 		if (is_null($document))
 		{
-			return Redirect::route('document.index');
+			return Redirect::route('documents.index');
 		}
 
 		return View::make('documents.edit', compact('document'));
@@ -120,10 +120,10 @@ class DocumentsController extends BaseController {
 			$document = $this->document->find($id);
 			$document->update($input);
 
-			return Redirect::route('document.show', $id);
+			return Redirect::route('documents.show', $id);
 		}
 
-		return Redirect::route('document.edit', $id)
+		return Redirect::route('documents.edit', $id)
 			->withInput()
 			->withErrors($validation)
 			->with('message', 'There were validation errors.');
@@ -139,7 +139,7 @@ class DocumentsController extends BaseController {
 	{
 		$this->document->find($id)->delete();
 
-		return Redirect::route('document.index');
+		return Redirect::route('documents.index');
 	}
 
 }

@@ -4,7 +4,7 @@
 
 <h1>Create Document</h1>
 
-{{ Form::open(array('route' => 'document.store')) }}
+{{ Form::open(array('route' => 'documents.store')) }}
 	<ul>
         <li>
             {{ Form::label('title', 'Title:') }}

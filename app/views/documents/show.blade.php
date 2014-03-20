@@ -8,7 +8,7 @@
 	@if(All::hasEditRight($document))
 		<span class="pull-right">
 		{{ All::getPublicity($document) }} 
-		{{ link_to_route('document.edit', 'Edit', array($document->id), array('class' => 'btn btn-info')) }}
+		{{ link_to_route('documents.edit', 'Edit', array($document->id), array('class' => 'btn btn-info')) }}
 		</span>
 	@endif
 	
