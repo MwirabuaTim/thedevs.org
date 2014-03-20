@@ -65,7 +65,7 @@ class OauthController extends BaseController {
 	            // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
 
 	            // return Response::json($data);
-	            return $data['email'];
+	            // return $data['email'];
 	            return User::where('email', $data['email'])->first();
 	            // return Profile::where('uid', $data['uid'])->first();
 	
