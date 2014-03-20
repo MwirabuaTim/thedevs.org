@@ -72,31 +72,34 @@
             <!-- Content -->
             <div class="_bg-transparent">
 
-                <fieldset class="_sweet-tooth">
-                    <legend class="_welcome _center">
-                        <span>{{{ $document->title }}}</span>
-                    </legend>
-                </fieldset>
-
-                @if(All::hasEditRight($document))
+                    @if(All::hasEditRight($document))
                     <span class="pull-right">
-                    {{ All::getPublicity($document) }} 
-                    {{ link_to_route('document.edit', 'Edit', array($document->id), 
-                    array('class' => 'btn btn-info btn-sm')) }}
+                        {{ All::getPublicity($document) }} 
+                        {{ link_to_route('document.edit', 'Edit', array($document->id), 
+                        array('class' => 'btn btn-info btn-sm')) }}
                     </span>
-                @endif
+                    @endif
 
                 <div class="concept">
+
+                    <fieldset class="_sweet-tooth">
+                        <legend class="_welcome _center">
+                            <span>{{{ $document->title }}}</span>
+                        </legend>
+                    </fieldset>
+
                     <!-- @ include('concept-doc') -->
                     {{ $document->body }}
                     <!-- http://4html.net/Online-text-to-HTML-converter-831.html -->
+
+                    <fieldset class="_sweet-tooth _bottom10">
+                        <legend class="_welcome _center">
+                            <span>Where Developers Connect</span>
+                        </legend>
+                    </fieldset>
+
                 </div>
                     
-                <fieldset class="_sweet-tooth _bottom10">
-                    <legend class="_welcome _center">
-                        <span>Where Developers Connect</span>
-                    </legend>
-                </fieldset>
 
             </div>
             <!-- ./ content -->
