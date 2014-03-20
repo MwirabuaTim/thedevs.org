@@ -65,8 +65,10 @@ class OauthController extends BaseController {
 	            // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
 
 	            // return Response::json($data);
+	            // return Profile::where('uid', $data['uid'])->first()
+	            return User::where('email', $data['email'])->first();
 	
-	            return $user_id = $this->checkAndSave($data);
+	            $user_id = $this->checkAndSave($data);
 	            if ($user_id == false){
 					return Redirect::back()->with('error', 'Your email was not public. Please join with another provider.');
 					//return Response::json(array());
@@ -135,7 +137,6 @@ class OauthController extends BaseController {
 	    	// return var_dump($x);
 	    }
 
-	    return User::where('email', $data['email'])->first();
 		if($user = User::where('email', $data['email'])->first()){
 			// Find the user using the user id or e-mail
 			//update user if we have new values
