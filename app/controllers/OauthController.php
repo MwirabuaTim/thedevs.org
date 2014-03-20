@@ -66,7 +66,7 @@ class OauthController extends BaseController {
 
 	            // return Response::json($data);
 	
-	            $user_id = $this->checkAndSave($data);
+	            return $user_id = $this->checkAndSave($data);
 	            if ($user_id == false){
 					return Redirect::back()->with('error', 'Your email was not public. Please join with another provider.');
 					//return Response::json(array());
