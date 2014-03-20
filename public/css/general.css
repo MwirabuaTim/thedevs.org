@@ -666,7 +666,7 @@ fieldset legend{
 }
 .concept{
 	margin: 0px auto;
-	width: 1100px;
+	max-width: 1100px;
 	padding: 20px;
 	font-size: 15pt;
 	color: #fff;
