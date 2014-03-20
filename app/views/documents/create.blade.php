@@ -2,7 +2,7 @@
 
 @section('main')
 
-<h1>Create Document</h1>
+<h1>Create A Document</h1>
 
 {{ Form::open(array('route' => 'documents.store')) }}
 	<ul>
