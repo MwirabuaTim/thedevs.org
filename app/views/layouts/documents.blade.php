@@ -26,7 +26,7 @@
     <!-- Custom CSS for specific pages-->
     <style>
 		._logo {
-			font-size: 70px;
+			font-size: 45pt;
 			line-height: 45px;
 		}
 		._top-left{
@@ -145,7 +145,7 @@
        
     // custom scrollbar
     $("html").niceScroll({styler:"fb",cursorcolor:"#55ffaa", cursorwidth: '6', cursorborderradius: '10px', background: '#666', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
-    
+
     </script>
  
 </html>
