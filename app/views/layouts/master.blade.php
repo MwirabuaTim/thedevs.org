@@ -135,6 +135,7 @@
     {{ HTML::script('js/jquery-ui-timepicker-addon.js') }}
     {{ HTML::script('js/jquery-ui-sliderAccess.js') }}
     {{ HTML::script('js/jquery.pulse.min.js') }}
+    {{ HTML::script('js/jquery.nicescroll.js') }}
 
     <!-- Libs -->
     {{ HTML::script('js/plugins.js') }}

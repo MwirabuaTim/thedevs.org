@@ -124,6 +124,7 @@
     {{ HTML::script('js/jquery-ui-timepicker-addon.js') }}
     {{ HTML::script('js/jquery-ui-sliderAccess.js') }}
     {{ HTML::script('js/jquery.pulse.min.js') }}
+    {{ HTML::script('js/jquery.nicescroll.js') }}
 
     <!-- Libs -->
     {{ HTML::script('js/plugins.js') }}
@@ -140,6 +141,11 @@
         <?php if(Sentry::check()): ?>
         var user_id = "{{ Sentry::getUser()->id }}"
         <?php endif; ?>
+
+       
+    // custom scrollbar
+    $("html").niceScroll({styler:"fb",cursorcolor:"#55ffaa", cursorwidth: '6', cursorborderradius: '10px', background: '#666', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
+    
     </script>
  
 </html>
