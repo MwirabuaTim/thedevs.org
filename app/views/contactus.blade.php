@@ -14,8 +14,7 @@
 <form action="/contactus" class="contactUs" method="POST">
   <fieldset>
   	<legend class="gradient-light">Send us a message</legend>
-
-  
+  	
   	<!-- CSRF Token -->
 	<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 

@@ -141,12 +141,9 @@
         <?php if(Sentry::check()): ?>
         var user_id = "{{ Sentry::getUser()->id }}"
         <?php endif; ?>
-
-       
-    // custom scrollbar
-    $("html").niceScroll({styler:"fb",cursorcolor:"#55ffaa", cursorwidth: '6', cursorborderradius: '10px', background: '#666', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
-
     </script>
+
+    @include('partials.ga')
  
 </html>
 
