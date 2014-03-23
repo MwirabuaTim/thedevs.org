@@ -24,5 +24,24 @@
 	<div class="_bg-transparent">@yield('main')</div>
 	@endif
 
-	<div class="page_data hidden"> {{{ All::getRecords(Request::path()) }}} </div>
+	<?php $indexex = array('devs', 'orgs', 'eventts', 'projects', 'stories'); ?>
+
+	@if(in_array(Request::segment(1), $indexex) && is_numeric(Request::segment(2)))
+
+		<?php $model = Request::segment(1); ?>
+		<?php $id = Request::segment(2); ?>
+		<?php $dd = All::getRecord($model, $id) ?>
+
+	@elseif(in_array($path, $indexex))
+
+		<?php $dd = All::getModelRecords($path) ?>
+
+	@else
+
+		<?php $dd = All::getAllRecords() ?>
+
+	@endif
+	
+	<div class="dd hidden"> {{{ All::simplify($dd) }}} </div>
+
 @stop

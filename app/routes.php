@@ -262,7 +262,8 @@ Route::get('sandbox', function(){
 	$path = Request::path();
 	$r=  All::getModelRecords('devs');
 
-	return View::make('hello');
+	// return View::make('hello');
+	return All::getAllRecords();
 	// return count($r);
 	// return var_dump(Sentry::getUser()->hasAccess('admin'));
 	// return var_dump(All::getCreator(Document::first()));

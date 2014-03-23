@@ -372,27 +372,6 @@ class All extends Eloquent {
 		return !empty($last_record) ? All::getPath($last_record)."/$last_record->id" : '';
     }
 
-	public static function getRecords($path){
-		// return Request::path();
-		if (in_array($path, array('devs', 'orgs', 'eventts', 'projects', 'stories'))) {
-			$records = All::getModelRecords($path);
-			return All::simplify($records);
-		}
-		elseif(in_array(Request::segment(1), array('devs', 'orgs', 'eventts', 'projects', 'stories')) 
-				&& is_numeric(Request::segment(2))){  // stripos($path, 'devs/')  == 0 !
-			$model = Request::segment(1);
-			$id = Request::segment(2);
-			return All::getRecord($model, $id);
-		}
-
-		// elseif (substr($path, 0, 5) == 'devs/'){  // stripos($path, 'devs/')  == 0 !
-		// 	return All::getRecord('devs', Request::segment(2));
-		// }
-		$records = All::getAllRecords();
-		return All::simplify($records);
-		// return stripos($path, 'devs/');
-	}
-
     public static function simplify($records){
     	$list = array();
     	foreach ($records as $record) {
@@ -410,7 +389,7 @@ class All extends Eloquent {
     }
 	public static function getModelRecords($path){
 		$model = All::getModel($path); // also $model = get_class($record); no query
-		$records =  $model::all();
+		$records =  $path == 'devs' ? $model::where('activated', 1)->get() : $model::all();
 		$list = array();
 		foreach ($records as $record) {
 			$record = All::formatRecord($record);
@@ -419,15 +398,24 @@ class All extends Eloquent {
 		return $list;
 	}
 
+	public static function getAllModels(){ 
+		$sources = array();
+			array_push($sources, json_decode(Dev::all()));
+			array_push($sources, json_decode(Org::all()));
+			array_push($sources, json_decode(Project::all()));
+			array_push($sources, json_decode(Eventt::all()));
+			array_push($sources, json_decode(Story::all()));
+		return $sources;
+	}
+
 	public static function getAllRecords(){ 
 		$sources = array(
-			Dev::where('status', '!=', 'deleted')->get(),
-			Org::where('status', '!=', 'deleted')->get(),
-			Project::where('status', '!=', 'deleted')->get(),
-			Eventt::where('status', '!=', 'deleted')->get(),
-			Story::where('status', '!=', 'deleted')->get()
+			Dev::all(),
+			Org::all(),
+			Project::all(),
+			Eventt::all(),
+			Story::all()
 			);
-
 		$records = array();
 		$names_arr = array();
 		if(count($sources) > 1):

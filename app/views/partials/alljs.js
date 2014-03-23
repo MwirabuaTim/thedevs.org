@@ -171,9 +171,8 @@
   }
 
   domFetch = function(){
-    _record = $.parseJSON($('.page_data').html())
+    _record = $.parseJSON($('.dd').html())
     afterFetch(_record)
-    // $('.page_data').remove() //no point
   }
 
   afterFetch = function(_r){
@@ -182,10 +181,6 @@
       // console.log(_r);
       $.each(_r, function(key, record){
         _record = record //keeping things straight for the label
-        //appending count on sidebar
-        $('.'+record.model_path+' span')
-        .html('('+record.model_count+')')
-
         mapRecord(record)
       })
 
@@ -680,6 +675,7 @@ $(document).ready(function(){
 
   // clickLogger();
 
+  // mapping for home and index pages
   if($('#thedevsmap')[0] != undefined){
     loadMap('thedevsmap', _path)
     // fetchMapData() //from API
@@ -692,7 +688,7 @@ $(document).ready(function(){
     })
     
   }
-    // mapping for home, /posts[blog] and /countries pages
+  // mapping for single record pages
   if($('#single-map')[0] != undefined){ // load map for single entity show & edit view
     loadMap('single-map', _path)
     // fetchMapData()
