@@ -400,7 +400,7 @@ class All extends Eloquent {
 
 	public static function getAllModels(){ 
 		$sources = array();
-			array_push($sources, json_decode(Dev::all()));
+			array_push($sources, json_decode(Dev::where('activated', 1)->get()));
 			array_push($sources, json_decode(Org::all()));
 			array_push($sources, json_decode(Project::all()));
 			array_push($sources, json_decode(Eventt::all()));
