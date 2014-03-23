@@ -21,7 +21,7 @@ class DevsController extends BaseController {
 	 */
 	public function index()
 	{
-		$devs = $this->dev->orderBy('created_at', 'desc')->paginate(15);
+		$devs = $this->dev->orderBy('created_at', 'desc')->where('activated', 1)->paginate(15);
 
 		return View::make('devs.index', compact('devs'));
 		// return View::make('home');
