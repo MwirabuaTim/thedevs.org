@@ -374,8 +374,12 @@ class All extends Eloquent {
 
     public static function simplify($records){
     	$list = array();
+    	// return $records;
     	foreach ($records as $record) {
 	    	$class = $record['model'];
+	    	// $class = All::getModel($record);
+	    	// $class = get_class($record);
+
 	    	$r = new $class;
 			$r->map = $record['map'];
 			$r->id = $record['id'];

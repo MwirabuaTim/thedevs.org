@@ -34,14 +34,14 @@
 
 	@elseif(in_array($path, $indexex))
 
-		<?php $dd = All::getModelRecords($path) ?>
+		<?php $dd = All::simplify(All::getModelRecords($path)) ?>
 
 	@else
 
-		<?php $dd = All::getAllRecords() ?>
+		<?php $dd = All::simplify(All::getAllRecords()) ?>
 
 	@endif
 	
-	<div class="dd hidden"> {{{ All::simplify($dd) }}} </div>
+	<div class="dd hidden"> {{{ $dd }}} </div>
 
 @stop
