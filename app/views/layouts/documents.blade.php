@@ -138,9 +138,14 @@
 
     <!-- Inlining JS for all pages -->
     <script type="text/javascript">
-        <?php if(Sentry::check()): ?>
-        var user_id = "{{ Sentry::getUser()->id }}"
-        <?php endif; ?>
+
+    $(document).ready(function(){
+          // custom scrollbar
+        $("html").niceScroll({styler:"fb",cursorcolor:"#55ffaa", cursorwidth: '6', cursorborderradius: '10px', background: 'transparent', spacebarenabled:false,  cursorborder: '', zindex: '1000', autohidemode: false});
+
+    });
+
+
     </script>
 
     @include('partials.ga')
