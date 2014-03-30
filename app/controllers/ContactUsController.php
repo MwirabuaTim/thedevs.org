@@ -39,7 +39,18 @@ class ContactUsController extends BaseController {
     public function gmail()
     {
 
-		Mail::send('emails.contactus', Input::all(), function($message)
+        // Mail::send('emails.contactus', Input::all(), function($m)
+        // {
+        //     // $m->from(array('info@afya.org' => 'Timothy M'));
+        //     $m->from(array('info@thedevs.org' => 'TheDevs Organisation'));
+        //     // $m->to(array('info@thedevs.org' => 'TheDevs Organisation'));  
+        //     $m->to(array('techytimo@gmail.com' => 'Timothy Mwirabua'));    
+        //     $m->subject("subject here"); 
+        //     $m->setBody('body here'); 
+
+        // });
+        
+        Mail::send('emails.contactus', Input::all(), function($message)
 		{
 
 			$email = $_POST['email'];
