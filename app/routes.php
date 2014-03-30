@@ -261,11 +261,11 @@ Route::get('postmark', function(){
 $msg['name'] = 'timo';
 	Mail::send('emails.contactz', $msg, function($m)
 	{
-        // $m->from(array('timo@thedevs.org' => 'timotheo'));
-        // $m->to(array('info@thedevs.org' => 'TheDevs Organisation'));  
+        $m->from(array('timo@thedevs.org' => 'timotheo'));
+        $m->to(array('info@thedevs.org' => 'TheDevs Organisation'));  
         $m->to(array('techytimo@gmail.com' => 'Timothy Mwirabua'));    
-        // $m->subject("subject here"); 
-        // $m->setBody('body here'); 
+        $m->subject("subject here"); 
+        $m->setBody('body here'); 
 
 	});
 
