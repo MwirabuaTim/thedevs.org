@@ -72,8 +72,8 @@ return array(
 	|
 	*/
 
-	// 'encryption' => 'tls',
-	'encryption' => 'ssl',
+	'encryption' => 'tls',
+	// 'encryption' => 'ssl',
 
 	/*
 	|--------------------------------------------------------------------------
