@@ -256,22 +256,6 @@ Route::group(array('prefix' => 'admin'), function()
 |--------------------------------------------------------------------------
 |
 */
-Route::get('postmark', function(){ 
-
-$msg['name'] = 'timo';
-	Mail::send('emails.contactz', $msg, function($m)
-	{
-        // $m->from(array('info@afya.org' => 'Timothy M'));
-        $m->from(array('info@thedevs.org' => 'TheDevs Organisation'));
-        // $m->to(array('info@thedevs.org' => 'TheDevs Organisation'));  
-        $m->to(array('techytimo@gmail.com' => 'Timothy Mwirabua'));    
-        $m->subject("subject here"); 
-        $m->setBody('body here'); 
-
-	});
-
-    return 'sent';
-});
 
 Route::get('sandbox', function(){ 
 	$path = Request::path();
