@@ -1006,7 +1006,7 @@ $('.star-cred a').click(function(e){
     obj = {'recipient': star.parent().data('dev'), 'count': giving }
     // console.log(obj);
     $.post('/stars/click', obj, function(rsp){
-      if(rsp['success']){
+      if('undefined' != typeof rsp['success']){
         console.log('Successfully rated ' + giving);
         star.attr('class', 'star active')
         star.prevAll().attr('class', 'star active')
