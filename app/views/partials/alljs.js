@@ -118,6 +118,22 @@
         $('._alert').remove()
       })
 
+      $('html,body').animate({
+       scrollTop: $("#_alert").position().top -5
+      }, 500);
+
+      $('._alert').pulse(
+        {
+          backgroundColor : '#55ffAA',
+          color           : '#333'
+        },
+        {
+          returnDelay : 200,
+          interval    : 500,
+          pulses      : 5
+        }
+      );
+
       setTimeout(function(){
         _height = parseInt($('._alert').css('height'))
         $('._alert._bg-pink').css('margin-top', -_height+'px')
@@ -529,7 +545,7 @@
     
     if(!$('#single-map')[0]){ // if not an edit page dont attach the popup
       popup_new = L.popup()
-        .setContent('<a href="#" class="_step3">Creating here...</a>')
+        .setContent('<a href="#" class="_step3">Pinned!</a>')
         .openOn(marker_new)
       $('._addbtn').html('<span class="_blade _aqua2pink _step3">Complete>></span>')
       // $('.leaflet-popup-content').html('<a href="#" class="_step3">Complete>></a>')
@@ -571,7 +587,7 @@ function initStyle() {
 
   if($('.alert')){
   $('.alert').slideToggle(1000); 
-  setTimeout(function(){$('.alert').slideToggle(1000)}, 5000);
+    setTimeout(function(){$('.alert').slideToggle(1000)}, 5000);
   }
 
   //$("img.preload").fadeOut(500, function() {});
@@ -629,21 +645,18 @@ $(document).ready(function(){
         "itemSelector": ".item",
         isFitWidth: true
       });
+       $('.mason-stacks .item .mask').show();
   });
-    
-  $(function(){
-    $('._alert').pulse(
-      {
-        backgroundColor : '#55ffAA',
-        color           : '#333'
-      },
-      {
-        returnDelay : 200,
-        interval    : 500,
-        pulses      : 5
-      }
-    );
+  $('.mason-stacks .item').on('mouseover', function(){
+    $(this).css('background-color','white');
+    $(this).css('opacity','1');
   });
+  $('.mason-stacks .item').on('mouseout', function(){
+    $(this).css('background-color','white');
+  });
+
+
+  
 
     // $('._blade').pulsate({
     //     color: "#4A8BC2",
@@ -756,6 +769,7 @@ $(document).ready(function(){
 
     $('._pin-map .modal-body').css('height', $(window).height()*0.7+'px')
     $('._pin-map .modal-dialog').css('margin', '0px')
+    $('._pin-map h4.modal-title span').text($(".btn-group").find("label.active").text().trim().toLowerCase())
     // $('#map-container').html($('#thedevsmap').clone())
 
     function showlayer() {
@@ -982,6 +996,30 @@ $(document).ready(function(){
   // custom scrollbar
   $("html").niceScroll({styler:"fb",cursorcolor:"#55ffaa", cursorwidth: '6', cursorborderradius: '10px', background: 'transparent', spacebarenabled:false,  cursorborder: '', zindex: '1000', autohidemode: false});
 
+})
+
+$('.star-cred a').click(function(e){
+  e.preventDefault()
+  if(loggedIn()){
+    star = $(this)
+    obj = {'recipient': star.parent().data('dev'), 'count': parseInt($(this).attr('value'))}
+    // console.log(obj);
+    $.post('/stars/click', obj, function(rsp){
+      if(rsp['success']){
+        console.log('Successfully rated');
+        star.attr('class', 'star active')
+        star.prevAll().attr('class', 'star active')
+        star.nextAll().attr('class', 'star off')
+      }
+      else{
+        _alert('Oops! :( Check your connection and try to rate again...');
+      }
+    })
+  }
+  else{
+    console.log('not logged in ');
+    _alert('Kindly log in to be able to rate...');
+  }
 })
 
 

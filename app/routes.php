@@ -140,6 +140,9 @@ Route::resource('tags', 'TagsController');
 Route::resource('mydatatypes', 'MydatatypesController');
 
 Route::resource('documents', 'DocumentsController');
+
+Route::resource('stars', 'StarsController');
+Route::post('stars/click', 'StarsController@give');
 /*
 |--------------------------------------------------------------------------
 | Account Routes
@@ -262,21 +265,12 @@ Route::get('sandbox', function(){
 	$r=  All::getModelRecords('devs');
 
 	// return View::make('hello');
-	return All::getAllRecords();
-	// return count($r);
-	// return var_dump(Sentry::getUser()->hasAccess('admin'));
-	// return var_dump(All::getCreator(Document::first()));
-	// $update = array('video' => 'new video ');
-	// $update['first_name'] = 'new name';
-	// $update['last_name'] = '';
-	// User::find(1)->update($update);
-	// return User::find(1);
-
-	// echo '<br/>'.(!empty($update['last_name']) ? 'last_name isset as '.$update['last_name'] : 'last_name isnt set');
-	// echo '<br/>'.(is_null($update['last_name']) ? 'last_name is_null as '.$update['last_name'] : 'last_name isnt null');
-	
-	// return stripos($path, 'cd');
-	// return substr($path, 0, 7);
+	// return All::getAllRecords();
+	return Stars::create(array(
+			'giver'=> 1,
+			'recipient'=>1,
+			'count'=>3
+			));
 	// $x = stripos($path, '/');
 	// $y = substr($path, 0, $x);
 	// $z = substr($path, $x+1, strlen($path));
@@ -284,18 +278,3 @@ Route::get('sandbox', function(){
 
 });
 
-// Route::get('/users', 'UserController@index');
-// Route::get('/users/create', 'UserController@create');
-// Route::post('/users', 'UserController@store');
-// Route::get('/users/{id}', 'UserController@show');
-// Route::get('/users{id}/edit', 'UserController@edit');
-// Route::put('/users', 'UserController@update');
-// Route::delete('/users', 'UserController@destroy');
-
-// getIndex()
-// getCreate()
-// postCreate()
-// getEdit($id)
-// postEdit($id)
-// getDelete($id)
-// getRestore($id)

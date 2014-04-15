@@ -11,19 +11,23 @@
         <!-- /input-group -->
         <div class="btn-group panel-group" data-toggle="buttons-radio">
         <!-- <label class="cats btn _aqua-hover">
-                <input type="radio" name="cats" id="devs" value="devs">
+                <input type="radio" name="cats" id="devs" value="devs" class="hide">
             DEVELOPERS </label> -->
             <label class="cats btn panel _aqua-hover">
-                <input type="radio" name="cats" id="stories" value="stories">
+                <input type="radio" name="cats" id="story" value="stories" class="hide">
+                <i class="fa fa-5x fa-edit"></i>
             STORY </label>
             <label class="cats btn panel _aqua-hover">
-                <input type="radio" name="cats" id="projects" value="projects">
+                <input type="radio" name="cats" id="project" value="projects" class="hide">
+                <i class="fa fa-5x fa-puzzle-piece"></i>
             PROJECT </label>
             <label class="cats btn panel _aqua-hover">
-                <input type="radio" name="cats" id="eventts" value="eventts">
+                <input type="radio" name="cats" id="event" value="eventts" class="hide">
+                <i class="fa fa-5x fa-bullhorn"></i>
             EVENT </label>
             <label class="cats btn panel _aqua-hover">
-                <input type="radio" name="cats" id="orgs" value="orgs">
+                <input type="radio" name="cats" id="org" value="orgs" class="hide">
+                <i class="fa fa-5x fa-sitemap"></i>
             ORGANISATION </label>
         </div>
       </div>
@@ -43,7 +47,9 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Click on the map to pin your post to a location...</h4>
+        <h4 class="modal-title" id="myModalLabel">
+          Click on the map to pin your <span>post</span> to a location...
+        </h4>
       </div>
       <div class="modal-body">
        <div id="pinmap"></div>

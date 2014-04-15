@@ -487,15 +487,13 @@ table ._list-img{
 }
 .mason-stacks .item{
 	border: 7px solid #888;
-	/*border-radius: 7px;*/
 	padding: 5px;
-	/*box-shadow: 1px 1px 3px #fff;*/
 	margin: 10px;
 	width: 185px;
 	height: auto;
 	text-align: center;
 	background-color: white;
-	color: #333;
+	color: #555;
 	-webkit-transition: all 1s ease-in-out;
 	-moz-transition: all 1s ease-in-out;
 	-o-transition: all 1s ease-in-out;
@@ -505,6 +503,7 @@ table ._list-img{
 .mason-stacks .item a{
 	color: #009955;
 }
+
 .mason-stacks:hover .item{
 	-webkit-transform: scale(0.8);
 	-moz-transform: scale(0.8);
@@ -521,13 +520,78 @@ table ._list-img{
 	transform: scale(1.2);
 	opacity: 1;
 }
+.mason-stacks .item img{
+	padding-bottom: 5px;
+	-webkit-transition: all 1s ease-in;
+	-moz-transition: all 1s ease-in;
+	-o-transition: all 1s ease-in;
+	-ms-transition: all 1s ease-in;
+	transition: all 1s ease-in;
+}
+.mason-stacks .item ul{
+	margin-bottom: 0px;
+}
 
 /*.js-masonry .item .tagline{
 	width: 150px;
 }
 */
+/*---start-social-cred----*/
 
 
+.social-cred {
+    text-align: center;
+    /*margin-top: 95px;*/
+}
+
+.social-cred a {
+    display: inline-block;
+    opacity: 1;
+}
+.social-cred a:hover {
+    text-decoration: none;
+}
+
+.social-cred a span {
+    margin-top: 4px;
+    display: block;
+    color: white;
+}
+
+.social-cred a {		
+    background-color: #095;
+    opacity: 0.5;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+}
+
+
+/*---start-star-cred----*/
+
+.star-cred a:hover {
+    text-decoration: none;
+    opacity: 1;
+}
+
+.star-cred a span {
+    color: #DDD;
+}
+
+.star-cred a.off span {
+    color: #7FA;
+}
+
+.star-cred a.active span {
+    color: #095;
+}
+
+.star-cred a:hover span {
+    color: #FC0;
+}
 
 
 @font-face
@@ -772,6 +836,13 @@ fieldset legend:hover a{
 ._creates .modal-body {
 	padding: 0px 0px 0px 10px;
 }
+._cats label i{
+	display: block;
+	width: auto;
+}
+._cats .modal-dialog{
+	max-width: 370px;
+}
 ._cats .modal-header{
 	margin-bottom: -10px;
 	border-bottom: none;
@@ -786,8 +857,11 @@ fieldset legend:hover a{
 	box-shadow: none;
 }
 ._cats .btn-group label{
+	display: block;
+	width: 150px;
 	line-height: 30px;
-	margin: 5px 0px
+	margin-top: 10px !important;
+	margin-left: 10px !important;
 }
 
 ._sign-in-modal .modal-dialog, ._sign-up-modal .modal-dialog{
@@ -1172,6 +1246,7 @@ img._profile-pic{
 	background-size: 40px !important;
 }
 
+
 /*table styling*/
 .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th {
 	background-color: transparent;
@@ -1324,3 +1399,5 @@ span.links{
 		text-align: center !important;
 	}
 }
+
+

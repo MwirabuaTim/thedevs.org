@@ -21,6 +21,7 @@
     {{ HTML::style('css/bootstrap-fileupload.css')}}
     {{ HTML::style('jqueryui/css/jquery-ui-1.10.3.custom.min.css') }}
     {{ HTML::style('css/jquery-ui-timepicker-addon.css') }}
+    {{ HTML::style('font-awesome/css/font-awesome.css') }}
 
     <!-- Leaflet CSS -->
     {{ HTML::style('leaflet/leaflet.css') }}

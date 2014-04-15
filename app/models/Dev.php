@@ -23,6 +23,44 @@ class Dev extends User {
 		// 'votes' => 'required',
 		// 'status' => 'required'
 	);
+	public function stars()//relationship
+	{
+		// return $this->hasMany('Star');
+		$received = Star::where('recipient', $this->id);
+		if($received->count()):
+			$count = 0;
+			foreach($received->get() as $x){
+				$count+=$x->count;
+			};
+			return $count;
+			// $f = $received->first();
+			// return $f->count;
+		else:
+			return 0;
+		endif;
+
+	}
+	public function currentStars()//relationship
+	{
+		// return $this->hasMany('Star');
+
+		if(!Sentry::check()):
+			return 0;
+		endif;
+
+		// return $this->id;
+		$recieved = Star::where('recipient', $this->id)->where('giver', Sentry::getUser()->id);
+
+		if($recieved->count()):
+			return $recieved->first()->count;
+			// return $first->count;
+		else:
+			return 0;
+		endif;
+
+	}
+
+
 }
 
 // users table:

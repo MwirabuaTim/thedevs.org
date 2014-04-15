@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('ProfilesTableSeeder');
 		$this->call('MydatatypesTableSeeder');
 		$this->call('DocumentsTableSeeder');
+		$this->call('StarsTableSeeder');
 	}
 
 }
