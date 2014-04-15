@@ -1002,14 +1002,18 @@ $('.star-cred a').click(function(e){
   e.preventDefault()
   if(loggedIn()){
     star = $(this)
-    obj = {'recipient': star.parent().data('dev'), 'count': parseInt($(this).attr('value'))}
+    giving = parseInt($(this).attr('value'))
+    obj = {'recipient': star.parent().data('dev'), 'count': giving }
     // console.log(obj);
     $.post('/stars/click', obj, function(rsp){
       if(rsp['success']){
-        console.log('Successfully rated');
+        console.log('Successfully rated ' + giving);
         star.attr('class', 'star active')
         star.prevAll().attr('class', 'star active')
         star.nextAll().attr('class', 'star off')
+        counter = star.parent().next().find('span')
+        count = parseInt(counter.text())
+        counter.text(count - rsp['success'] + giving)
       }
       else{
         _alert('Oops! :( Check your connection and try to rate again...');

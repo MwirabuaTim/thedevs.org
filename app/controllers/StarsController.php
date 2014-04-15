@@ -18,11 +18,14 @@ class StarsController extends BaseController {
 		$input['giver']= Sentry::getUser()->id;
 		$exists = Stars::where('giver', Sentry::getUser()->id)->where('recipient', $input['recipient']);
 		if($exists->count()):
+			$prev = $exists->first()->count;
 			$exists->first()->update($input);
 		else:
-			Stars::create($input);
+			$prev = 0;
+			$record = Stars::create($input);
 		endif;
-		return Response::json(array('success'=>true));
+
+		return Response::json(array('success'=>$prev));
 
 	}
 

@@ -50,7 +50,7 @@
 					@endfor
 				@endif
 			</div>
-			<h4>{{ $dev->stars() }} Stars</h4>
+			<h4><span>{{ $dev->stars() }}</span> Stars</h4>
 			<!-- <div>{{{ $dev->views }}}</div> -->
 			<!-- <div>{{{ $dev->votes }}}</div> -->
 		</div>
