@@ -106,8 +106,8 @@ Route::get('privacy', function(){
 	return View::make('layouts.documents', compact('document', 'footer'));
 });
 
-Route::get('contactus', function(){ return View::make('contactus');});
-Route::post('contactus', 'ContactUsController@gmail');
+// Route::get('contactus', function(){ return View::make('contactus');});
+// Route::post('contactus', 'ContactUsController@gmail');
 // Route::get('contactus', array('as' => 'contact-us', 'uses' => function(){ return View::make('contactus');}));
 
 //Popup makers

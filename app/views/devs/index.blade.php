@@ -25,7 +25,7 @@
 			<div class="name">{{ All::getNameLink($dev) }}</div>
 			<div class="location">{{ All::getLocation($dev) }}</div>
 			<div class="tagline">{{ All::getTagline($dev) }}</div>
-<!-- 			<div class="social-cred caption-social">
+			<!-- <div class="social-cred caption-social">
 				<a class="facebook" href="#"><span class="fa fa-hx fa-facebook"></span></a>
 				<a class="twitter" href="#"><span class="fa fa-hx fa-twitter"></span></a>
 				<a class="plus" href="#"><span class="fa fa-hx fa-google-plus"></span></a>

@@ -993,7 +993,7 @@ $(document).ready(function(){
       }
       });
   }
-  // custom scrollbar
+  // nice scroll
   $("html").niceScroll({styler:"fb",cursorcolor:"#55ffaa", cursorwidth: '6', cursorborderradius: '10px', background: 'transparent', spacebarenabled:false,  cursorborder: '', zindex: '1000', autohidemode: false});
 
 })

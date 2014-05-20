@@ -53,13 +53,14 @@
     <!-- ICO -->
     <link rel="shortcut icon" href="{{ asset('images/devs/favicon-7.png') }}">
 
+    @include('partials.matrix')
+
 </head>
 <body>
-
     <!--[if IE]>
          <h4>Please download <a href="http://www.google.com/chrome/‎">Chrome</a>, <a href="http://www.mozilla.org/firefox/">Firefox</a> or <a href="http://www.apple.com/safari/‎">Safari</a> browser to get the best of this site. </h4>
     <![endif]-->
-
+    
     <img class="social-logo hidden" 
     src="{{ isset($og_image) ? $og_image : asset('images/devs/devs.png') }}">
     

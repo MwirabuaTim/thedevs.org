@@ -146,7 +146,7 @@ class Deploy {
 }
 
 // This is just an example
-$deploy = new Deploy(getcwd());
+$deploy = new Deploy('/var/www/thedevs.org');
 
 $deploy->post_deploy = function() use ($deploy) {
   // hit the wp-admin page to update any db changes
