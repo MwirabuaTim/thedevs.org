@@ -79,6 +79,7 @@ Route::get('{resource}/{id}/delete', function($resource, $id){
 
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@showWelcome'));
 Route::get('home', 'HomeController@getHome');
+Route::get('new', 'HomeController@getNew');
 
 Route::get('concept', function(){ 
 	$document = Document::first();

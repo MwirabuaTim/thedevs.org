@@ -565,7 +565,7 @@
     pin2map(lat, lng)
     map.on('click', onMapClick)
 
-    var x = $('.panel-group label input#'+LS.model).parent()[0]
+    var x = $('.panel-group label input[value="'+LS.model+'"]').parent()[0]
     x.className = 'cats btn panel _aqua-hover active'
     $('button._step3').removeAttr('disabled')
   }
