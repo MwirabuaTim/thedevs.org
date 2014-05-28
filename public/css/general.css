@@ -7,7 +7,7 @@ body{
 	height: auto;
 	/*background-image: url('../images/devs/neue_bg.jpg');*/
 	/*background-repeat: repeat-y;*/
-	background-image: url('../images/devs/matrix.gif');
+	/*background-image: url('../images/devs/matrix.gif');*/
 	/*background-repeat: repeat;*/
 	/*background-size: 100%;*/
 	margin: 0px;
@@ -16,7 +16,7 @@ body{
 	color: #fff;
 	/*background-color: #49241E;*/
 	/*background-color: #00142C;*/
-	background-color: #000;
+	background-color: #333;
 }
 
 ._footer{
@@ -192,7 +192,7 @@ ul._top-right a.btn {
 	-moz-box-shadow: 0px 0px 4px rgba(0,0,0,0.4);
 }
 ._bg-transparent{
-	background-color: rgba(0, 0, 0, 0.7);
+	/*background-color: rgba(0, 0, 0, 0.7);*/
 	color: #fff;
 	display: inline-block;
 	width: 100%;
@@ -1188,7 +1188,7 @@ img._profile-pic{
 	border-bottom: 0px;
 }
 #at4-share{
-	background: rgba(0, 0, 0, 0.5);
+	/*background: rgba(0, 0, 0, 0.5);*/
 }
 /*#at4-share:hover a{
 	-webkit-transform: scale(0.8);

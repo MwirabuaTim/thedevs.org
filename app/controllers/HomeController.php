@@ -17,13 +17,15 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
-		// return View::make('hello');
 		return View::make('home');
 	}
 	public function getNew()
 	{
-		// return View::make('hello');
 		return View::make('new');
+	}
+	public function getNg()
+	{
+		return View::make('ng');
 	}
 	public function getHome()
 	{

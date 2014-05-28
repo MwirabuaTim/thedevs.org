@@ -17,6 +17,10 @@ Route::get('{any}', function($url){
     return Redirect::to(mb_substr($url, 0, -1), 301);
 })->where('any', '(.*)\/$');
 
+App::missing(function($exception)
+{
+    return View::make('home');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +84,7 @@ Route::get('{resource}/{id}/delete', function($resource, $id){
 Route::get('/', array('as' => 'home', 'uses' => 'HomeController@showWelcome'));
 Route::get('home', 'HomeController@getHome');
 Route::get('new', 'HomeController@getNew');
+Route::get('ng', 'HomeController@getNg');
 
 Route::get('concept', function(){ 
 	$document = Document::first();

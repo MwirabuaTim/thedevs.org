@@ -159,11 +159,13 @@
       }).setView([51.505, -0.09], 5); 
 
     L.tileLayer(
-    'http://{s}.tile.cloudmade.com/5e9427487a6142f7934b07d07a967ba3/997/256/{z}/{x}/{y}.png', {
+    // 'http://{s}.tile.cloudmade.com/5e9427487a6142f7934b07d07a967ba3/997/256/{z}/{x}/{y}.png', {
+    // 'http://{s}.tile.cloudmade.com/5E9427487A6142F7934B07D07A967BA3/997/256/{z}/{x}/{y}.png', {
+    'http://a.tiles.mapbox.com/v3/techytimo.ic27c2cm/{z}/{x}/{y}.png', {
         // attribution: '',
         maxZoom: 18,
         // noWrap: true,
-        // opacity: 0.5
+        opacity: 0.5
       }).addTo(map);
     marker_cluster = new L.MarkerClusterGroup();
     lc = L.control.locate().addTo(map);

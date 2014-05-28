@@ -1,0 +1,21 @@
+<div class="container">
+    <h1>View 2</h1>
+    Name:
+    <br>
+    <input type="text" ng-model="name">
+    <br>
+    <ul>
+        <li ng-repeat="cust in customers | filter:name | orderBy:'city':true">
+            [[ cust.name | uppercase ]] - [[ cust.city | lowercase ]]
+        </li>
+    </ul>
+    Name: <br>
+    <input type="text" ng-model="newC.name"/>
+    City: <br>
+    <input type="text" ng-model="newC.city"/>
+    <br>
+    <button ng-click="addC()">Add Customer</button>
+    <br>
+    <a href="#">Back</a>
+
+</div>
