@@ -94,7 +94,7 @@
 
                     <fieldset class="_sweet-tooth _bottom10">
                         <legend class="_welcome _center">
-                            <span>Global Developers Marketplace</span>
+                            <span>Global Developer's Marketplace</span>
                         </legend>
                     </fieldset>
 
