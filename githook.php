@@ -2,7 +2,10 @@
 
 date_default_timezone_set('Africa/Nairobi');
 
+
 class Deploy {
+
+  // public $results = '';
 
   /**
   * A callback function to call after the deploy has finished.
@@ -19,7 +22,7 @@ class Deploy {
   */
   private $_log = 'deployment.log';
 
-  private $_data = 'wat'; //@tim
+  private $_data = ''; //@tim
 
   /**
   * The timestamp format used for logging.
@@ -100,6 +103,7 @@ class Deploy {
           // Write the message into the log file
           // Format: time --- type: message
           file_put_contents($filename, date($this->_date_format).' --- '.$type.': '.$message.PHP_EOL, FILE_APPEND);
+          echo date($this->_date_format).' --- '.$type.': '.$message."<br/><br/><br/>";
       }
   }
 
@@ -110,32 +114,47 @@ class Deploy {
   {
       try
       {
-          // Make sure we're in the right directory
-          exec('cd '.$this->_directory, $output);
-          $this->log('Changing working directory... '.implode(' ', $output));
+    // Make sure we're in the right directory
+    exec('cd '.$this->_directory, $output);
+    $this->log('Changing working directory... '.implode(" ", $output));
 
-          // apache own
-          exec('sudo chown -R www-data:www-data '.$this->_directory, $output);
-          $this->log('Changing the owner to '.shell_exec('whoami').implode(' ', $output));
 
-          // Discard any changes to tracked files since our last deploy
-          exec('git reset --hard HEAD', $output);
-          $this->log('Reseting repository... '.implode(' ', $output));
+    //Establish repo owner... 
+    //Log in as root an run chown -R www-data:www-data . (requires password as www-data)
 
-          // Update the local repository
-          exec('git pull '.$this->_remote.' '.$this->_branch, $output);
-          $this->log('Pulling in changes... git pull '.$this->_remote.' '.$this->_branch.' >> '.implode(' ', $output));
+    // check repo owner 
+    $this->log('Checking whoami... '.shell_exec('whoami'));
 
-          // Secure the .git directory
-          exec('sudo chmod -R og-rx .git');
-          $this->log('Securing .git directory... ');
+    // // Discard any changes to tracked files since our last deploy
+    exec('git reset --hard HEAD', $output);
+    $this->log('Reseting repository... '.implode(" ", $output));
 
-          // if (is_callable($this->post_deploy))
-          // {
-          //     call_user_func($this->post_deploy, $this->_data); //Undefined property: Deploy::$_data
-          // }
+    // Update the local repository
+    exec('git pull '.$this->_remote.' '.$this->_branch.'', $output);
+    $this->log('Pulling in changes... '.implode(" ", $output));
 
-          $this->log('Deployment successful.');
+    // // for rails projects
+    // // precompiling assets 
+    // exec('rake assets:precompile', $output);
+    // $this->log('precompiling assets...  '.implode(" ", $output));
+
+    // // bundling..
+    // exec('bundle install');
+    // $this->log('bundling... ');
+
+    // // db migrations
+    // exec('rake db:migrate');
+    // $this->log('migrating database... ');
+
+    // reloading server
+    exec('sudo service apache2 reload', $output);
+    $this->log('reloading server... '.implode(" ", $output));
+
+    // // Secure the .git directory
+    // exec('sudo chmod -R og-rx .git');
+    // $this->log('Securing .git directory... ');
+
+    $this->log("Deployment successful. \n");
       }
       catch (Exception $e)
       {
@@ -146,13 +165,7 @@ class Deploy {
 }
 
 // This is just an example
-$deploy = new Deploy('/var/www/thedevs.org');
-
-$deploy->post_deploy = function() use ($deploy) {
-  // hit the wp-admin page to update any db changes
-  // exec('curl http://www.a.com/wp-admin/upgrade.php?step=upgrade_db');
-  // $deploy->log('Updating wordpress database... ');
-};
+$deploy = new Deploy(getcwd());
 
 $deploy->execute();
 
