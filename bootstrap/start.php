@@ -35,9 +35,8 @@ $app->redirectIfTrailingSlash();
 $elastic_hostname = isset($_SERVER['RDS_HOSTNAME']) ? $_SERVER['SERVER_NAME'] : 'none-existent-hostname';
 
 $env = $app->detectEnvironment(array(
-	
-	'local' => array('*localhost*', '*.dev', 'blackpearl'),
-	'thedevs' => array('*thedevs.org'),
+	'local' => array('*localhost*', '*.dev', '*lab*'),
+	'production' => array('*thedevs.org'),
 	'elastic' => array($elastic_hostname)
 
 ));
