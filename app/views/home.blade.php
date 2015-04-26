@@ -13,7 +13,8 @@
 	<h2 class="_center">
 		<!-- “Location-based Digital Hub For Developers” -->
 		<!-- “Location-based Freelance Developer Marketplace” -->
-		“A Resource For Software Engineers”
+		<!-- “A Resource For Software Engineers” -->
+		“A Network For Software Developers”
 	</h2>
 
 	<hr>

@@ -1,13 +1,3 @@
-
-  loggedIn = function(){
-    if(sentry_check == '1'){
-      return true;
-    }
-    else{
-      return false;
-    }
-  }
-
   $.fn.serializeObject = function() //for forms
   {
       var o = {};
@@ -435,7 +425,7 @@
 
       _creator = 'undefined' == typeof all_data['start_time'] ? 'creator' : 'organizer'
 
-      if(loggedIn()){
+      if(loggedIn){
         // console.log('Already logged in')
         all_data[_creator] = user_id
       }
@@ -626,7 +616,7 @@ $('._alert').remove()
 
 var ressp = {}
 
-var sentry_check = '{{ Sentry::check() }}'
+var loggedIn = '{{ Sentry::check() }}'
 var pin_pink = '{{ asset("images/mapping/bubble-pink.png") }}'
 var pin_green = '{{ asset("images/mapping/left-dex-green.png") }}'
 var session_id = "{{ session_id() }}"
@@ -997,13 +987,23 @@ $(document).ready(function(){
       });
   }
   // nice scroll
-  $("html").niceScroll({styler:"fb",cursorcolor:"#55ffaa", cursorwidth: '6', cursorborderradius: '10px', background: 'transparent', spacebarenabled:false,  cursorborder: '', zindex: '1000', autohidemode: false});
+  $("html").niceScroll({styler:"fb",
+    cursorcolor:"#55ffaa", 
+    cursorwidth: '6', 
+    cursorborderradius: '10px', 
+    background: 'transparent', 
+    spacebarenabled:false, 
+    cursorborder: '',  
+    zindex: '1000',  
+    autohidemode: false,
+    horizrailenabled: false
+  });
 
 })
 
 $('.star-cred a').click(function(e){
   e.preventDefault()
-  if(loggedIn()){
+  if(loggedIn){
     star = $(this)
     giving = parseInt($(this).attr('value'))
     obj = {'recipient': star.parent().data('dev'), 'count': giving }

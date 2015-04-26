@@ -60,6 +60,7 @@ class OauthController extends BaseController {
 	                    'access_token' => $params->access_token
 	                ));
 	                $data = $provider->get_user_info($token);
+	                // $data['code'] = $_GET['code'];
 
 	            // Here you should use this information to A) look for a user B) help a new user sign up with existing data.
 	            // If you store it all in a cookie and redirect to a registration page this is crazy-simple.
@@ -116,7 +117,7 @@ class OauthController extends BaseController {
 			// $profile->link = $data['link'];
 			// $profile->location = $data['location'];
 			// $profile->about = $data['about'];
-			// $profile->pic = $data['pic'];
+			// $profile->pic = $data['image'];
 			// $profile->code = $data['code'];
 			$profile->field1 = Input::get('code');
 			// $profile->field2 = $data['field2'];
@@ -146,8 +147,7 @@ class OauthController extends BaseController {
 			$user_update['first_name'] = $user['first_name'] != '' ? $user_update['first_name'] : $data['username']; //case git
 			$user_update['last_name'] = $data['last_name'] != '' ? $data['last_name'] : $user['last_name']; 
 			$user_update['email'] = $data['email'] != ''? $data['email'] : $user['email']; 
-			$user_update['pic'] = $data['pic'] != '' ? $data['pic'] : $user['pic']; 
-			$user_update['pic'] = $user['pic'] != '' ? $user['pic'] : $user_update['pic']; //no need to update
+			$user_update['pic'] = $data['image'] != '' ? $data['image'] : $user['pic']; 
 			$user_update['location'] = $data['location'] != '' ? $data['location'] : $user['location']; 
 			$user_update['elevator'] = substr($data['about'], 100) != '' ? '' : $data['about']; //elevator must not > 100
 			$user_update['elevator'] = $user['elevator'] != '' ? $user['elevator'] : $user_update['elevator']; //no need to update
@@ -165,7 +165,7 @@ class OauthController extends BaseController {
 			$user->email = $data['email'];
 			$user->first_name = $data['first_name'];
 			$user->last_name = $data['last_name'];
-			$user->pic = $data['pic'];
+			$user->pic = $data['image'];
 			$user->elevator = substr($data['about'], 100) != '' ? '' : $data['about'];
 			$user->about = substr($data['about'], 100) != '' ? $data['about'] : '';
 			$user->location = $data['location'];

@@ -87,9 +87,9 @@
       <div class="modal-body">
 
         <div class="cell social-signin">
-          <a href="/auth/facebook" class="_oauth facebook sign-up"><span class="icon-social-facebook"></span>Sign in with Facebook</a>
-          <a href="/auth/google" class="_oauth google sign-up"><span class="icon-social-google"></span>Sign in with Google</a>
-          <a href="/auth/github" class="_oauth github sign-up"><span class="icon-social-github"></span>Sign in with Github</a>
+          <a href="#/auth/facebook" class="_oauth facebook sign-up"><span class="icon-social-facebook"></span>Sign in with Facebook</a>
+          <a href="#/auth/google" class="_oauth google sign-up"><span class="icon-social-google"></span>Sign in with Google</a>
+          <a href="#/auth/github" class="_oauth github sign-up"><span class="icon-social-github"></span>Sign in with Github</a>
 
         </div>
 

@@ -192,10 +192,10 @@
 </div>
 @endif
 
-<div class="_layer _top10">
+<!-- <div class="_layer _top10">
 	<h3 class="_contacts">Contacts:</h3>
-		{{ All::getContacts($dev) }}
-</div>
+		{{-- All::getContacts($dev) --}}
+</div> -->
 
 @include('partials.comments')
 @include('partials.links')

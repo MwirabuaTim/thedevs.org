@@ -139,11 +139,7 @@ Route::resource('projects', 'ProjectsController');
 
 Route::resource('stories', 'StoriesController');
 
-Route::resource('kits', 'KitsController');
-
 Route::resource('tags', 'TagsController');
-
-Route::resource('mydatatypes', 'MydatatypesController');
 
 Route::resource('documents', 'DocumentsController');
 
@@ -157,8 +153,6 @@ Route::post('stars/click', 'StarsController@give');
 */
 
 Route::resource('devs', 'DevsController');
-
-Route::resource('profiles', 'ProfilesController');
 
 Route::get('account', array('as' => 'account', 'uses' => 'DevsController@getAccount'));
 
@@ -175,7 +169,6 @@ Route::get('devs/{id}/orgs', 'OrgsController@indexByDev', compact('id'))->where(
 Route::get('devs/{id}/eventts', 'EventtsController@indexByDev', compact('id'))->where('id', '[0-9]+');
 Route::get('devs/{id}/projects', 'ProjectsController@indexByDev', compact('id'))->where('id', '[0-9]+');
 Route::get('devs/{id}/stories', 'StoriesController@indexByDev', compact('id'))->where('id', '[0-9]+');
-Route::get('devs/{id}/kits', 'KitsController@indexByDev', compact('id'))->where('id', '[0-9]+');
 Route::get('devs/{id}/tags', 'TagsController@indexByDev', compact('id'))->where('id', '[0-9]+');
 
 
@@ -259,14 +252,7 @@ Route::group(array('prefix' => 'admin'), function()
 
 
 
-/*
-|--------------------------------------------------------------------------
-| Sandbox: Just Kidding around below here...
-|--------------------------------------------------------------------------
-|
-*/
-
-Route::get('sandbox', function(){ 
+Route::get('tests', function(){ 
 	$path = Request::path();
 	$r=  All::getModelRecords('devs');
 
