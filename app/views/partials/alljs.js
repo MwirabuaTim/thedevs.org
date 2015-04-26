@@ -912,7 +912,7 @@ $(document).ready(function(){
     }
   });
 
-  _holder = 'Search "JavaScript", "Android", "Developer", "Tech Hub", "TEDx", "Conf" etc near you...';
+  _holder = 'Search "JavaScript", "Android", "Developer", "Hub", etc near you...';
   $('._search').click(function(){
       // console.log(this.value);
       if (this.value==_holder) this.value=''

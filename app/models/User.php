@@ -9,7 +9,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'email',
 		'password',
 		'permissions',
-		'activated',
+		// 'activated',
 		// 'activation_code',
 		// 'activated_at',
 		// 'last_login',
