@@ -98,34 +98,6 @@
 	@endif
 </div>
 
-<div class="_layer _top10">
-	<h3 class="stories">Stories By {{{ $dev->first_name }}}</h3>
-	<?php $stories = Story::where('creator', $dev->id)->get() ?>
-	@if ($stories->count())
-		<table class="table table-striped table-bordered">
-			<thead>
-				<tr>
-					<th>Title</th>
-					<th class="pull-right">Location</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				@foreach ($stories as $story)
-					<tr>
-						<td>{{ link_to_route('stories.show', $story->name, array($story->id)) }}</td>
-						<td class="pull-right">{{ All::getLocation($story) }}
-								{{ All::getEditLink($story, 'stories') }}</td>
-						
-					</tr>
-				@endforeach
-			</tbody>
-		</table>
-	@else
-		{{{ $dev->first_name }}} has not written any stories. :(
-	@endif
-</div>
-
 <?php $orgs = Org::where('creator', $dev->id)->get() ?>
 @if ($orgs->count())
 <div class="_layer _top10">
