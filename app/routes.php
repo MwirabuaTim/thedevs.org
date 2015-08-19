@@ -271,8 +271,8 @@ Route::get('tests/{type}', function($type) {
     if($type == 'environment'){
         return App::environment();
     }
-    if($type == 'env'){
-        return Config::get('app.env');
+    if($type == 'url'){
+        return Config::get('app.url');
     }
     if($type == 'key'){
         return Config::get('app.key');
