@@ -26,25 +26,16 @@ $app->redirectIfTrailingSlash();
 |
 */
 
+
+$env = $app->detectEnvironment(function(){
+	return gethostname() == 'blackpearl' ? 'production' : 'local';
+});
+
 // $env = $app->detectEnvironment(array(
-
-// 	'local' => array('your-machine-name'),
-
+// 	'local' => array('techytimo', '*TechyTimo*', 'leeibrah', 'lee', '*localhost*'),
+// 	'staging' => array('*nairobi.io'),
+// 	'production' => array('blackpearl', '*.com', '*.net'),
 // ));
-
-$elastic_hostname = isset($_SERVER['RDS_HOSTNAME']) ? $_SERVER['SERVER_NAME'] : 'none-existent-hostname';
-
-$env = $app->detectEnvironment(array(
-	'local' => array('*localhost*', '*.dev', '*lab*'),
-	'production' => array('*thedevs.org'),
-	'elastic' => array($elastic_hostname)
-
-));
-
-// if ('stage' === $app['env'])
-// {
-// 	 // $app->instance('path.public', str_replace('public', 'www', $app['path.public']));
-// }
 
 
 /*
