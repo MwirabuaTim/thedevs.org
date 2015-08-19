@@ -250,23 +250,71 @@ Route::group(array('prefix' => 'admin'), function()
 });
 
 
+/*
+  |--------------------------------------------------------------------------
+  | Testing...
+  |--------------------------------------------------------------------------
+  |
+ */
 
+//get tests...
+Route::get('tests', function(){
 
-Route::get('tests', function(){ 
-	$path = Request::path();
-	$r=  All::getModelRecords('devs');
+});
 
-	// return View::make('hello');
-	// return All::getAllRecords();
-	return Stars::create(array(
-			'giver'=> 1,
-			'recipient'=>1,
-			'count'=>3
-			));
-	// $x = stripos($path, '/');
-	// $y = substr($path, 0, $x);
-	// $z = substr($path, $x+1, strlen($path));
-	// return empty($x) ? ucwords($path) : $z;
+//post tests...
+Route::post('tests', ['use'=>function(){
+	return [Sentry::check(), Session::token()];
+}]);
 
+Route::get('tests/{type}', function($type) {
+    if($type == 'environment'){
+        return App::environment();
+    }
+    if($type == 'env'){
+        return Config::get('app.env');
+    }
+    if($type == 'key'){
+        return Config::get('app.key');
+    }
+    if($type == 'host'){
+        return gethostname();
+    }
+    if($type == 'app'){
+        return Config::get('app');
+    }
+    if($type == 'header'){
+        return Request::header();
+    }
+    if($type == 'session'){
+        return Session::token();
+    }
+    if($type == 'auth'){
+        return [Sentry::check()];
+    }
+    if($type == 'user'){
+        return Sentry::getUser();
+    }
+    if($type == 'first'){
+        return User::first();
+    }
+    if($type == 'segments'){
+        return Request::segments();
+    }
+    if($type == 'groups'){
+    	return Sentry::findAllGroups();
+		// return User::where('permissions', '{"business":1}')->get();
+    	return [User::first()->hasAccess('business')];
+		// return Sentry::getGroupProvider()->findByName('Businesses');
+    }
+    if($type == 'time'){
+        // return microtime(true);
+        // return round(microtime(true) * 100);
+        return substr(round(microtime(true) * 100), 3, 9);
+    }
+});
+
+Route::get('storage/{folder}', function($folder) {
+	return Storage::allFiles($folder); //l5
 });
 
