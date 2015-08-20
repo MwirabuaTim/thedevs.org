@@ -79,7 +79,6 @@ return array(
 	*/
 
 	'providers' => array(
-
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
@@ -115,7 +114,6 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
 		'Cartalyst\Sentry\SentryServiceProvider',
-		'Way\Generators\GeneratorsServiceProvider',
 		'Jenssegers\Agent\AgentServiceProvider',
 
 	),
@@ -145,7 +143,6 @@ return array(
 	*/
 
 	'aliases' => array(
-
 		'App'             => 'Illuminate\Support\Facades\App',
 		'Artisan'         => 'Illuminate\Support\Facades\Artisan',
 		'Auth'            => 'Illuminate\Support\Facades\Auth',
